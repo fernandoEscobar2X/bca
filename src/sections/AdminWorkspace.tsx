@@ -15,14 +15,13 @@ import {
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { StatusBadge } from "../components/ui/StatusBadge";
 import { SurfaceCard } from "../components/ui/SurfaceCard";
-import { demoAdminCredentials, leadStatusOptions, type OperationEvent } from "../content/automationContent";
+import { demoAdminCredentials, leadStatusOptions } from "../content/automationContent";
 import { cn } from "../lib/cn";
 import { revealUp } from "../lib/motion";
 import { formatCurrency, type LeadRecord, type LeadStatus } from "../lib/quote";
 
 type AdminWorkspaceProps = {
   leads: LeadRecord[];
-  operationEvents: OperationEvent[];
   onClose: () => void;
   onDownloadPdf: (lead: LeadRecord) => void;
   onSelectLead: (leadId: string) => void;
@@ -72,7 +71,6 @@ function getPriorityConfig(status: LeadStatus) {
 
 export function AdminWorkspace({
   leads,
-  operationEvents,
   onClose,
   onDownloadPdf,
   onSelectLead,
@@ -339,179 +337,104 @@ export function AdminWorkspace({
                 </div>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="min-w-[980px] divide-y divide-ink/10">
-                  <thead className="bg-surface">
-                    <tr>
-                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Lead
-                      </th>
-                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Cliente
-                      </th>
-                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Frente
-                      </th>
-                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Prioridad
-                      </th>
-                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Siguiente accion
-                      </th>
-                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Estado
-                      </th>
-                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Accion rapida
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-ink/10 bg-white">
-                    {visibleLeads.length === 0 ? (
-                      <tr>
-                        <td className="px-5 py-10 text-sm leading-7 text-graphite/72" colSpan={7}>
-                          No hay leads que coincidan con el filtro o la busqueda actual.
-                        </td>
-                      </tr>
-                    ) : null}
-
-                    {visibleLeads.map((lead) => {
-                      const priority = getPriorityConfig(lead.status);
-
-                      return (
-                        <tr
-                          className={cn(
-                            "cursor-pointer transition-colors hover:bg-surface/70",
-                            selectedLeadId === lead.id ? "bg-surface" : "bg-white",
-                          )}
-                          key={lead.id}
-                          onClick={() => onSelectLead(lead.id)}
-                        >
-                          <td className="px-5 py-4 align-top">
-                            <div className="flex items-start gap-3">
-                              <span
-                                className={cn(
-                                  "mt-1 block h-9 w-1 shrink-0",
-                                  lead.status === "Nuevo"
-                                    ? "bg-hydro-cyan"
-                                    : lead.status === "En revision"
-                                      ? "bg-industrial-gold"
-                                      : "bg-ink/20",
-                                )}
-                              />
-                              <div>
-                                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">
-                                  {lead.id}
-                                </p>
-                                <p className="mt-2 text-xs uppercase tracking-[0.14em] text-graphite/62">{lead.requestedAt}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-5 py-4 align-top">
-                            <p className="text-sm font-semibold text-ink">{lead.company}</p>
-                            <p className="mt-1 text-sm leading-6 text-graphite/82">{lead.contactName}</p>
-                            <p className="text-sm leading-6 text-graphite/62">{lead.phone}</p>
-                          </td>
-                          <td className="px-5 py-4 align-top text-sm leading-6 text-graphite/82">
-                            <p>{lead.projectTypeLabel}</p>
-                            <p>{lead.specialtyLabel}</p>
-                            <p>{lead.location}</p>
-                          </td>
-                          <td className="px-5 py-4 align-top">
-                            <div className="space-y-2">
-                              <span
-                                className={cn(
-                                  "inline-flex items-center border px-3 py-1.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em]",
-                                  priority.tone,
-                                )}
-                              >
-                                {priority.label}
-                              </span>
-                              <p className="text-xs uppercase tracking-[0.14em] text-graphite/58">{priority.queueLabel}</p>
-                            </div>
-                          </td>
-                          <td className="px-5 py-4 align-top">
-                            <p className="text-sm font-semibold text-ink">{priority.nextAction}</p>
-                            <p className="mt-1 text-sm leading-6 text-graphite/72">{lead.assignedTo}</p>
-                          </td>
-                          <td className="px-5 py-4 align-top">
-                            <StatusBadge compact status={lead.status} />
-                          </td>
-                          <td className="px-5 py-4 align-top">
-                            <div className="flex flex-wrap gap-2">
-                              {lead.status === "Nuevo" ? (
-                                <a
-                                  className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
-                                  href={`tel:${lead.phone}`}
-                                  onClick={(event) => event.stopPropagation()}
-                                >
-                                  <Phone className="h-3.5 w-3.5 text-hydro-cyan" />
-                                  Llamar
-                                </a>
-                              ) : lead.status === "En revision" ? (
-                                <button
-                                  className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
-                                  onClick={(event) => {
-                                    event.stopPropagation();
-                                    onDownloadPdf(lead);
-                                  }}
-                                  type="button"
-                                >
-                                  <FileText className="h-3.5 w-3.5 text-hydro-cyan" />
-                                  PDF
-                                </button>
-                              ) : (
-                                <button
-                                  className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
-                                  onClick={(event) => {
-                                    event.stopPropagation();
-                                    onSelectLead(lead.id);
-                                  }}
-                                  type="button"
-                                >
-                                  Abrir
-                                </button>
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </SurfaceCard>
-
-            <SurfaceCard className="overflow-hidden">
-              <div className="border-b border-ink/10 bg-white px-5 py-4">
-                <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                  Actividad reciente
-                </p>
-              </div>
-              <div className="divide-y divide-ink/10">
-                {operationEvents.slice(0, 6).map((event) => (
-                  <div className="flex gap-3 bg-white px-5 py-4" key={event.id}>
-                    <span
-                      className={cn(
-                        "mt-1 block h-2.5 w-2.5 shrink-0",
-                        event.accent === "cyan"
-                          ? "bg-hydro-cyan"
-                          : event.accent === "gold"
-                            ? "bg-industrial-gold"
-                            : "bg-ink",
-                      )}
-                    />
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-3">
-                        <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite/70">
-                          {event.time}
-                        </p>
-                        <p className="text-sm font-semibold text-ink">{event.title}</p>
-                      </div>
-                      <p className="mt-1 text-sm leading-6 text-graphite/82">{event.detail}</p>
-                    </div>
+              <div className="divide-y divide-ink/10 bg-white">
+                {visibleLeads.length === 0 ? (
+                  <div className="px-5 py-10 text-sm leading-7 text-graphite/72">
+                    No hay leads que coincidan con el filtro o la busqueda actual.
                   </div>
-                ))}
+                ) : null}
+
+                {visibleLeads.map((lead) => {
+                  const priority = getPriorityConfig(lead.status);
+
+                  return (
+                    <button
+                      className={cn(
+                        "grid w-full gap-4 px-5 py-5 text-left transition-colors md:grid-cols-[minmax(0,1.15fr)_180px_180px_150px]",
+                        selectedLeadId === lead.id ? "bg-surface" : "bg-white hover:bg-surface/70",
+                      )}
+                      key={lead.id}
+                      onClick={() => onSelectLead(lead.id)}
+                      type="button"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span
+                          className={cn(
+                            "mt-1 block h-12 w-1 shrink-0",
+                            lead.status === "Nuevo"
+                              ? "bg-hydro-cyan"
+                              : lead.status === "En revision"
+                                ? "bg-industrial-gold"
+                                : "bg-ink/20",
+                          )}
+                        />
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">
+                              {lead.id}
+                            </p>
+                            <p className="text-xs uppercase tracking-[0.14em] text-graphite/58">{lead.requestedAt}</p>
+                          </div>
+                          <p className="mt-2 text-base font-semibold text-ink">{lead.company}</p>
+                          <p className="mt-1 text-sm leading-6 text-graphite/82">
+                            {lead.contactName} / {lead.phone}
+                          </p>
+                          <p className="text-sm leading-6 text-graphite/72">
+                            {lead.projectTypeLabel} / {lead.specialtyLabel} / {lead.location}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite/58">Prioridad</p>
+                        <span
+                          className={cn(
+                            "inline-flex items-center border px-3 py-1.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em]",
+                            priority.tone,
+                          )}
+                        >
+                          {priority.label}
+                        </span>
+                        <p className="text-sm leading-6 text-graphite/72">{priority.queueLabel}</p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite/58">Siguiente</p>
+                        <p className="text-sm font-semibold leading-6 text-ink">{priority.nextAction}</p>
+                        <StatusBadge compact status={lead.status} />
+                      </div>
+
+                      <div className="flex items-center md:justify-end">
+                        {lead.status === "Nuevo" ? (
+                          <a
+                            className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                            href={`tel:${lead.phone}`}
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            <Phone className="h-3.5 w-3.5 text-hydro-cyan" />
+                            Llamar
+                          </a>
+                        ) : lead.status === "En revision" ? (
+                          <button
+                            className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              onDownloadPdf(lead);
+                            }}
+                            type="button"
+                          >
+                            <FileText className="h-3.5 w-3.5 text-hydro-cyan" />
+                            PDF
+                          </button>
+                        ) : (
+                          <span className="inline-flex items-center border border-ink/10 bg-surface px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                            Revisado
+                          </span>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </SurfaceCard>
           </div>

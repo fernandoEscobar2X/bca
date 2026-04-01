@@ -21,23 +21,23 @@ export function ServicesSection() {
           <SectionIntro
             aside={
               <div className="inline-flex border border-ink/15 bg-surface px-4 py-2 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-graphite shadow-plate-sm">
-                Alcances definidos desde la primera llamada
+                Especialidades para obras con criterio tecnico
               </div>
             }
-            description="En lugar de presentar cajas decorativas, la seccion funciona como una lectura de capacidades: codigo, alcance, especialidad y criterios de entrega."
+            description="BCA presenta sus frentes principales con un lenguaje mas claro, mas serio y mas alineado a clientes que comparan capacidad real."
             eyebrow="Especialidades"
-            title="Un listado tecnico con peso corporativo, no una pared de tarjetas genericas."
+            title="Capacidades tecnicas presentadas con orden y presencia corporativa."
           />
         </motion.div>
 
         <div className="mt-12 grid gap-8 xl:grid-cols-[260px_minmax(0,1fr)]">
           <motion.div className="space-y-5 xl:sticky xl:top-28 xl:h-fit" {...revealUp}>
-            <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Lectura operativa</p>
+            <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Cobertura tecnica</p>
             <h3 className="font-display text-[clamp(1.9rem,2.4vw,2.6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-              Menos modulo repetido, mas claridad sobre lo que realmente se ejecuta.
+              Una presencia digital mas fuerte tambien se construye mostrando mejor lo que BCA sabe ejecutar.
             </h3>
             <p className="text-sm leading-7 text-graphite/82">
-              Cada renglon resume una linea de negocio de forma directa, elegante y util para un cliente corporativo.
+              Cada especialidad refuerza seriedad, alcance y criterio tecnico desde el primer contacto.
             </p>
           </motion.div>
 

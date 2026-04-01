@@ -1,13 +1,20 @@
+import { lazy, Suspense } from "react";
 import { ArrowRight, LockKeyhole } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { revealUp } from "../lib/motion";
 
-const proofItems = [
-  { label: "24h", value: "respuesta preliminar" },
-  { label: "PDF demo", value: "pre-cotizacion inmediata" },
-  { label: "Panel BCA", value: "seguimiento interno" },
+const TechnicalScene = lazy(async () => {
+  const module = await import("../components/TechnicalScene");
+  return { default: module.TechnicalScene };
+});
+
+const heroTags = [
+  "Sucursal digital premium",
+  "Lead Terminal",
+  "WhatsApp automatico",
+  "PDF corporativo",
 ] as const;
 
 type HeroSectionProps = {
@@ -17,86 +24,108 @@ type HeroSectionProps = {
 export function HeroSection({ onOpenAdmin }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="inicio">
-      <div className="absolute inset-y-0 right-0 hidden w-[46vw] min-w-[520px] lg:block">
-        <img
-          alt="Ingeniero inspeccionando equipo industrial"
-          className="h-full w-full object-cover object-center"
-          src="/assets/hero-industrial.jpg"
-        />
-        <div className="absolute inset-0 bg-gradient-to-l from-ink/25 via-transparent to-surface" />
-        <div className="absolute inset-0 bg-blueprint-grid bg-[length:28px_28px] opacity-20" />
-
-        <div className="absolute inset-x-8 bottom-8">
-          <div className="max-w-sm border border-ink bg-white p-5 shadow-plate">
-            <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Lectura de campo</p>
-            <p className="mt-3 text-sm leading-7 text-ink">
-              Imagen de referencia para transmitir supervision, control tecnico y operacion real en sitio.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-[88rem] px-5 pb-12 pt-40 sm:px-6 sm:pt-44 lg:px-8 lg:pb-16 lg:pt-56 xl:pt-52">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-end">
-          <motion.div className="relative z-10 space-y-8 lg:pr-10" {...revealUp}>
+      <div className="mx-auto max-w-[88rem] px-5 pb-16 pt-40 sm:px-6 sm:pt-44 lg:px-8 lg:pb-24 xl:pt-48">
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] xl:items-end">
+          <motion.div className="space-y-8 xl:pr-10" {...revealUp}>
             <div className="inline-flex items-center border border-ink/15 bg-white px-4 py-2 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan shadow-plate-sm">
-              BCA Ingenieria | Proyectos y construccion
+              Sucursal digital de alta conversion
             </div>
 
             <div className="space-y-5">
-              <p className="font-sans text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                Lead terminal, pre-cotizacion y seguimiento tecnico para obras que no pueden improvisar.
+              <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                BCA Ingenieria | Demo comercial del sistema final
               </p>
-
-              <h1 className="max-w-[8.9ch] font-display text-[clamp(3.45rem,7.2vw,6.15rem)] font-bold leading-[0.9] tracking-[-0.055em] text-ink">
-                PERFILADO TECNICO PARA OBRAS QUE EXIGEN RESPUESTA RAPIDA
+              <h1 className="max-w-[9.5ch] font-display text-[clamp(3.2rem,7vw,6.15rem)] font-bold leading-[0.9] tracking-[-0.055em] text-ink">
+                BCA SE VE MAS SERIA CUANDO SU CAPTACION YA OPERA COMO SISTEMA.
               </h1>
-
               <p className="max-w-xl text-base leading-8 text-graphite/84 sm:text-lg">
-                BCA combina criterio de ingenieria con un flujo comercial mas claro: captura del proyecto, banda preliminar,
-                PDF demo y panel privado para que el seguimiento no se pierda.
+                Esta demo proyecta una plataforma pensada para atraer mejores prospectos, responder con mas formalidad y
+                organizar el seguimiento comercial con una presencia digital de otro nivel.
               </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {heroTags.map((tag) => (
+                <span
+                  className="inline-flex items-center border border-ink/10 bg-white px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                  key={tag}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
 
             <div className="flex flex-wrap gap-4">
               <PrimaryButton href="#cotizador">
-                Iniciar Lead Terminal
+                Probar Lead Terminal
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
 
               <PrimaryButton onClick={onOpenAdmin} type="button" variant="secondary">
-                Ver Panel Demo
+                Ver panel privado
                 <LockKeyhole className="h-4 w-4 text-hydro-cyan" />
               </PrimaryButton>
             </div>
-
-            <dl className="flex flex-wrap gap-x-10 gap-y-5 border-t border-ink/10 pt-6">
-              {proofItems.map((item) => (
-                <div key={item.label}>
-                  <dt className="font-display text-[clamp(1.2rem,1.8vw,1.6rem)] font-bold leading-none tracking-[-0.03em] text-ink">
-                    {item.label}
-                  </dt>
-                  <dd className="mt-2 font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/68">{item.value}</dd>
-                </div>
-              ))}
-            </dl>
           </motion.div>
 
-          <motion.div className="relative lg:hidden" {...revealUp}>
+          <motion.div className="xl:pl-4" {...revealUp}>
             <div className="overflow-hidden border border-ink bg-white shadow-plate">
-              <div className="relative aspect-[4/5]">
-                <img
-                  alt="Ingeniero inspeccionando equipo industrial"
-                  className="h-full w-full object-cover object-center"
-                  src="/assets/hero-industrial.jpg"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent" />
+              <div className="grid gap-px border-b border-ink/10 bg-concrete md:grid-cols-[minmax(0,1fr)_260px]">
+                <div className="bg-white px-5 py-5 sm:px-6">
+                  <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                    Presencia digital premium
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold leading-tight text-ink sm:text-3xl">
+                    Una plataforma que transmite orden, rigor y capacidad real de seguimiento.
+                  </h2>
+                </div>
+                <div className="bg-industrial-gold px-5 py-5">
+                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink">Incluye</p>
+                  <p className="mt-3 text-sm leading-7 text-ink">Especialidades, cotizador, panel, WhatsApp y PDF.</p>
+                </div>
               </div>
-              <div className="bg-white px-5 py-4">
-                <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Lectura de campo</p>
-                <p className="mt-2 text-sm leading-7 text-ink">
-                  Imagen de referencia para supervision, control tecnico y operacion real en sitio.
-                </p>
+
+              <div className="grid gap-px bg-concrete lg:grid-cols-[minmax(0,1fr)_300px]">
+                <div className="bg-surface p-5 sm:p-6">
+                  <div className="overflow-hidden border border-ink bg-white shadow-plate-sm">
+                    <div className="flex items-center justify-between border-b border-ink/10 px-4 py-3">
+                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Visual tecnico 3D</p>
+                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite/62">WebGL</p>
+                    </div>
+                    <div className="h-[320px] bg-surface">
+                      <Suspense
+                        fallback={
+                          <div className="flex h-full items-center justify-center bg-blueprint-grid bg-[length:28px_28px] px-6 text-center text-sm leading-7 text-graphite/72">
+                            Cargando visual 3D...
+                          </div>
+                        }
+                      >
+                        <TechnicalScene />
+                      </Suspense>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-px bg-concrete">
+                  <div className="bg-white px-5 py-5">
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Lead Terminal</p>
+                    <p className="mt-3 text-sm leading-7 text-ink">
+                      Cotizador guiado para captar tipo de obra, especialidad y metraje con mas formalidad.
+                    </p>
+                  </div>
+                  <div className="bg-white px-5 py-5">
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Panel privado</p>
+                    <p className="mt-3 text-sm leading-7 text-ink">
+                      Seguimiento claro para saber a quien contactar, que estado mover y que sigue.
+                    </p>
+                  </div>
+                  <div className="bg-white px-5 py-5">
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Respuesta automatizada</p>
+                    <p className="mt-3 text-sm leading-7 text-ink">
+                      WhatsApp y PDF listos para responder mejor y proyectar una empresa mas estructurada.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

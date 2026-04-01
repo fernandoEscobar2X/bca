@@ -1,8 +1,8 @@
 export const navigationLinks = [
   { label: "Especialidades", href: "#especialidades" },
-  { label: "Casos", href: "#casos" },
-  { label: "Metodologia", href: "#metodologia" },
-  { label: "Sistema", href: "#modulos" },
+  { label: "Modulos", href: "#modulos" },
+  { label: "Panel", href: "#panel" },
+  { label: "Cotizador", href: "#cotizador" },
   { label: "Contacto", href: "#contacto" },
 ] as const;
 
@@ -14,10 +14,56 @@ export const heroStats = [
 ] as const;
 
 export const trustItems = [
-  "Monterrey / Bajio / CDMX",
-  "Respuesta preliminar en 24h",
-  "Lead Terminal con PDF demo",
-  "Seguimiento interno con panel BCA",
+  "Captura prospectos desde la web",
+  "Ordena seguimiento sin Excel",
+  "Genera PDF preliminar al instante",
+  "Confirma recepcion por WhatsApp",
+] as const;
+
+export const systemModules = [
+  {
+    code: "01",
+    title: "Lead Terminal",
+    description: "Captura tipo de obra, especialidad, metraje y datos de contacto en un flujo guiado y corto.",
+    bullets: ["Filtra mejor al prospecto", "Evita capturas incompletas", "Entrega un rango preliminar"],
+  },
+  {
+    code: "02",
+    title: "Panel de Prospectos",
+    description: "Muestra los leads en orden de prioridad para llamar, revisar, actualizar estado y seguir con el siguiente.",
+    bullets: ["Lista simple de trabajo", "Estados faciles de mover", "Acciones directas por lead"],
+  },
+  {
+    code: "03",
+    title: "WhatsApp Automatico",
+    description: "Confirma la recepcion al cliente y alerta al equipo para responder rapido sin depender del correo.",
+    bullets: ["Respuesta inmediata", "Menos leads perdidos", "Aviso interno al momento"],
+  },
+  {
+    code: "04",
+    title: "Pre-Cotizacion PDF",
+    description: "Arma un documento listo para enviar con datos del proyecto y banda preliminar de inversion.",
+    bullets: ["Formato corporativo", "Listo para adjuntar", "Ahorra tiempo comercial"],
+  },
+] as const;
+
+export const benefitItems = [
+  {
+    title: "Menos prospectos perdidos",
+    description: "Todo entra a una sola bandeja y deja de depender de hojas de Excel o mensajes sueltos.",
+  },
+  {
+    title: "Respuesta mas rapida",
+    description: "El equipo puede llamar, enviar PDF o confirmar por WhatsApp desde el mismo recorrido demo.",
+  },
+  {
+    title: "Mejor perfilado comercial",
+    description: "Cada lead ya llega con tipo de obra, especialidad, metraje y datos suficientes para seguir.",
+  },
+  {
+    title: "Seguimiento mas claro",
+    description: "El estado del lead y la siguiente accion se entienden al instante sin explicar demasiado la interfaz.",
+  },
 ] as const;
 
 export const services = [
