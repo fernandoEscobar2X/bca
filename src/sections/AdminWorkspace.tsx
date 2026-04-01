@@ -31,6 +31,45 @@ type AdminWorkspaceProps = {
   selectedLeadId: string;
 };
 
+const statusRank: Record<LeadStatus, number> = {
+  Nuevo: 0,
+  "En revision": 1,
+  Contactado: 2,
+};
+
+const priorityMap: Record<
+  LeadStatus,
+  {
+    label: string;
+    tone: string;
+    nextAction: string;
+    queueLabel: string;
+  }
+> = {
+  Nuevo: {
+    label: "Alta",
+    tone: "border-[#8ed8f5] bg-hydro-cyan/12 text-ink",
+    nextAction: "Llamar y confirmar alcance",
+    queueLabel: "Atender hoy",
+  },
+  "En revision": {
+    label: "Media",
+    tone: "border-[#e3cf74] bg-industrial-gold/16 text-ink",
+    nextAction: "Validar datos y enviar PDF",
+    queueLabel: "Pendiente interno",
+  },
+  Contactado: {
+    label: "Baja",
+    tone: "border-ink/15 bg-surface text-graphite",
+    nextAction: "Seguimiento comercial",
+    queueLabel: "Seguimiento",
+  },
+};
+
+function getPriorityConfig(status: LeadStatus) {
+  return priorityMap[status];
+}
+
 export function AdminWorkspace({
   leads,
   operationEvents,
@@ -52,21 +91,24 @@ export function AdminWorkspace({
   const visibleLeads = useMemo(() => {
     const normalized = searchTerm.trim().toLowerCase();
 
-    return leads.filter((lead) => {
-      const statusMatch = statusFilter === "Todos" ? true : lead.status === statusFilter;
-      const searchMatch =
-        normalized.length === 0
-          ? true
-          : `${lead.id} ${lead.company} ${lead.contactName} ${lead.projectTypeLabel} ${lead.specialtyLabel} ${lead.location}`
-              .toLowerCase()
-              .includes(normalized);
+    return leads
+      .filter((lead) => {
+        const statusMatch = statusFilter === "Todos" ? true : lead.status === statusFilter;
+        const searchMatch =
+          normalized.length === 0
+            ? true
+            : `${lead.id} ${lead.company} ${lead.contactName} ${lead.projectTypeLabel} ${lead.specialtyLabel} ${lead.location}`
+                .toLowerCase()
+                .includes(normalized);
 
-      return statusMatch && searchMatch;
-    });
+        return statusMatch && searchMatch;
+      })
+      .sort((left, right) => statusRank[left.status] - statusRank[right.status]);
   }, [leads, searchTerm, statusFilter]);
 
   const totals = {
     total: leads.length,
+    attention: leads.filter((lead) => lead.status !== "Contactado").length,
     nuevos: leads.filter((lead) => lead.status === "Nuevo").length,
     revision: leads.filter((lead) => lead.status === "En revision").length,
     contactados: leads.filter((lead) => lead.status === "Contactado").length,
@@ -91,7 +133,7 @@ export function AdminWorkspace({
     return (
       <section className="min-h-screen bg-surface text-ink">
         <div className="mx-auto max-w-[92rem] px-5 py-8 sm:px-6 lg:px-8">
-          <motion.div className="grid min-h-[calc(100vh-4rem)] gap-6 xl:grid-cols-[minmax(0,1.1fr)_420px]" {...revealUp}>
+          <motion.div className="grid min-h-[calc(100vh-4rem)] gap-6 xl:grid-cols-[minmax(0,1.08fr)_420px]" {...revealUp}>
             <div className="flex flex-col justify-between border border-ink bg-white p-8 shadow-plate">
               <div>
                 <button
@@ -106,19 +148,19 @@ export function AdminWorkspace({
                 <p className="mt-10 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
                   Panel privado BCA
                 </p>
-                <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.3rem,4vw,4.4rem)] font-bold leading-[0.92] tracking-[-0.05em] text-ink">
-                  Seguimiento simple, directo y accionable.
+                <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.1rem,3.5vw,3.7rem)] font-bold leading-[0.94] tracking-[-0.05em] text-ink">
+                  Seguimiento diario para mesa comercial y operativa.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-graphite/84">
-                  El objetivo del panel es resolver tres cosas: ver qué entró, mover estado y actuar rápido con llamada,
+                  El panel esta pensado para tres tareas: detectar que entro, mover estado y accionar rapido con llamada,
                   WhatsApp o PDF.
                 </p>
               </div>
 
               <div className="grid gap-4 md:grid-cols-4">
                 <div className="border border-ink/10 bg-surface px-4 py-4">
-                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Total</p>
-                  <p className="mt-3 font-display text-[2rem] font-bold leading-none tracking-[-0.03em] text-ink">{totals.total}</p>
+                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">En cola</p>
+                  <p className="mt-3 font-display text-[2rem] font-bold leading-none tracking-[-0.03em] text-ink">{totals.attention}</p>
                 </div>
                 <div className="border border-ink/10 bg-surface px-4 py-4">
                   <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Nuevos</p>
@@ -202,7 +244,7 @@ export function AdminWorkspace({
     <section className="min-h-screen bg-surface text-ink">
       <div className="border-b border-ink/10 bg-white">
         <div className="mx-auto flex max-w-[96rem] flex-wrap items-center justify-between gap-4 px-5 py-4 sm:px-6 lg:px-8">
-          <div className="flex min-w-0 items-center gap-4">
+          <div className="flex min-w-0 items-start gap-4">
             <button
               className="inline-flex items-center gap-2 border border-ink/15 bg-surface px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
               onClick={onClose}
@@ -217,16 +259,19 @@ export function AdminWorkspace({
                 Panel privado BCA
               </p>
               <h1 className="mt-2 truncate font-display text-[clamp(1.6rem,2.3vw,2.8rem)] font-bold leading-none tracking-[-0.04em] text-ink">
-                Control de prospectos
+                Panel operativo de prospectos
               </h1>
+              <p className="mt-2 text-sm leading-6 text-graphite/76">
+                Prioriza atencion, estado y siguiente accion sin friccion.
+              </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <div className="grid grid-cols-4 gap-px border border-ink/10 bg-concrete">
+            <div className="grid grid-cols-2 gap-px border border-ink/10 bg-concrete lg:grid-cols-4">
               <div className="bg-white px-4 py-3">
-                <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Total</p>
-                <p className="mt-2 text-lg font-semibold text-ink">{totals.total}</p>
+                <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">En cola</p>
+                <p className="mt-2 text-lg font-semibold text-ink">{totals.attention}</p>
               </div>
               <div className="bg-white px-4 py-3">
                 <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Nuevos</p>
@@ -237,7 +282,7 @@ export function AdminWorkspace({
                 <p className="mt-2 text-lg font-semibold text-ink">{totals.revision}</p>
               </div>
               <div className="bg-industrial-gold px-4 py-3">
-                <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink">Contactados</p>
+                <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink">Cerrados</p>
                 <p className="mt-2 text-lg font-semibold text-ink">{totals.contactados}</p>
               </div>
             </div>
@@ -255,33 +300,38 @@ export function AdminWorkspace({
       </div>
 
       <div className="mx-auto max-w-[96rem] px-5 py-6 sm:px-6 lg:px-8">
-        <motion.div className="grid gap-5 xl:grid-cols-[minmax(0,1.1fr)_380px]" {...revealUp}>
+        <motion.div className="grid gap-5 xl:grid-cols-[minmax(0,1.15fr)_360px]" {...revealUp}>
           <div className="space-y-5">
             <SurfaceCard className="overflow-hidden">
               <div className="border-b border-ink/10 bg-white px-5 py-4">
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                  <div className="flex flex-wrap gap-3">
-                    {(["Todos", ...leadStatusOptions] as const).map((status) => (
-                      <button
-                        className={cn(
-                          "border px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] shadow-plate-sm transition-colors",
-                          statusFilter === status ? "border-ink bg-industrial-gold text-ink" : "border-ink/15 bg-white text-graphite",
-                        )}
-                        key={status}
-                        onClick={() => setStatusFilter(status)}
-                        type="button"
-                      >
-                        {status}
-                      </button>
-                    ))}
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-3">
+                      {(["Todos", ...leadStatusOptions] as const).map((status) => (
+                        <button
+                          className={cn(
+                            "border px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] shadow-plate-sm transition-colors",
+                            statusFilter === status ? "border-ink bg-industrial-gold text-ink" : "border-ink/15 bg-white text-graphite",
+                          )}
+                          key={status}
+                          onClick={() => setStatusFilter(status)}
+                          type="button"
+                        >
+                          {status}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-sm leading-6 text-graphite/72">
+                      Ordenado por prioridad operativa. Los leads nuevos aparecen primero.
+                    </p>
                   </div>
 
-                  <label className="relative block min-w-[280px]">
+                  <label className="relative block w-full lg:w-[320px]">
                     <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-graphite/50" />
                     <input
                       className="w-full border border-ink/15 bg-surface px-10 py-3 text-sm text-ink outline-none shadow-plate-sm placeholder:text-graphite/35"
                       onChange={(event) => setSearchTerm(event.target.value)}
-                      placeholder="Buscar por empresa, folio o contacto"
+                      placeholder="Buscar empresa, folio o contacto"
                       type="text"
                       value={searchTerm}
                     />
@@ -290,59 +340,143 @@ export function AdminWorkspace({
               </div>
 
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-ink/10">
+                <table className="min-w-[980px] divide-y divide-ink/10">
                   <thead className="bg-surface">
                     <tr>
                       <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
                         Lead
                       </th>
                       <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Contacto
+                        Cliente
                       </th>
                       <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Proyecto
+                        Frente
                       </th>
                       <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                        Rango
+                        Prioridad
+                      </th>
+                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                        Siguiente accion
                       </th>
                       <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
                         Estado
                       </th>
+                      <th className="px-5 py-3 text-left font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                        Accion rapida
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-ink/10 bg-white">
-                    {visibleLeads.map((lead) => (
-                      <tr
-                        className={cn(
-                          "cursor-pointer transition-colors hover:bg-surface/70",
-                          selectedLeadId === lead.id ? "bg-surface" : "bg-white",
-                        )}
-                        key={lead.id}
-                        onClick={() => onSelectLead(lead.id)}
-                      >
-                        <td className="px-5 py-4 align-top">
-                          <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">{lead.id}</p>
-                          <p className="mt-2 text-xs uppercase tracking-[0.14em] text-graphite/62">{lead.requestedAt}</p>
-                        </td>
-                        <td className="px-5 py-4 align-top">
-                          <p className="text-sm font-semibold text-ink">{lead.company}</p>
-                          <p className="mt-1 text-sm leading-6 text-graphite/82">{lead.contactName}</p>
-                        </td>
-                        <td className="px-5 py-4 align-top text-sm leading-6 text-graphite/82">
-                          <p>{lead.projectTypeLabel}</p>
-                          <p>{lead.specialtyLabel}</p>
-                          <p>{lead.location}</p>
-                        </td>
-                        <td className="px-5 py-4 align-top text-sm leading-6 text-ink">
-                          {formatCurrency(lead.estimate.minimum)}
-                          <br />
-                          {formatCurrency(lead.estimate.maximum)}
-                        </td>
-                        <td className="px-5 py-4 align-top">
-                          <StatusBadge compact status={lead.status} />
+                    {visibleLeads.length === 0 ? (
+                      <tr>
+                        <td className="px-5 py-10 text-sm leading-7 text-graphite/72" colSpan={7}>
+                          No hay leads que coincidan con el filtro o la busqueda actual.
                         </td>
                       </tr>
-                    ))}
+                    ) : null}
+
+                    {visibleLeads.map((lead) => {
+                      const priority = getPriorityConfig(lead.status);
+
+                      return (
+                        <tr
+                          className={cn(
+                            "cursor-pointer transition-colors hover:bg-surface/70",
+                            selectedLeadId === lead.id ? "bg-surface" : "bg-white",
+                          )}
+                          key={lead.id}
+                          onClick={() => onSelectLead(lead.id)}
+                        >
+                          <td className="px-5 py-4 align-top">
+                            <div className="flex items-start gap-3">
+                              <span
+                                className={cn(
+                                  "mt-1 block h-9 w-1 shrink-0",
+                                  lead.status === "Nuevo"
+                                    ? "bg-hydro-cyan"
+                                    : lead.status === "En revision"
+                                      ? "bg-industrial-gold"
+                                      : "bg-ink/20",
+                                )}
+                              />
+                              <div>
+                                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">
+                                  {lead.id}
+                                </p>
+                                <p className="mt-2 text-xs uppercase tracking-[0.14em] text-graphite/62">{lead.requestedAt}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-5 py-4 align-top">
+                            <p className="text-sm font-semibold text-ink">{lead.company}</p>
+                            <p className="mt-1 text-sm leading-6 text-graphite/82">{lead.contactName}</p>
+                            <p className="text-sm leading-6 text-graphite/62">{lead.phone}</p>
+                          </td>
+                          <td className="px-5 py-4 align-top text-sm leading-6 text-graphite/82">
+                            <p>{lead.projectTypeLabel}</p>
+                            <p>{lead.specialtyLabel}</p>
+                            <p>{lead.location}</p>
+                          </td>
+                          <td className="px-5 py-4 align-top">
+                            <div className="space-y-2">
+                              <span
+                                className={cn(
+                                  "inline-flex items-center border px-3 py-1.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em]",
+                                  priority.tone,
+                                )}
+                              >
+                                {priority.label}
+                              </span>
+                              <p className="text-xs uppercase tracking-[0.14em] text-graphite/58">{priority.queueLabel}</p>
+                            </div>
+                          </td>
+                          <td className="px-5 py-4 align-top">
+                            <p className="text-sm font-semibold text-ink">{priority.nextAction}</p>
+                            <p className="mt-1 text-sm leading-6 text-graphite/72">{lead.assignedTo}</p>
+                          </td>
+                          <td className="px-5 py-4 align-top">
+                            <StatusBadge compact status={lead.status} />
+                          </td>
+                          <td className="px-5 py-4 align-top">
+                            <div className="flex flex-wrap gap-2">
+                              {lead.status === "Nuevo" ? (
+                                <a
+                                  className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                                  href={`tel:${lead.phone}`}
+                                  onClick={(event) => event.stopPropagation()}
+                                >
+                                  <Phone className="h-3.5 w-3.5 text-hydro-cyan" />
+                                  Llamar
+                                </a>
+                              ) : lead.status === "En revision" ? (
+                                <button
+                                  className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+                                    onDownloadPdf(lead);
+                                  }}
+                                  type="button"
+                                >
+                                  <FileText className="h-3.5 w-3.5 text-hydro-cyan" />
+                                  PDF
+                                </button>
+                              ) : (
+                                <button
+                                  className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+                                    onSelectLead(lead.id);
+                                  }}
+                                  type="button"
+                                >
+                                  Abrir
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -384,93 +518,120 @@ export function AdminWorkspace({
 
           <div className="space-y-5">
             {selectedLead ? (
-              <SurfaceCard className="sticky top-5 overflow-hidden">
+              <SurfaceCard className="overflow-hidden xl:sticky xl:top-5">
                 <div className="border-b border-ink/10 bg-white px-5 py-5">
                   <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                    <div className="min-w-0">
+                      <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
                         Lead activo
                       </p>
-                      <h2 className="mt-3 font-display text-[clamp(1.8rem,2.4vw,2.7rem)] font-bold leading-[0.96] tracking-[-0.04em] text-ink">
-                        {selectedLead.company}
-                      </h2>
+                      <h2 className="mt-2 text-xl font-semibold leading-tight text-ink sm:text-2xl">{selectedLead.company}</h2>
+                      <p className="mt-2 text-sm leading-6 text-graphite/76">
+                        {selectedLead.id} / {selectedLead.requestedAt} / {selectedLead.assignedTo}
+                      </p>
                     </div>
                     <StatusBadge status={selectedLead.status} />
                   </div>
 
-                  <div className="mt-5 flex flex-wrap gap-3">
+                  <div className="mt-5 grid gap-px border border-ink/10 bg-concrete sm:grid-cols-2">
+                    <div className="bg-surface px-4 py-4">
+                      <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Prioridad</p>
+                      <div className="mt-3 flex items-center gap-3">
+                        <span
+                          className={cn(
+                            "inline-flex items-center border px-3 py-1.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em]",
+                            getPriorityConfig(selectedLead.status).tone,
+                          )}
+                        >
+                          {getPriorityConfig(selectedLead.status).label}
+                        </span>
+                        <p className="text-sm text-graphite/72">{getPriorityConfig(selectedLead.status).queueLabel}</p>
+                      </div>
+                    </div>
+                    <div className="bg-surface px-4 py-4">
+                      <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Siguiente accion</p>
+                      <p className="mt-3 text-sm font-semibold leading-6 text-ink">{getPriorityConfig(selectedLead.status).nextAction}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
                     <a
-                      className="inline-flex items-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                      className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
                       href={`tel:${selectedLead.phone}`}
                     >
                       <Phone className="h-4 w-4 text-hydro-cyan" />
                       Llamar
                     </a>
                     <a
-                      className="inline-flex items-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+                      className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
                       href={`mailto:${selectedLead.email}`}
                     >
                       <Mail className="h-4 w-4 text-hydro-cyan" />
                       Correo
                     </a>
-                    <PrimaryButton
+                    <button
+                      className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
                       onClick={() => onSimulateWhatsapp(selectedLead)}
                       type="button"
-                      variant="secondary"
                     >
                       <BellRing className="h-4 w-4 text-hydro-cyan" />
                       WhatsApp
-                    </PrimaryButton>
-                    <PrimaryButton
+                    </button>
+                    <button
+                      className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
                       onClick={() => onDownloadPdf(selectedLead)}
                       type="button"
-                      variant="secondary"
                     >
                       <FileText className="h-4 w-4 text-hydro-cyan" />
                       PDF
-                    </PrimaryButton>
+                    </button>
                   </div>
                 </div>
 
                 <div className="grid gap-px bg-concrete sm:grid-cols-2">
-                  <div className="bg-surface px-5 py-4">
+                  <div className="bg-white px-5 py-4">
                     <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">Contacto</p>
                     <p className="mt-3 text-sm font-semibold text-ink">{selectedLead.contactName}</p>
                     <p className="mt-1 text-sm leading-6 text-ink">{selectedLead.phone}</p>
                     <p className="text-sm leading-6 text-ink">{selectedLead.email}</p>
                   </div>
-                  <div className="bg-surface px-5 py-4">
+                  <div className="bg-white px-5 py-4">
                     <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">Proyecto</p>
                     <p className="mt-3 text-sm leading-6 text-ink">{selectedLead.location}</p>
                     <p className="text-sm leading-6 text-ink">{selectedLead.projectTypeLabel}</p>
                     <p className="text-sm leading-6 text-ink">{selectedLead.specialtyLabel}</p>
                     <p className="text-sm leading-6 text-ink">{selectedLead.squareMeters} m2</p>
                   </div>
-                  <div className="bg-surface px-5 py-4">
+                  <div className="bg-white px-5 py-4">
                     <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">Rango preliminar</p>
                     <p className="mt-3 text-base font-semibold text-ink">
                       {formatCurrency(selectedLead.estimate.minimum)} - {formatCurrency(selectedLead.estimate.maximum)}
                     </p>
                   </div>
-                  <div className="bg-white px-5 py-4">
-                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Estado</p>
-                    <div className="mt-3 flex flex-wrap gap-3">
-                      {leadStatusOptions.map((status) => (
-                        <button
-                          className={cn(
-                            "border px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] shadow-plate-sm transition-colors",
-                            selectedLead.status === status
-                              ? "border-ink bg-industrial-gold text-ink"
-                              : "border-ink/15 bg-white text-graphite",
-                          )}
-                          key={status}
-                          onClick={() => onStatusChange(selectedLead.id, status)}
-                          type="button"
-                        >
-                          {status}
-                        </button>
-                      ))}
-                    </div>
+                  <div className="bg-surface px-5 py-4">
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">Notas</p>
+                    <p className="mt-3 text-sm leading-6 text-ink">{selectedLead.notes || "Sin observaciones cargadas en este lead."}</p>
+                  </div>
+                </div>
+
+                <div className="border-t border-ink/10 bg-white px-5 py-5">
+                  <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Actualizar estado</p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {leadStatusOptions.map((status) => (
+                      <button
+                        className={cn(
+                          "border px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] shadow-plate-sm transition-colors",
+                          selectedLead.status === status
+                            ? "border-ink bg-industrial-gold text-ink"
+                            : "border-ink/15 bg-white text-graphite",
+                        )}
+                        key={status}
+                        onClick={() => onStatusChange(selectedLead.id, status)}
+                        type="button"
+                      >
+                        {status}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </SurfaceCard>
