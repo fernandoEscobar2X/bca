@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    @apply bg-hydro-cyan text-white;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply absolute left-4 top-4 z-[60] -translate-y-24 border border-ink bg-industrial-gold px-4 py-3 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate transition-transform focus:translate-y-0;
+  }
+}

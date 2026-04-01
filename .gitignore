@@ -1,0 +1,9 @@
+node_modules/
+dist/
+legacy/
+test-results/
+tmp/
+*.tsbuildinfo
+*.zip
+.DS_Store
+Thumbs.db
