@@ -1,16 +1,20 @@
-import { ArrowRight, CalendarDays, PhoneCall } from "lucide-react";
+import { ArrowRight, LockKeyhole } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { revealUp } from "../lib/motion";
 
 const proofItems = [
-  { label: "15+ anos", value: "operacion continua" },
-  { label: "NOM / NFPA", value: "criterio tecnico" },
   { label: "24h", value: "respuesta preliminar" },
+  { label: "PDF demo", value: "pre-cotizacion inmediata" },
+  { label: "Panel BCA", value: "seguimiento interno" },
 ] as const;
 
-export function HeroSection() {
+type HeroSectionProps = {
+  onOpenAdmin: () => void;
+};
+
+export function HeroSection({ onOpenAdmin }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="inicio">
       <div className="absolute inset-y-0 right-0 hidden w-[46vw] min-w-[520px] lg:block">
@@ -41,33 +45,28 @@ export function HeroSection() {
 
             <div className="space-y-5">
               <p className="font-sans text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                Ingenieria, supervision y entrega normativa para activos que no pueden improvisar.
+                Lead terminal, pre-cotizacion y seguimiento tecnico para obras que no pueden improvisar.
               </p>
 
               <h1 className="max-w-[8.9ch] font-display text-[clamp(3.45rem,7.2vw,6.15rem)] font-bold leading-[0.9] tracking-[-0.055em] text-ink">
-                SEGURIDAD TECNICA PARA OBRAS Y PROYECTOS
+                PERFILADO TECNICO PARA OBRAS QUE EXIGEN RESPUESTA RAPIDA
               </h1>
 
               <p className="max-w-xl text-base leading-8 text-graphite/84 sm:text-lg">
-                Proyectos ejecutivos, instalacion, pruebas y liberacion documental con una presencia comercial seria,
-                clara y corporativa desde el primer contacto.
+                BCA combina criterio de ingenieria con un flujo comercial mas claro: captura del proyecto, banda preliminar,
+                PDF demo y panel privado para que el seguimiento no se pierda.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <PrimaryButton href="#cotizador">
-                Solicitar Cotizacion
+                Iniciar Lead Terminal
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
 
-              <PrimaryButton href="tel:+528100000000" variant="secondary">
-                Llamar Ahora
-                <PhoneCall className="h-4 w-4 text-hydro-cyan" />
-              </PrimaryButton>
-
-              <PrimaryButton href="mailto:contacto@bcaingenieria.com" variant="secondary">
-                Enviar Brief
-                <CalendarDays className="h-4 w-4 text-hydro-cyan" />
+              <PrimaryButton onClick={onOpenAdmin} type="button" variant="secondary">
+                Ver Panel Demo
+                <LockKeyhole className="h-4 w-4 text-hydro-cyan" />
               </PrimaryButton>
             </div>
 

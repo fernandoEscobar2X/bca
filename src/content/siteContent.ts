@@ -2,7 +2,7 @@ export const navigationLinks = [
   { label: "Especialidades", href: "#especialidades" },
   { label: "Casos", href: "#casos" },
   { label: "Metodologia", href: "#metodologia" },
-  { label: "Modulos", href: "#modulos" },
+  { label: "Sistema", href: "#modulos" },
   { label: "Contacto", href: "#contacto" },
 ] as const;
 
@@ -14,10 +14,10 @@ export const heroStats = [
 ] as const;
 
 export const trustItems = [
-  "Cumplimiento NOM",
-  "ISO 9001",
-  "Control documental",
-  "Supervision en campo",
+  "Monterrey / Bajio / CDMX",
+  "Respuesta preliminar en 24h",
+  "Lead Terminal con PDF demo",
+  "Seguimiento interno con panel BCA",
 ] as const;
 
 export const services = [

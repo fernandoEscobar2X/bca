@@ -10,6 +10,7 @@ export const leadStatusOptions: LeadStatus[] = ["Nuevo", "En revision", "Contact
 export const initialLeadRecords: LeadRecord[] = [
   {
     id: "BCA-240318",
+    contactName: "Luis Herrera",
     company: "Corporativo hidrosanitario Santa Lucia",
     channel: "Lead Terminal",
     requestedAt: "01 abr, 08:42",
@@ -27,6 +28,7 @@ export const initialLeadRecords: LeadRecord[] = [
   },
   {
     id: "BCA-240271",
+    contactName: "Patricia Vela",
     company: "Cocina industrial aeropuerto norte",
     channel: "Lead Terminal",
     requestedAt: "31 mar, 17:10",
@@ -44,6 +46,7 @@ export const initialLeadRecords: LeadRecord[] = [
   },
   {
     id: "BCA-239944",
+    contactName: "Carlos Mena",
     company: "Amenidad hotelera Costa Azul",
     channel: "Lead Terminal",
     requestedAt: "29 mar, 12:56",
@@ -61,8 +64,34 @@ export const initialLeadRecords: LeadRecord[] = [
   },
 ];
 
-export const operationSignals = [
-  "Lead capturado desde el simulador",
-  "Alerta operativa por WhatsApp",
-  "Pre-cotizacion PDF lista para enviar",
-] as const;
+export type OperationEvent = {
+  id: string;
+  title: string;
+  detail: string;
+  time: string;
+  accent: "cyan" | "gold" | "dark";
+};
+
+export const initialOperationEvents: OperationEvent[] = [
+  {
+    id: "evt-001",
+    title: "Lead capturado",
+    detail: "Corporativo hidrosanitario Santa Lucia entro al panel con estado Nuevo.",
+    time: "08:42",
+    accent: "cyan",
+  },
+  {
+    id: "evt-002",
+    title: "WhatsApp confirmado",
+    detail: "La mesa comercial recibio alerta del frente industrial aeropuerto norte.",
+    time: "17:16",
+    accent: "gold",
+  },
+  {
+    id: "evt-003",
+    title: "PDF emitido",
+    detail: "La pre-cotizacion de Costa Azul quedo lista para adjuntar a seguimiento.",
+    time: "13:02",
+    accent: "dark",
+  },
+];

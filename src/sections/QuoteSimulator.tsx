@@ -1,7 +1,17 @@
 import type { FormEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Calculator, ClipboardList, Layers3, Ruler } from "lucide-react";
+import {
+  ArrowRight,
+  Calculator,
+  CheckCircle2,
+  ClipboardList,
+  Layers3,
+  MessageSquareMore,
+  Ruler,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
 
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { SectionIntro } from "../components/ui/SectionIntro";
@@ -14,6 +24,7 @@ import {
   calculateEstimate,
   formatCurrency,
   initialQuoteState,
+  type LeadContact,
   type LeadRecord,
   type ProjectTypeId,
   type QuoteState,
@@ -21,12 +32,22 @@ import {
   type SpecialtyId,
 } from "../lib/quote";
 
-type StepId = 1 | 2 | 3 | 4;
+type StepId = 1 | 2 | 3 | 4 | 5;
+
+const initialContactState: LeadContact = {
+  contactName: "",
+  company: "",
+  phone: "",
+  email: "",
+  location: "",
+  notes: "",
+};
 
 const stepLabels = [
   { id: 1, label: "Tipo de obra", icon: Layers3 },
   { id: 2, label: "Especialidad", icon: ClipboardList },
   { id: 3, label: "Metraje", icon: Ruler },
+  { id: 4, label: "Contacto", icon: UserRound },
 ] as const;
 
 type OptionCardProps = {
@@ -34,6 +55,13 @@ type OptionCardProps = {
   description: string;
   active: boolean;
   onClick: () => void;
+};
+
+type QuoteSimulatorProps = {
+  onLeadGenerated?: (lead: LeadRecord) => void;
+  onOpenAdmin?: () => void;
+  onDownloadPdf?: (lead: LeadRecord) => void;
+  onSimulateWhatsapp?: (lead: LeadRecord) => void;
 };
 
 function OptionCard({ active, description, onClick, title }: OptionCardProps) {
@@ -60,16 +88,55 @@ function OptionCard({ active, description, onClick, title }: OptionCardProps) {
   );
 }
 
-type QuoteSimulatorProps = {
-  onLeadGenerated?: (lead: LeadRecord) => void;
-};
+function Field({
+  label,
+  name,
+  onChange,
+  placeholder,
+  required = false,
+  type = "text",
+  value,
+}: {
+  label: string;
+  name: keyof LeadContact;
+  onChange: (name: keyof LeadContact, value: string) => void;
+  placeholder: string;
+  required?: boolean;
+  type?: string;
+  value: string | undefined;
+}) {
+  return (
+    <label className="space-y-2">
+      <span className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite/68">
+        {label}
+      </span>
+      <input
+        className="w-full border border-ink/15 bg-white px-4 py-3 text-sm text-ink outline-none shadow-plate-sm placeholder:text-graphite/35"
+        onChange={(event) => onChange(name, event.target.value)}
+        placeholder={placeholder}
+        required={required}
+        type={type}
+        value={value ?? ""}
+      />
+    </label>
+  );
+}
 
-export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
+export function QuoteSimulator({
+  onDownloadPdf,
+  onLeadGenerated,
+  onOpenAdmin,
+  onSimulateWhatsapp,
+}: QuoteSimulatorProps) {
   const [step, setStep] = useState<StepId>(1);
   const [quote, setQuote] = useState<QuoteState>(initialQuoteState);
+  const [contact, setContact] = useState<LeadContact>(initialContactState);
   const [activeSelection, setActiveSelection] = useState<string | null>(null);
   const [result, setResult] = useState<ResultRange | null>(null);
+  const [latestLead, setLatestLead] = useState<LeadRecord | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [contactError, setContactError] = useState("");
+  const [whatsappTriggered, setWhatsappTriggered] = useState(false);
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -87,7 +154,8 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
 
     setActiveSelection(selection);
     setResult(null);
-    setIsCalculating(false);
+    setLatestLead(null);
+    setWhatsappTriggered(false);
     setQuote(updater);
 
     timerRef.current = window.setTimeout(() => {
@@ -110,12 +178,15 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
     }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleContactChange = (name: keyof LeadContact, value: string) => {
+    setContact((current) => ({
+      ...current,
+      [name]: value,
+    }));
+  };
 
-    if (!quote.projectType || !quote.specialty) {
-      return;
-    }
+  const handleMeterSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     const squareMeters = Number(quote.squareMeters);
 
@@ -123,19 +194,44 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
       return;
     }
 
-    if (timerRef.current !== null) {
-      window.clearTimeout(timerRef.current);
+    setStep(4);
+  };
+
+  const handleLeadSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!quote.projectType || !quote.specialty) {
+      return;
     }
 
-    setStep(4);
+    if (!contact.contactName || !contact.company || !contact.phone || !contact.email || !contact.location) {
+      setContactError("Completa los datos clave para generar el expediente demo del prospecto.");
+      return;
+    }
+
+    setContactError("");
+    setStep(5);
     setResult(null);
+    setLatestLead(null);
+    setWhatsappTriggered(false);
     setIsCalculating(true);
+
+    const squareMeters = Number(quote.squareMeters);
 
     timerRef.current = window.setTimeout(() => {
       const nextResult = calculateEstimate(quote.projectType as ProjectTypeId, quote.specialty as SpecialtyId, squareMeters);
+      const nextLead = buildLeadRecord(
+        quote.projectType as ProjectTypeId,
+        quote.specialty as SpecialtyId,
+        squareMeters,
+        nextResult,
+        contact,
+      );
+
       setResult(nextResult);
-      onLeadGenerated?.(buildLeadRecord(quote.projectType as ProjectTypeId, quote.specialty as SpecialtyId, squareMeters, nextResult));
+      setLatestLead(nextLead);
       setIsCalculating(false);
+      onLeadGenerated?.(nextLead);
     }, 650);
   };
 
@@ -145,10 +241,23 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
     }
 
     setQuote(initialQuoteState);
+    setContact(initialContactState);
     setStep(1);
     setActiveSelection(null);
     setResult(null);
+    setLatestLead(null);
     setIsCalculating(false);
+    setContactError("");
+    setWhatsappTriggered(false);
+  };
+
+  const triggerWhatsapp = () => {
+    if (!latestLead) {
+      return;
+    }
+
+    setWhatsappTriggered(true);
+    onSimulateWhatsapp?.(latestLead);
   };
 
   const summaryItems = [
@@ -166,6 +275,10 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
       label: "Metraje",
       value: quote.squareMeters ? `${quote.squareMeters} m2` : "Pendiente",
     },
+    {
+      label: "Empresa",
+      value: contact.company || "Pendiente",
+    },
   ];
 
   return (
@@ -173,24 +286,24 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
       <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
         <motion.div {...revealUp}>
           <SectionIntro
-            aside={<PrimaryButton href="mailto:contacto@bcaingenieria.com">Enviar informacion del proyecto</PrimaryButton>}
-            description="El cotizador no reemplaza la revision tecnica, pero ayuda a iniciar la conversacion con una banda preliminar de inversion y una captura ordenada."
-            eyebrow="Simulador de cotizacion"
-            title="Un modulo de conversion claro, sobrio y util para abrir una propuesta tecnica."
+            aside={<PrimaryButton href="mailto:contacto@bcaingenieria.com">Enviar brief tecnico</PrimaryButton>}
+            description="Este terminal ya no solo calcula una banda. Captura el lead, perfila el proyecto y deja el expediente listo para mover operacion, PDF y seguimiento comercial."
+            eyebrow="Lead Terminal BCA"
+            title="Perfilado tecnico y continuidad comercial en un solo flujo."
           />
         </motion.div>
 
-        <div className="mt-12 grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
+        <div className="mt-12 grid gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
           <SurfaceCard className="overflow-hidden">
             <div className="border-b border-ink/10 bg-ink px-5 py-4 text-white">
-              <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Panel de captura</p>
-              <p className="mt-2 text-sm leading-6 text-white/84">Avance automatico y resumen de variables activas.</p>
+              <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Expediente de lead</p>
+              <p className="mt-2 text-sm leading-6 text-white/84">Captura progresiva con salida operativa y cierre mas util.</p>
             </div>
 
             <div className="space-y-6 bg-surface p-5">
               <div className="space-y-3">
                 {stepLabels.map(({ icon: Icon, id, label }) => {
-                  const active = step === id || (id === 3 && step === 4);
+                  const active = step === id || (id === 4 && step === 5);
                   const done = step > id;
 
                   return (
@@ -225,29 +338,42 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                 ))}
               </div>
 
+              <div className="border-t border-ink/10 pt-5">
+                <div className="flex items-start gap-3 border border-ink/15 bg-white px-4 py-4 shadow-plate-sm">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-hydro-cyan" />
+                  <p className="text-sm leading-7 text-graphite/82">
+                    El resultado sigue siendo preliminar, pero el lead ya queda mucho mejor perfilado para continuar la conversacion.
+                  </p>
+                </div>
+              </div>
+
               <button
                 className="w-full border border-ink/15 bg-white px-4 py-3 font-sans text-[0.74rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan shadow-plate-sm"
                 onClick={handleReset}
                 type="button"
               >
-                Reiniciar simulador
+                Reiniciar terminal
               </button>
             </div>
           </SurfaceCard>
 
           <SurfaceCard className="overflow-hidden">
-            <div className="grid gap-px bg-concrete sm:grid-cols-3">
+            <div className="grid gap-px bg-concrete sm:grid-cols-4">
               <div className="bg-ink px-5 py-4 text-white">
                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Captura</p>
-                <p className="mt-2 text-sm">Flujo corporativo de 3 pasos</p>
+                <p className="mt-2 text-sm">Lead perfilado y calificado</p>
               </div>
               <div className="bg-white px-5 py-4">
-                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Auto avance</p>
-                <p className="mt-2 text-sm text-ink">300 ms al seleccionar</p>
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">WhatsApp</p>
+                <p className="mt-2 text-sm text-ink">Confirmacion inmediata</p>
               </div>
               <div className="bg-white px-5 py-4">
-                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Resultado</p>
-                <p className="mt-2 text-sm text-ink">Banda preliminar en MXN</p>
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">PDF</p>
+                <p className="mt-2 text-sm text-ink">Expediente listo para enviar</p>
+              </div>
+              <div className="bg-white px-5 py-4">
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Panel</p>
+                <p className="mt-2 text-sm text-ink">Seguimiento interno</p>
               </div>
             </div>
 
@@ -265,10 +391,10 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                     <div>
                       <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">01 / Tipo de obra</p>
                       <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                        Defina el tipo de activo o frente principal.
+                        Defina el frente o activo principal.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Esto nos ayuda a estimar criticidad operativa, complejidad y el rango base del proyecto.
+                        Esto filtra complejidad operativa, nivel de riesgo y el rango base del proyecto.
                       </p>
                     </div>
 
@@ -298,10 +424,10 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                     <div>
                       <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">02 / Especialidad</p>
                       <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                        Seleccione la especialidad que requiere prioridad.
+                        Seleccione la especialidad que necesita prioridad.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        La especialidad define el criterio de instalacion, supervision, prueba y entrega documental.
+                        La especialidad define criterios de instalacion, supervision, pruebas y entrega documental.
                       </p>
                     </div>
 
@@ -331,14 +457,14 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                     <div>
                       <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">03 / Metraje</p>
                       <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                        Capture el metraje estimado de intervencion.
+                        Capture el metraje estimado para abrir la banda inicial.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Este valor se cruza con el tipo de obra y la especialidad para arrojar una banda inicial.
+                        Puedes usar una referencia preliminar. El objetivo aqui es agilizar el primer filtro comercial y tecnico.
                       </p>
                     </div>
 
-                    <form className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto]" onSubmit={handleSubmit}>
+                    <form className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto]" onSubmit={handleMeterSubmit}>
                       <label className="space-y-3">
                         <span className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-graphite/62">Metraje estimado</span>
                         <div className="flex items-center border border-ink bg-white shadow-plate">
@@ -353,6 +479,7 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                               }))
                             }
                             placeholder="Ej. 180"
+                            required
                             type="number"
                             value={quote.squareMeters}
                           />
@@ -363,7 +490,7 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                       </label>
 
                       <PrimaryButton className="px-6 py-5" type="submit">
-                        Calcular rango
+                        Continuar expediente
                       </PrimaryButton>
                     </form>
                   </motion.div>
@@ -378,11 +505,95 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                     key="step-4"
                     transition={plateSpring}
                   >
+                    <div>
+                      <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">04 / Contacto y empresa</p>
+                      <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
+                        Deje el lead listo para seguimiento comercial.
+                      </h3>
+                      <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
+                        Esta captura ya arma el expediente demo con datos suficientes para WhatsApp, PDF y seguimiento interno.
+                      </p>
+                    </div>
+
+                    <form className="space-y-5" onSubmit={handleLeadSubmit}>
+                      <div className="grid gap-5 md:grid-cols-2">
+                        <Field
+                          label="Nombre de contacto"
+                          name="contactName"
+                          onChange={handleContactChange}
+                          placeholder="Ej. Luis Herrera"
+                          required
+                          value={contact.contactName}
+                        />
+                        <Field
+                          label="Empresa"
+                          name="company"
+                          onChange={handleContactChange}
+                          placeholder="Ej. Grupo Delta"
+                          required
+                          value={contact.company}
+                        />
+                        <Field
+                          label="Telefono"
+                          name="phone"
+                          onChange={handleContactChange}
+                          placeholder="Ej. +52 81 1234 5678"
+                          required
+                          value={contact.phone}
+                        />
+                        <Field
+                          label="Correo"
+                          name="email"
+                          onChange={handleContactChange}
+                          placeholder="Ej. operaciones@grupodelta.mx"
+                          required
+                          type="email"
+                          value={contact.email}
+                        />
+                        <Field
+                          label="Ubicacion del proyecto"
+                          name="location"
+                          onChange={handleContactChange}
+                          placeholder="Ej. Monterrey / Santa Catarina"
+                          required
+                          value={contact.location}
+                        />
+                        <Field
+                          label="Observacion breve"
+                          name="notes"
+                          onChange={handleContactChange}
+                          placeholder="Ej. Frente activo, requiere continuidad operativa"
+                          value={contact.notes}
+                        />
+                      </div>
+
+                      {contactError ? (
+                        <p className="border border-[#d9b4b4] bg-[#fff1f1] px-4 py-3 text-sm leading-6 text-[#8f2d2d]">
+                          {contactError}
+                        </p>
+                      ) : null}
+
+                      <PrimaryButton className="px-6 py-4" type="submit">
+                        Generar expediente y pre-cotizacion
+                      </PrimaryButton>
+                    </form>
+                  </motion.div>
+                )}
+
+                {step === 5 && (
+                  <motion.div
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-6"
+                    exit={{ opacity: 0, y: -18 }}
+                    initial={{ opacity: 0, y: 18 }}
+                    key="step-5"
+                    transition={plateSpring}
+                  >
                     {isCalculating ? (
                       <div className="space-y-5">
-                        <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Procesando variables</p>
+                        <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Procesando expediente</p>
                         <h3 className="font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                          Generando banda preliminar de inversion.
+                          Preparando salida comercial y tecnica.
                         </h3>
                         <div className="border border-ink/15 bg-white p-4 shadow-plate-sm">
                           <motion.div
@@ -395,43 +606,110 @@ export function QuoteSimulator({ onLeadGenerated }: QuoteSimulatorProps) {
                     ) : (
                       <div className="space-y-6">
                         <div>
-                          <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Resultado preliminar</p>
+                          <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Lead generado</p>
                           <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                            Rango inicial para abrir revision tecnica.
+                            Expediente listo para PDF, WhatsApp y seguimiento.
                           </h3>
                         </div>
 
-                        <div className="border border-ink bg-white p-6 shadow-plate sm:p-8">
-                          <div className="flex items-center justify-between gap-4">
-                            <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-graphite/62">Banda estimada</p>
-                            <Calculator className="h-5 w-5 text-hydro-cyan" />
-                          </div>
-
-                          <p className="mt-4 font-display text-[clamp(2.4rem,5vw,4.2rem)] font-bold leading-[0.92] tracking-[-0.05em] text-ink">
-                            {result ? `${formatCurrency(result.minimum)} - ${formatCurrency(result.maximum)}` : "Sin resultado"}
-                          </p>
-
-                          <div className="mt-6 grid gap-4 border-t border-ink/10 pt-6 sm:grid-cols-3">
-                            {summaryItems.map((item) => (
-                              <div key={item.label}>
-                                <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/60">{item.label}</p>
-                                <p className="mt-2 text-sm leading-6 text-ink">{item.value}</p>
+                        <div className="grid gap-5 xl:grid-cols-[minmax(0,1.15fr)_320px]">
+                          <div className="border border-ink bg-white p-6 shadow-plate sm:p-8">
+                            <div className="flex items-center justify-between gap-4">
+                              <div>
+                                <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-graphite/62">
+                                  Banda preliminar
+                                </p>
+                                <p className="mt-4 font-display text-[clamp(2.4rem,5vw,4.2rem)] font-bold leading-[0.92] tracking-[-0.05em] text-ink">
+                                  {result ? `${formatCurrency(result.minimum)} - ${formatCurrency(result.maximum)}` : "Sin resultado"}
+                                </p>
                               </div>
-                            ))}
+                              <Calculator className="h-6 w-6 text-hydro-cyan" />
+                            </div>
+
+                            <div className="mt-6 grid gap-4 border-t border-ink/10 pt-6 sm:grid-cols-2">
+                              <div>
+                                <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/60">Folio</p>
+                                <p className="mt-2 text-sm leading-6 text-ink">{latestLead?.id ?? "Sin folio"}</p>
+                              </div>
+                              <div>
+                                <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/60">Empresa</p>
+                                <p className="mt-2 text-sm leading-6 text-ink">{latestLead?.company ?? "Pendiente"}</p>
+                              </div>
+                              <div>
+                                <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/60">Contacto</p>
+                                <p className="mt-2 text-sm leading-6 text-ink">{latestLead?.contactName ?? "Pendiente"}</p>
+                              </div>
+                              <div>
+                                <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/60">Ubicacion</p>
+                                <p className="mt-2 text-sm leading-6 text-ink">{latestLead?.location ?? "Pendiente"}</p>
+                              </div>
+                            </div>
                           </div>
+
+                          <div className="grid gap-4">
+                            <div className="border border-ink/15 bg-white p-4 shadow-plate-sm">
+                              <div className="flex items-center gap-3">
+                                <CheckCircle2 className="h-4 w-4 text-hydro-cyan" />
+                                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                                  Cliente
+                                </p>
+                              </div>
+                              <p className="mt-3 text-sm leading-7 text-ink">
+                                {whatsappTriggered
+                                  ? `WhatsApp demo enviado a ${latestLead?.phone}. La recepcion del proyecto ya quedo confirmada.`
+                                  : "Al disparar WhatsApp, el cliente recibe confirmacion inmediata del ingreso del proyecto."}
+                              </p>
+                            </div>
+
+                            <div className="border border-ink/15 bg-white p-4 shadow-plate-sm">
+                              <div className="flex items-center gap-3">
+                                <MessageSquareMore className="h-4 w-4 text-industrial-gold" />
+                                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                                  Operacion BCA
+                                </p>
+                              </div>
+                              <p className="mt-3 text-sm leading-7 text-ink">
+                                {whatsappTriggered
+                                  ? "El asistente ya recibio el resumen tecnico para entrar a revision y seguimiento."
+                                  : "El panel recibe el lead y queda listo para ser tomado por el equipo comercial."}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-4">
+                          <PrimaryButton
+                            onClick={() => {
+                              if (latestLead) {
+                                onDownloadPdf?.(latestLead);
+                              }
+                            }}
+                            type="button"
+                            variant="secondary"
+                          >
+                            Descargar PDF
+                          </PrimaryButton>
+
+                          <PrimaryButton
+                            onClick={triggerWhatsapp}
+                            type="button"
+                            variant="secondary"
+                          >
+                            Simular WhatsApp
+                          </PrimaryButton>
+
+                          <PrimaryButton
+                            onClick={onOpenAdmin}
+                            type="button"
+                          >
+                            Abrir panel BCA
+                            <ArrowRight className="h-4 w-4" />
+                          </PrimaryButton>
                         </div>
 
                         <p className="border border-ink/15 bg-white px-5 py-4 text-sm leading-7 text-graphite/84 shadow-plate-sm">
-                          Calculo algoritmico preliminar. Nuestro equipo tecnico validara el levantamiento en sitio para una
-                          cotizacion vinculante.
+                          Calculo algoritmico preliminar. Nuestro equipo tecnico validara levantamiento, rutas y restricciones en sitio para una cotizacion vinculante.
                         </p>
-
-                        <div className="flex flex-wrap gap-4">
-                          <PrimaryButton href="#modulos" variant="secondary">
-                            Ver flujo operativo BCA
-                            <ArrowRight className="h-4 w-4 text-hydro-cyan" />
-                          </PrimaryButton>
-                        </div>
                       </div>
                     )}
                   </motion.div>

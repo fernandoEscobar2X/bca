@@ -2,13 +2,17 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Menu, Phone, X } from "lucide-react";
+import { ArrowRight, LockKeyhole, Menu, Phone, X } from "lucide-react";
 
 import { PrimaryButton } from "../components/ui/PrimaryButton";
 import { navigationLinks } from "../content/siteContent";
 import { plateSpring } from "../lib/motion";
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  onOpenAdmin: () => void;
+};
+
+export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -50,6 +54,15 @@ export function SiteHeader() {
               <Phone className="h-4 w-4 text-hydro-cyan" />
               +52 81 0000 0000
             </a>
+
+            <button
+              className="inline-flex items-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+              onClick={onOpenAdmin}
+              type="button"
+            >
+              <LockKeyhole className="h-4 w-4 text-hydro-cyan" />
+              Panel demo
+            </button>
 
             <PrimaryButton href="#cotizador">
               Cotizar Proyecto
@@ -110,6 +123,18 @@ export function SiteHeader() {
                   <Phone className="h-4 w-4 text-hydro-cyan" />
                   +52 81 0000 0000
                 </a>
+
+                <button
+                  className="flex items-center gap-2 bg-white px-4 py-3 font-sans text-[0.76rem] font-medium uppercase tracking-[0.14em] text-ink"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    onOpenAdmin();
+                  }}
+                  type="button"
+                >
+                  <LockKeyhole className="h-4 w-4 text-hydro-cyan" />
+                  Panel demo
+                </button>
               </div>
             </motion.div>
           ) : null}

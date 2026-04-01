@@ -16,8 +16,18 @@ export type ResultRange = {
 
 export type LeadStatus = "Nuevo" | "En revision" | "Contactado";
 
+export type LeadContact = {
+  contactName: string;
+  company: string;
+  phone: string;
+  email: string;
+  location: string;
+  notes?: string;
+};
+
 export type LeadRecord = {
   id: string;
+  contactName: string;
   company: string;
   channel: string;
   requestedAt: string;
@@ -32,6 +42,7 @@ export type LeadRecord = {
   phone: string;
   email: string;
   assignedTo: string;
+  notes?: string;
 };
 
 export const initialQuoteState: QuoteState = {
@@ -80,7 +91,13 @@ function getSpecialtyLabel(specialty: SpecialtyId) {
   return specialtyOptions.find((item) => item.id === specialty)?.label ?? "Especialidad tecnica";
 }
 
-export function buildLeadRecord(projectType: ProjectTypeId, specialty: SpecialtyId, squareMeters: number, estimate: ResultRange): LeadRecord {
+export function buildLeadRecord(
+  projectType: ProjectTypeId,
+  specialty: SpecialtyId,
+  squareMeters: number,
+  estimate: ResultRange,
+  contact: LeadContact,
+): LeadRecord {
   const requestedAt = new Intl.DateTimeFormat("es-MX", {
     day: "2-digit",
     month: "short",
@@ -95,7 +112,8 @@ export function buildLeadRecord(projectType: ProjectTypeId, specialty: Specialty
 
   return {
     id: `BCA-${Date.now().toString().slice(-6)}`,
-    company: `${projectTypeLabel} ${specialtyLabel}`.replace("Instalaciones ", ""),
+    contactName: contact.contactName,
+    company: contact.company,
     channel: "Lead Terminal",
     requestedAt,
     projectType,
@@ -105,9 +123,10 @@ export function buildLeadRecord(projectType: ProjectTypeId, specialty: Specialty
     squareMeters,
     estimate,
     status: "Nuevo",
-    location: "Monterrey / Bajio",
-    phone: `+52 81 0000 ${suffix}`,
-    email: `lead.${specialty}.${projectType}@bca-demo.mx`,
+    location: contact.location,
+    phone: contact.phone || `+52 81 0000 ${suffix}`,
+    email: contact.email || `lead.${specialty}.${projectType}@bca-demo.mx`,
     assignedTo: "Mesa comercial BCA",
+    notes: contact.notes,
   };
 }
