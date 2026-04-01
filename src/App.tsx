@@ -1,3 +1,7 @@
+import { useState } from "react";
+
+import type { LeadRecord } from "./lib/quote";
+import { AutomationSection } from "./sections/AutomationSection";
 import { HeroSection } from "./sections/HeroSection";
 import { PortfolioSection } from "./sections/PortfolioSection";
 import { ProcessSection } from "./sections/ProcessSection";
@@ -8,6 +12,8 @@ import { SiteHeader } from "./sections/SiteHeader";
 import { TrustStrip } from "./sections/TrustStrip";
 
 export function App() {
+  const [latestLead, setLatestLead] = useState<LeadRecord | null>(null);
+
   return (
     <>
       <a className="skip-link" href="#contenido-principal">
@@ -25,7 +31,8 @@ export function App() {
           <ServicesSection />
           <PortfolioSection />
           <ProcessSection />
-          <QuoteSimulator />
+          <QuoteSimulator onLeadGenerated={setLatestLead} />
+          <AutomationSection latestLead={latestLead} />
         </div>
       </main>
 
