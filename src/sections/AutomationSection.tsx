@@ -40,9 +40,9 @@ export function AutomationSection({
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
             }
-            description="El flujo ya no termina en la banda preliminar. Aqui se ve como el lead entra a seguimiento, activa acciones comerciales y alimenta un panel privado listo para operar."
+            description="El lead ya entra con folio, acciones y continuidad interna. Aqui se ve el sistema trabajando."
             eyebrow="Operacion conectada"
-            title="Vista previa del sistema comercial que vive detras del Lead Terminal."
+            title="El flujo no termina en el resultado: aqui empieza la operacion."
           />
         </motion.div>
 
@@ -60,7 +60,7 @@ export function AutomationSection({
                         Panel BCA
                       </p>
                       <h3 className="mt-2 font-display text-[clamp(1.7rem,2.8vw,2.6rem)] font-bold leading-[0.96] tracking-[-0.04em] text-ink">
-                        Prospectos, estados y seguimiento en una sola vista.
+                        Prospectos y seguimiento en una sola vista.
                       </h3>
                     </div>
                   </div>
@@ -152,13 +152,13 @@ export function AutomationSection({
                         <BellRing className="h-6 w-6 text-ink" />
                       </div>
                       <div className="bg-white px-5 py-4">
-                        <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                          Salidas del lead activo
-                        </p>
-                        <p className="mt-2 text-sm leading-7 text-graphite/82">
-                          El lead {previewLead.id} ya puede disparar WhatsApp y generar el PDF sin salir del flujo.
-                        </p>
-                      </div>
+                      <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                        Salidas del lead activo
+                      </p>
+                      <p className="mt-2 text-sm leading-7 text-graphite/82">
+                          {previewLead.id} ya puede mover acciones inmediatas sin salir del flujo.
+                      </p>
+                    </div>
                     </div>
 
                     <div className="bg-surface p-5">

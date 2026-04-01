@@ -11,6 +11,7 @@ import {
   Ruler,
   ShieldCheck,
   UserRound,
+  Workflow,
 } from "lucide-react";
 
 import { PrimaryButton } from "../components/ui/PrimaryButton";
@@ -287,9 +288,9 @@ export function QuoteSimulator({
         <motion.div {...revealUp}>
           <SectionIntro
             aside={<PrimaryButton href="mailto:contacto@bcaingenieria.com">Enviar brief tecnico</PrimaryButton>}
-            description="Este terminal ya no solo calcula una banda. Captura el lead, perfila el proyecto y deja el expediente listo para mover operacion, PDF y seguimiento comercial."
+            description="Captura, perfilado y salida operativa en un solo recorrido. El resultado no se queda en pantalla: genera un lead accionable."
             eyebrow="Lead Terminal BCA"
-            title="Perfilado tecnico y continuidad comercial en un solo flujo."
+            title="Captura el proyecto y deja listo el siguiente paso."
           />
         </motion.div>
 
@@ -297,7 +298,7 @@ export function QuoteSimulator({
           <SurfaceCard className="overflow-hidden">
             <div className="border-b border-ink/10 bg-ink px-5 py-4 text-white">
               <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Expediente de lead</p>
-              <p className="mt-2 text-sm leading-6 text-white/84">Captura progresiva con salida operativa y cierre mas util.</p>
+              <p className="mt-2 text-sm leading-6 text-white/84">Captura progresiva con cierre comercial util.</p>
             </div>
 
             <div className="space-y-6 bg-surface p-5">
@@ -394,7 +395,7 @@ export function QuoteSimulator({
                         Defina el frente o activo principal.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Esto filtra complejidad operativa, nivel de riesgo y el rango base del proyecto.
+                        Esto ordena criticidad, tipo de uso y punto de partida del expediente.
                       </p>
                     </div>
 
@@ -427,7 +428,7 @@ export function QuoteSimulator({
                         Seleccione la especialidad que necesita prioridad.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        La especialidad define criterios de instalacion, supervision, pruebas y entrega documental.
+                        Con esto se define el tipo de criterio tecnico y la ruta preliminar de seguimiento.
                       </p>
                     </div>
 
@@ -460,7 +461,7 @@ export function QuoteSimulator({
                         Capture el metraje estimado para abrir la banda inicial.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Puedes usar una referencia preliminar. El objetivo aqui es agilizar el primer filtro comercial y tecnico.
+                        Usa una referencia preliminar. Aqui lo importante es mover rapido el primer filtro.
                       </p>
                     </div>
 
@@ -511,7 +512,7 @@ export function QuoteSimulator({
                         Deje el lead listo para seguimiento comercial.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Esta captura ya arma el expediente demo con datos suficientes para WhatsApp, PDF y seguimiento interno.
+                        Estos datos alimentan el panel, el PDF y las acciones inmediatas del equipo.
                       </p>
                     </div>
 
@@ -606,9 +607,9 @@ export function QuoteSimulator({
                     ) : (
                       <div className="space-y-6">
                         <div>
-                          <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Lead generado</p>
+                          <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Lead registrado</p>
                           <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                            Expediente listo para PDF, WhatsApp y seguimiento.
+                            El expediente ya esta listo para operar.
                           </h3>
                         </div>
 
@@ -624,6 +625,17 @@ export function QuoteSimulator({
                                 </p>
                               </div>
                               <Calculator className="h-6 w-6 text-hydro-cyan" />
+                            </div>
+
+                            <div className="mt-6 flex flex-wrap gap-3">
+                              <span className="inline-flex items-center gap-2 border border-ink/15 bg-surface px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink">
+                                <CheckCircle2 className="h-4 w-4 text-hydro-cyan" />
+                                Lead creado
+                              </span>
+                              <span className="inline-flex items-center gap-2 border border-ink/15 bg-surface px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink">
+                                <Workflow className="h-4 w-4 text-industrial-gold" />
+                                Panel disponible
+                              </span>
                             </div>
 
                             <div className="mt-6 grid gap-4 border-t border-ink/10 pt-6 sm:grid-cols-2">
@@ -651,13 +663,13 @@ export function QuoteSimulator({
                               <div className="flex items-center gap-3">
                                 <CheckCircle2 className="h-4 w-4 text-hydro-cyan" />
                                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                                  Cliente
+                                  WhatsApp cliente
                                 </p>
                               </div>
                               <p className="mt-3 text-sm leading-7 text-ink">
                                 {whatsappTriggered
-                                  ? `WhatsApp demo enviado a ${latestLead?.phone}. La recepcion del proyecto ya quedo confirmada.`
-                                  : "Al disparar WhatsApp, el cliente recibe confirmacion inmediata del ingreso del proyecto."}
+                                  ? `Enviado a ${latestLead?.phone}. La recepcion del proyecto ya quedo confirmada.`
+                                  : "Disponible para confirmar la recepcion del proyecto."}
                               </p>
                             </div>
 
@@ -665,13 +677,13 @@ export function QuoteSimulator({
                               <div className="flex items-center gap-3">
                                 <MessageSquareMore className="h-4 w-4 text-industrial-gold" />
                                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                                  Operacion BCA
+                                  Mesa comercial
                                 </p>
                               </div>
                               <p className="mt-3 text-sm leading-7 text-ink">
                                 {whatsappTriggered
-                                  ? "El asistente ya recibio el resumen tecnico para entrar a revision y seguimiento."
-                                  : "El panel recibe el lead y queda listo para ser tomado por el equipo comercial."}
+                                  ? "Resumen tecnico listo para seguimiento inmediato."
+                                  : "El lead ya puede pasar directo a revision interna."}
                               </p>
                             </div>
                           </div>
@@ -708,7 +720,7 @@ export function QuoteSimulator({
                         </div>
 
                         <p className="border border-ink/15 bg-white px-5 py-4 text-sm leading-7 text-graphite/84 shadow-plate-sm">
-                          Calculo algoritmico preliminar. Nuestro equipo tecnico validara levantamiento, rutas y restricciones en sitio para una cotizacion vinculante.
+                          Calculo preliminar sujeto a validacion tecnica en sitio.
                         </p>
                       </div>
                     )}
