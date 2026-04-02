@@ -22,4 +22,12 @@
   .skip-link {
     @apply absolute left-4 top-4 z-[60] -translate-y-24 border border-ink bg-industrial-gold px-4 py-3 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate transition-transform focus:translate-y-0;
   }
+
+  .hero-title-shadow {
+    text-shadow: 0 3px 18px rgba(14, 17, 19, 0.4);
+  }
+
+  .hero-copy-shadow {
+    text-shadow: 0 2px 14px rgba(14, 17, 19, 0.45);
+  }
 }

@@ -18,17 +18,17 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-ink/10 bg-white">
       <div className="hidden border-b border-ink/10 bg-ink lg:block">
-        <div className="mx-auto flex max-w-[88rem] items-center justify-between px-5 py-3 text-surface sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-[88rem] items-center justify-between px-5 py-2 text-surface sm:px-6 lg:px-8">
           <div className="flex items-center gap-6">
             <a
-              className="inline-flex items-center gap-2 font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/82 transition-colors hover:text-white"
+              className="inline-flex items-center gap-2 font-sans text-[0.68rem] font-medium uppercase tracking-[0.14em] text-surface/82 transition-colors hover:text-white"
               href="mailto:contacto@bcaingenieria.com"
             >
               <Mail className="h-4 w-4 text-hydro-cyan" />
               contacto@bcaingenieria.com
             </a>
             <a
-              className="inline-flex items-center gap-2 font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/82 transition-colors hover:text-white"
+              className="inline-flex items-center gap-2 font-sans text-[0.68rem] font-medium uppercase tracking-[0.14em] text-surface/82 transition-colors hover:text-white"
               href="tel:+528100000000"
             >
               <Phone className="h-4 w-4 text-hydro-cyan" />
@@ -36,7 +36,7 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
             </a>
           </div>
 
-          <PrimaryButton href="#cotizador">
+          <PrimaryButton className="px-4 py-2.5 text-[0.68rem] shadow-plate-sm" href="#cotizador">
             Cotizar proyecto
             <ArrowRight className="h-4 w-4" />
           </PrimaryButton>
@@ -44,17 +44,17 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
       </div>
 
       <div className="mx-auto max-w-[88rem] px-5 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 py-4">
+        <div className="flex items-center justify-between gap-4 py-3">
           <a className="flex min-w-0 items-center gap-3" href="#inicio" onClick={() => setIsMenuOpen(false)}>
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-ink/10 bg-surface sm:h-14 sm:w-14">
-              <img alt="BCA Ingenieria" className="h-9 w-9 object-contain sm:h-10 sm:w-10" src="/assets/bca-logo.jpeg" />
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-ink/10 bg-surface sm:h-12 sm:w-12">
+              <img alt="BCA Ingenieria" className="h-8 w-8 object-contain sm:h-9 sm:w-9" src="/assets/bca-logo.jpeg" />
             </div>
 
             <div className="min-w-0">
-              <p className="font-display text-[clamp(1.2rem,3.8vw,2.15rem)] font-bold leading-none tracking-[-0.035em] text-ink">
+              <p className="font-display text-[clamp(1.15rem,3.4vw,1.95rem)] font-bold leading-none tracking-[-0.035em] text-ink">
                 BCA INGENIERIA
               </p>
-              <p className="mt-1 hidden font-sans text-[0.68rem] font-medium uppercase tracking-[0.14em] text-graphite/66 sm:block">
+              <p className="mt-1 hidden font-sans text-[0.62rem] font-medium uppercase tracking-[0.14em] text-graphite/66 sm:block">
                 Proyectos | Hidrosanitarias | Gas | Bombeo
               </p>
             </div>
@@ -63,7 +63,7 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
           <nav aria-label="Principal" className="hidden items-center gap-1 xl:flex">
             {navigationLinks.map((link) => (
               <a
-                className="inline-flex items-center px-4 py-2 font-sans text-[0.74rem] font-medium uppercase tracking-[0.14em] text-ink transition-colors hover:text-industrial-gold"
+                className="inline-flex items-center px-4 py-1.5 font-sans text-[0.7rem] font-medium uppercase tracking-[0.14em] text-ink transition-colors hover:text-industrial-gold"
                 href={link.href}
                 key={link.label}
               >
@@ -74,7 +74,7 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
 
           <div className="hidden items-center gap-3 xl:flex">
             <button
-              className="inline-flex items-center gap-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:text-hydro-cyan"
+              className="inline-flex items-center gap-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:text-hydro-cyan"
               onClick={onOpenAdmin}
               type="button"
             >
