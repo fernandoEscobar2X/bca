@@ -68,7 +68,7 @@ export function App() {
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-blueprint-grid bg-[length:32px_32px] opacity-20" />
 
         <div className="relative">
-          <HeroSection onOpenAdmin={() => setView("admin")} />
+          <HeroSection />
           <TrustStrip />
           <ServicesSection />
           <QuoteSimulator
