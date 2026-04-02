@@ -54,7 +54,13 @@ export function HeroSection() {
         <div aria-hidden className="absolute inset-y-0 left-0 w-[64%] bg-gradient-to-r from-ink/52 via-ink/18 to-transparent" />
 
         <div className="relative mx-auto max-w-[88rem] px-5 pb-24 pt-18 sm:px-6 sm:pb-28 sm:pt-20 lg:px-8 xl:pb-32 xl:pt-24">
-          <div className="max-w-[43rem]">
+          <div className="relative max-w-[43rem]">
+            <div
+              aria-hidden
+              className="absolute -inset-x-5 -inset-y-6 bg-gradient-to-r from-ink/58 via-ink/28 to-transparent"
+            />
+
+            <div className="relative">
             <p className="hero-copy-shadow font-sans text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
               BCA Ingenieria | Hidrosanitarias, gas y bombeo
             </p>
@@ -63,7 +69,7 @@ export function HeroSection() {
               Instalaciones hidrosanitarias, gas y bombeo para proyectos que exigen ejecucion seria.
             </h1>
 
-            <p className="hero-copy-shadow mt-6 max-w-[31rem] text-[1.02rem] leading-8 text-white sm:text-[1.08rem]">
+            <p className="hero-copy-shadow mt-6 max-w-[31rem] text-[1.02rem] font-semibold leading-8 text-white sm:text-[1.08rem]">
               Diseno y calculo, instalaciones, pruebas y puesta en marcha para obra residencial, comercial, industrial
               y hotelera, con una atencion mas clara desde la cotizacion inicial.
             </p>
@@ -75,7 +81,7 @@ export function HeroSection() {
               </PrimaryButton>
 
               <a
-                className="inline-flex items-center gap-2 border border-white/30 bg-white/12 px-5 py-3 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-ink"
+                className="inline-flex items-center gap-2 border border-white/35 bg-ink/52 px-5 py-3 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-ink"
                 href="#especialidades"
               >
                 Ver especialidades
@@ -84,15 +90,16 @@ export function HeroSection() {
             </div>
 
             <div className="mt-10 flex max-w-[44rem] flex-wrap gap-3">
-              <span className="hero-copy-shadow inline-flex items-center border border-white/16 bg-ink/54 px-3 py-2 text-sm leading-6 text-white">
+              <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
                 Residencial, comercial, industrial y hotelero
               </span>
-              <span className="hero-copy-shadow inline-flex items-center border border-white/16 bg-ink/54 px-3 py-2 text-sm leading-6 text-white">
+              <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
                 Gas LP y natural
               </span>
-              <span className="hero-copy-shadow inline-flex items-center border border-white/16 bg-ink/54 px-3 py-2 text-sm leading-6 text-white">
+              <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
                 Pruebas hidrostaticas
               </span>
+            </div>
             </div>
           </div>
 
