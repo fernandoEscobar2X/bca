@@ -49,9 +49,9 @@ export function HeroSection() {
           />
         </AnimatePresence>
 
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-ink/88 via-ink/58 to-ink/16" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/18 to-transparent" />
-        <div aria-hidden className="absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-ink/28 to-transparent" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-ink/92 via-ink/68 to-ink/18" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/84 via-ink/20 to-transparent" />
+        <div aria-hidden className="absolute inset-y-0 left-0 w-[64%] bg-gradient-to-r from-ink/52 via-ink/18 to-transparent" />
 
         <div className="relative mx-auto max-w-[88rem] px-5 pb-24 pt-18 sm:px-6 sm:pb-28 sm:pt-20 lg:px-8 xl:pb-32 xl:pt-24">
           <div className="max-w-[43rem]">
@@ -63,7 +63,7 @@ export function HeroSection() {
               Instalaciones hidrosanitarias, gas y bombeo para proyectos que exigen ejecucion seria.
             </h1>
 
-            <p className="hero-copy-shadow mt-6 max-w-[31rem] text-[1.02rem] leading-8 text-white/94 sm:text-[1.08rem]">
+            <p className="hero-copy-shadow mt-6 max-w-[31rem] text-[1.02rem] leading-8 text-white sm:text-[1.08rem]">
               Diseno y calculo, instalaciones, pruebas y puesta en marcha para obra residencial, comercial, industrial
               y hotelera, con una atencion mas clara desde la cotizacion inicial.
             </p>
@@ -83,10 +83,16 @@ export function HeroSection() {
               </a>
             </div>
 
-            <div className="hero-copy-shadow mt-10 flex max-w-[44rem] flex-wrap gap-x-6 gap-y-3 text-sm leading-6 text-white/92">
-              <span>Residencial, comercial, industrial y hotelero</span>
-              <span>Gas LP y natural</span>
-              <span>Pruebas hidrostaticas</span>
+            <div className="mt-10 flex max-w-[44rem] flex-wrap gap-3">
+              <span className="hero-copy-shadow inline-flex items-center border border-white/16 bg-ink/54 px-3 py-2 text-sm leading-6 text-white">
+                Residencial, comercial, industrial y hotelero
+              </span>
+              <span className="hero-copy-shadow inline-flex items-center border border-white/16 bg-ink/54 px-3 py-2 text-sm leading-6 text-white">
+                Gas LP y natural
+              </span>
+              <span className="hero-copy-shadow inline-flex items-center border border-white/16 bg-ink/54 px-3 py-2 text-sm leading-6 text-white">
+                Pruebas hidrostaticas
+              </span>
             </div>
           </div>
 

@@ -19,7 +19,7 @@ export function TrustStrip() {
             <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-industrial-gold">
               BCA Ingenieria
             </p>
-            <p className="mt-2 text-sm leading-6 text-white/78">
+            <p className="mt-2 text-sm leading-6 text-white/90">
               Presencia tecnica mas clara para captar y atender mejor cada proyecto.
             </p>
           </div>

@@ -12,53 +12,72 @@ type PanelPreviewSectionProps = {
   onOpenAdmin: () => void;
 };
 
+const valuePoints = [
+  "Confirmacion inmediata de la solicitud",
+  "Referencia preliminar mejor presentada",
+  "Seguimiento mas claro para no perder proyectos",
+] as const;
+
 export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionProps) {
   const previewLeads = leads.slice(0, 3);
   const activeLead = previewLeads[0] ?? null;
 
   return (
-    <section className="border-b border-ink/10 bg-ink text-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="seguimiento">
+    <section className="border-t border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="seguimiento">
       <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-10 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] xl:items-start">
-          <motion.div className="space-y-5" {...revealUp}>
+        <div className="grid gap-10 xl:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] xl:items-start">
+          <motion.div className="space-y-6" {...revealUp}>
             <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
-              Atencion mas ordenada
+              Atencion mas clara
             </p>
-            <h2 className="max-w-[12ch] font-display text-[clamp(2.2rem,3.8vw,3.7rem)] font-bold leading-[0.96] tracking-[-0.045em] text-white">
-              Mejor seguimiento comercial sin que BCA deje de verse tecnica y corporativa.
+            <h2 className="max-w-[13ch] font-display text-[clamp(2.15rem,3.6vw,3.35rem)] font-bold leading-[0.96] tracking-[-0.045em] text-ink">
+              Una mejor respuesta desde la primera solicitud.
             </h2>
-            <p className="max-w-lg text-sm leading-7 text-white/74 sm:text-base">
-              El sitio no solo capta mejor. Tambien deja una confirmacion mas inmediata, una referencia mejor presentada
-              y un seguimiento interno mas claro para no perder proyectos por falta de orden.
+            <p className="max-w-lg text-sm leading-7 text-graphite/84 sm:text-base">
+              BCA puede recibir un proyecto con mejor orden, confirmar su recepcion y presentar una referencia
+              preliminar con mas claridad comercial, sin depender de mensajes sueltos o seguimiento improvisado.
             </p>
 
+            <div className="grid gap-3">
+              {valuePoints.map((item) => (
+                <div
+                  className="flex items-center gap-3 border border-ink/10 bg-white px-4 py-4 shadow-plate-sm"
+                  key={item}
+                >
+                  <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-hydro-cyan" />
+                  <p className="text-sm leading-6 text-ink">{item}</p>
+                </div>
+              ))}
+            </div>
+
             <div className="flex flex-wrap items-center gap-4">
-              <PrimaryButton onClick={onOpenAdmin} type="button" variant="secondary">
-                Acceso interno
+              <PrimaryButton href="#cotizador">
+                Cotizar proyecto
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
-              <a
-                className="font-sans text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:text-industrial-gold"
-                href="#cotizador"
+              <button
+                className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:text-industrial-gold"
+                onClick={onOpenAdmin}
+                type="button"
               >
-                Probar cotizador
-              </a>
+                Vista interna
+              </button>
             </div>
           </motion.div>
 
-          <motion.div className="relative" {...revealUp}>
-            <div className="overflow-hidden border border-white/10 bg-white shadow-plate">
-              <div className="grid gap-px bg-concrete lg:grid-cols-[minmax(0,1fr)_280px]">
+          <motion.div className="grid gap-5" {...revealUp}>
+            <div className="overflow-hidden border border-ink bg-white shadow-plate">
+              <div className="grid gap-px bg-concrete lg:grid-cols-[minmax(0,1fr)_260px]">
                 <div className="bg-white">
-                  <div className="grid gap-px border-b border-ink/10 bg-concrete px-5 py-4 md:grid-cols-[minmax(0,1fr)_124px_160px]">
-                    <p className="bg-white px-4 py-3 font-sans text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                      Prospecto
+                  <div className="grid gap-px border-b border-ink/10 bg-concrete px-5 py-4 md:grid-cols-[minmax(0,1fr)_124px_170px]">
+                    <p className="bg-white px-4 py-3 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                      Solicitud
                     </p>
-                    <p className="bg-white px-4 py-3 font-sans text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                    <p className="bg-white px-4 py-3 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
                       Estado
                     </p>
-                    <p className="bg-white px-4 py-3 font-sans text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                      Siguiente paso
+                    <p className="bg-white px-4 py-3 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">
+                      Respuesta
                     </p>
                   </div>
 
@@ -66,12 +85,12 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
                     {previewLeads.map((lead, index) => (
                       <motion.div
                         className={cn(
-                          "grid gap-4 px-5 py-5 md:grid-cols-[minmax(0,1fr)_124px_160px]",
+                          "grid gap-4 px-5 py-5 md:grid-cols-[minmax(0,1fr)_124px_170px]",
                           index === 0 ? "bg-surface" : "bg-white",
                         )}
                         initial={{ opacity: 0, x: 12 }}
                         key={lead.id}
-                        transition={{ delay: index * 0.06, duration: 0.35 }}
+                        transition={{ delay: index * 0.05, duration: 0.35 }}
                         viewport={{ once: true }}
                         whileInView={{ opacity: 1, x: 0 }}
                       >
@@ -80,9 +99,7 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
                             {lead.id}
                           </p>
                           <p className="mt-2 text-base font-semibold text-ink">{lead.company}</p>
-                          <p className="mt-1 text-sm leading-6 text-graphite/78">
-                            {lead.contactName} / {lead.specialtyLabel}
-                          </p>
+                          <p className="mt-1 text-sm leading-6 text-graphite/84">{lead.specialtyLabel}</p>
                         </div>
 
                         <div className="flex items-center">
@@ -91,10 +108,10 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
 
                         <div className="flex items-center text-sm font-semibold text-ink">
                           {lead.status === "Nuevo"
-                            ? "Llamar y validar"
+                            ? "Validar datos"
                             : lead.status === "En revision"
-                              ? "Enviar PDF"
-                              : "Continuar seguimiento"}
+                              ? "Enviar referencia"
+                              : "Continuar contacto"}
                         </div>
                       </motion.div>
                     ))}
@@ -105,12 +122,12 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
                   <div className="grid gap-px bg-concrete">
                     <div className="bg-ink px-5 py-5 text-white">
                       <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                        Lead activo
+                        Proyecto activo
                       </p>
-                      <h3 className="mt-3 text-[1.9rem] font-semibold leading-[1.02] tracking-[-0.04em] text-white">
+                      <h3 className="mt-3 text-[1.8rem] font-semibold leading-[1.04] tracking-[-0.04em] text-white">
                         {activeLead.company}
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-white/74">
+                      <p className="mt-3 text-sm leading-7 text-white/90">
                         {activeLead.location} / {activeLead.squareMeters} m2
                       </p>
                     </div>
@@ -129,52 +146,48 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
             </div>
 
             {activeLead ? (
-              <>
+              <div className="grid gap-5 lg:grid-cols-2">
                 <motion.div
-                  className="mt-5 grid gap-5 lg:absolute lg:-bottom-8 lg:left-10 lg:max-w-[280px]"
-                  initial={{ opacity: 0, y: 18 }}
-                  transition={{ delay: 0.18, duration: 0.45 }}
+                  className="border border-ink/10 bg-white p-5 shadow-plate-sm"
+                  initial={{ opacity: 0, y: 14 }}
+                  transition={{ delay: 0.12, duration: 0.4 }}
                   viewport={{ once: true }}
                   whileInView={{ opacity: 1, y: 0 }}
                 >
-                  <div className="border border-white/10 bg-white p-5 text-ink shadow-plate">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center border border-ink/10 bg-surface">
-                        <MessageSquareMore className="h-4 w-4 text-hydro-cyan" />
-                      </div>
-                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-graphite">
-                        Confirmacion por WhatsApp
-                      </p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center border border-ink/10 bg-surface">
+                      <MessageSquareMore className="h-4 w-4 text-hydro-cyan" />
                     </div>
-                    <p className="mt-4 text-sm leading-7 text-ink">
-                      Hola {activeLead.contactName}, recibimos tu solicitud para {activeLead.specialtyLabel}. En breve
-                      revisamos el proyecto para continuar.
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-graphite">
+                      Confirmacion inmediata
                     </p>
                   </div>
+                  <p className="mt-4 text-sm leading-7 text-ink">
+                    Hola {activeLead.contactName}, recibimos tu solicitud para {activeLead.specialtyLabel}. En breve
+                    revisamos el proyecto para continuar.
+                  </p>
                 </motion.div>
 
                 <motion.div
-                  className="mt-5 lg:absolute lg:-right-4 lg:bottom-10 lg:max-w-[260px]"
-                  initial={{ opacity: 0, y: 18 }}
-                  transition={{ delay: 0.24, duration: 0.45 }}
+                  className="border border-ink bg-industrial-gold p-5 shadow-plate-sm"
+                  initial={{ opacity: 0, y: 14 }}
+                  transition={{ delay: 0.18, duration: 0.4 }}
                   viewport={{ once: true }}
                   whileInView={{ opacity: 1, y: 0 }}
                 >
-                  <div className="border border-ink bg-industrial-gold p-5 text-ink shadow-plate">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center border border-ink/10 bg-white">
-                        <FileText className="h-4 w-4 text-hydro-cyan" />
-                      </div>
-                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink/72">
-                        Pre-cotizacion lista
-                      </p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center border border-ink/10 bg-white">
+                      <FileText className="h-4 w-4 text-hydro-cyan" />
                     </div>
-                    <p className="mt-4 text-sm leading-7 text-ink">
-                      Folio {activeLead.id} preparado para presentarse con mejor formato y mas claridad comercial.
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink/72">
+                      Pre-cotizacion lista
                     </p>
                   </div>
+                  <p className="mt-4 text-sm leading-7 text-ink">
+                    Folio {activeLead.id} preparado para presentarse con mejor formato y mas claridad comercial.
+                  </p>
                 </motion.div>
-              </>
+              </div>
             ) : null}
           </motion.div>
         </div>

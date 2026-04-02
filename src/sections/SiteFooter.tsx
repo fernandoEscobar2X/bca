@@ -17,7 +17,7 @@ export function SiteFooter() {
             <div className="w-28 border border-white/10 bg-white p-3 shadow-plate-sm">
               <img alt="BCA Ingenieria" className="h-auto w-full object-contain" src="/assets/bca-logo.jpeg" />
             </div>
-            <p className="max-w-xs text-sm leading-7 text-surface/76">
+            <p className="max-w-xs text-sm leading-7 text-surface/88">
               Ingenieria hidrosanitaria, gas, bombeo y pruebas para proyectos residenciales, comerciales e industriales.
             </p>
           </div>
@@ -33,7 +33,7 @@ export function SiteFooter() {
             </div>
             <div>
               <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Atencion</p>
-              <p className="mt-2 text-base text-surface">Cotizacion preliminar, mejor presentacion y seguimiento mas claro</p>
+              <p className="mt-2 text-base text-surface">Cotizacion preliminar y atencion mas clara para nuevos proyectos</p>
             </div>
           </div>
 
@@ -47,7 +47,7 @@ export function SiteFooter() {
           <div className="flex flex-wrap items-center gap-4">
             {navigationLinks.map((item) => (
               <a
-                className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/72 transition-colors hover:text-industrial-gold"
+                className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/86 transition-colors hover:text-industrial-gold"
                 href={item.href}
                 key={item.label}
               >
@@ -59,7 +59,7 @@ export function SiteFooter() {
           <div className="flex flex-wrap items-center gap-4">
             {legalLinks.map((item) => (
               <a
-                className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/72 transition-colors hover:text-industrial-gold"
+                className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/86 transition-colors hover:text-industrial-gold"
                 href={item.href}
                 key={item.label}
               >
@@ -68,7 +68,7 @@ export function SiteFooter() {
             ))}
           </div>
 
-          <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/58">
+          <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-surface/72">
             BCA Ingenieria | Todos los derechos reservados
           </p>
         </div>
