@@ -14,10 +14,6 @@ const heroSlides = [
     src: "/assets/hero-bca-water-dark.png",
     alt: "Cuarto tecnico con filtrado, suavizadores y equipos hidraulicos",
   },
-  {
-    src: "/assets/hero-industrial.jpg",
-    alt: "Supervision tecnica en obra para instalaciones hidrosanitarias y gas",
-  },
 ] as const;
 
 const heroCards = services.slice(0, 4);
@@ -28,14 +24,14 @@ export function HeroSection() {
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % heroSlides.length);
-    }, 7200);
+    }, 7000);
 
     return () => window.clearInterval(interval);
   }, []);
 
   return (
     <section className="border-b border-ink/10 bg-white scroll-mt-40 md:scroll-mt-32" id="inicio">
-      <div className="relative min-h-[35rem] overflow-hidden bg-ink sm:min-h-[41rem] xl:min-h-[45rem]">
+      <div className="relative min-h-[32rem] overflow-hidden bg-ink sm:min-h-[37rem] xl:min-h-[40rem]">
         <AnimatePresence mode="wait">
           <motion.img
             animate={{ opacity: 1, scale: 1.03 }}
@@ -53,7 +49,7 @@ export function HeroSection() {
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/84 via-ink/20 to-transparent" />
         <div aria-hidden className="absolute inset-y-0 left-0 w-[64%] bg-gradient-to-r from-ink/52 via-ink/18 to-transparent" />
 
-        <div className="relative mx-auto max-w-[88rem] px-5 pb-24 pt-18 sm:px-6 sm:pb-28 sm:pt-20 lg:px-8 xl:pb-32 xl:pt-24">
+        <div className="relative mx-auto max-w-[88rem] px-5 pb-20 pt-16 sm:px-6 sm:pb-24 sm:pt-18 lg:px-8 xl:pb-28 xl:pt-20">
           <div className="relative max-w-[43rem]">
             <div
               aria-hidden
@@ -65,16 +61,16 @@ export function HeroSection() {
               BCA Ingenieria | Hidrosanitarias, gas y bombeo
             </p>
 
-            <h1 className="hero-title-shadow mt-6 max-w-[11.4ch] font-display text-[clamp(3rem,5.6vw,5.4rem)] font-bold leading-[0.94] tracking-[-0.05em] text-white">
+            <h1 className="hero-title-shadow mt-5 max-w-[13.8ch] font-display text-[clamp(2.8rem,5vw,4.85rem)] font-bold leading-[0.96] tracking-[-0.045em] text-white">
               Instalaciones hidrosanitarias, gas y bombeo para proyectos que exigen ejecucion seria.
             </h1>
 
-            <p className="hero-copy-shadow mt-6 max-w-[31rem] text-[1.02rem] font-semibold leading-8 text-white sm:text-[1.08rem]">
+            <p className="hero-copy-shadow mt-7 max-w-[33rem] text-[1rem] font-semibold leading-8 text-white sm:text-[1.06rem]">
               Diseno y calculo, instalaciones, pruebas y puesta en marcha para obra residencial, comercial, industrial
               y hotelera, con una atencion mas clara desde la cotizacion inicial.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <PrimaryButton href="#cotizador">
                 Cotizar proyecto
                 <ArrowRight className="h-4 w-4" />
@@ -103,7 +99,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="absolute bottom-8 right-5 flex items-center gap-2 sm:right-6 lg:right-8">
+          <div className="absolute bottom-7 right-5 flex items-center gap-2 sm:right-6 lg:right-8">
             {heroSlides.map((slide, index) => (
               <button
                 aria-label={`Mostrar imagen ${index + 1}`}
@@ -121,7 +117,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto -mt-14 max-w-[88rem] px-5 pb-6 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto -mt-12 max-w-[88rem] px-5 pb-6 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {heroCards.map((service, index) => (
             <motion.article
