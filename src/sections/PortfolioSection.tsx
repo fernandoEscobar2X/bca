@@ -30,7 +30,7 @@ export function PortfolioSection() {
         </div>
 
         <div className="mt-12 grid gap-5 xl:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
-          <motion.article className="overflow-hidden border border-ink bg-white shadow-plate" {...revealUp}>
+          <motion.article className="overflow-hidden border border-ink bg-white shadow-plate xl:mr-10 2xl:mr-16" {...revealUp}>
             <div className="grid gap-px bg-concrete lg:grid-cols-[minmax(0,1.14fr)_340px]">
               <div className="relative min-h-[26rem] overflow-hidden">
                 <img
@@ -81,10 +81,14 @@ export function PortfolioSection() {
             </div>
           </motion.article>
 
-          <div className="grid gap-5">
+          <div className="grid gap-5 xl:-ml-10 xl:pt-12 2xl:-ml-16">
             {secondaryProjects.map((project, index) => (
               <motion.article
-                className="overflow-hidden border border-ink bg-white shadow-plate"
+                className={
+                  index === 0
+                    ? "overflow-hidden border border-ink bg-white shadow-plate xl:mr-12 2xl:mr-20"
+                    : "overflow-hidden border border-ink bg-white shadow-plate xl:ml-12 2xl:ml-20"
+                }
                 initial={{ opacity: 0, y: 22 }}
                 key={project.title}
                 transition={{ ...plateSpring, delay: index * 0.06 }}

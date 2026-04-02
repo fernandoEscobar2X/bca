@@ -8,7 +8,7 @@ export function ServicesSection() {
   return (
     <section className="border-b border-ink/10 bg-white scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="especialidades">
       <div className="mx-auto max-w-[88rem] px-5 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-        <div className="grid gap-8 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-12">
+        <div className="grid gap-8 xl:grid-cols-[380px_minmax(0,1fr)] xl:gap-12">
           <motion.div className="space-y-6 xl:sticky xl:top-32 xl:h-fit" {...revealUp}>
             <div className="space-y-4">
               <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
@@ -52,10 +52,14 @@ export function ServicesSection() {
             </div>
           </motion.div>
 
-          <div className="border-t border-ink/10">
+          <div className="border-t border-ink/10 xl:pl-8 2xl:pl-14">
             {services.map((service, index) => (
               <motion.article
-                className="group grid gap-6 border-b border-ink/10 py-7 md:grid-cols-[92px_minmax(0,1fr)_260px] md:items-start"
+                className={cn(
+                  "group grid gap-6 border-b border-ink/10 py-7 md:grid-cols-[92px_minmax(0,1fr)_260px] md:items-start",
+                  "xl:grid-cols-[92px_minmax(0,1.08fr)_240px]",
+                  index % 2 === 1 ? "xl:ml-10 2xl:ml-16" : "xl:mr-10 2xl:mr-16",
+                )}
                 initial={{ opacity: 0, y: 24 }}
                 key={service.code}
                 transition={{ ...plateSpring, delay: index * 0.04 }}

@@ -25,8 +25,8 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
   return (
     <section className="border-t border-b border-ink/10 bg-surface scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="seguimiento">
       <div className="mx-auto max-w-[88rem] px-5 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] xl:items-start">
-          <motion.div className="space-y-6" {...revealUp}>
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.64fr)_minmax(0,1.36fr)] xl:items-start">
+          <motion.div className="space-y-6 xl:pt-6" {...revealUp}>
             <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
               Atención más clara
             </p>
@@ -68,7 +68,7 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
             </div>
           </motion.div>
 
-          <motion.div className="grid gap-5" {...revealUp}>
+          <motion.div className="grid gap-5 xl:-mr-6 2xl:-mr-10" {...revealUp}>
             <div className="grid gap-4 lg:hidden">
               <div className="overflow-hidden border border-ink bg-white shadow-plate">
                 <div className="border-b border-ink/10 bg-ink px-4 py-4 text-white">
@@ -139,7 +139,7 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
               ) : null}
             </div>
 
-            <div className="hidden overflow-hidden border border-ink bg-white shadow-plate lg:block">
+            <div className="hidden overflow-hidden border border-ink bg-white shadow-plate lg:block xl:ml-8 2xl:ml-14">
               <div className="grid gap-px bg-concrete lg:grid-cols-[minmax(0,1fr)_260px]">
                 <div className="bg-white">
                   <div className="grid gap-px border-b border-ink/10 bg-concrete px-5 py-4 md:grid-cols-[minmax(0,1fr)_124px_170px]">
@@ -219,7 +219,7 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
             </div>
 
             {activeLead ? (
-              <div className="hidden gap-5 lg:grid lg:grid-cols-2">
+              <div className="hidden gap-5 lg:grid lg:grid-cols-2 xl:pl-10 2xl:pl-16">
                 <motion.div
                   className="border border-ink/10 bg-white p-5 shadow-plate-sm"
                   initial={{ opacity: 0, y: 14 }}

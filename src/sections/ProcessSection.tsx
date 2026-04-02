@@ -7,7 +7,7 @@ export function ProcessSection() {
   return (
     <section className="border-b border-ink/10 bg-white scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="metodologia">
       <div className="mx-auto max-w-[88rem] px-5 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] xl:items-start">
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.66fr)_minmax(0,1.34fr)] xl:items-start">
           <motion.div className="space-y-5 xl:pt-2" {...revealUp}>
             <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
               Método de trabajo
@@ -21,10 +21,14 @@ export function ProcessSection() {
             </p>
           </motion.div>
 
-          <div className="grid gap-5">
+          <div className="grid gap-5 xl:pl-8 2xl:pl-14">
             {processSteps.map((step, index) => (
               <motion.article
-                className="grid gap-px overflow-hidden border border-ink bg-concrete shadow-plate"
+                className={
+                  index === 1
+                    ? "grid gap-px overflow-hidden border border-ink bg-concrete shadow-plate xl:ml-14 2xl:ml-24"
+                    : "grid gap-px overflow-hidden border border-ink bg-concrete shadow-plate xl:mr-10 2xl:mr-16"
+                }
                 initial={{ opacity: 0, y: 22 }}
                 key={step.title}
                 transition={{ delay: index * 0.07, duration: 0.45 }}
