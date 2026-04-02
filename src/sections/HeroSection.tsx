@@ -11,10 +11,10 @@ const TechnicalScene = lazy(async () => {
 });
 
 const heroTags = [
-  "Sucursal digital premium",
-  "Lead Terminal",
-  "WhatsApp automatico",
-  "PDF corporativo",
+  "Residencial, comercial e industrial",
+  "Hidrosanitario y gas",
+  "Bombeo, suavizacion y pruebas",
+  "Cotizacion preliminar en linea",
 ] as const;
 
 type HeroSectionProps = {
@@ -28,19 +28,19 @@ export function HeroSection({ onOpenAdmin }: HeroSectionProps) {
         <div className="grid gap-8 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] xl:items-end">
           <motion.div className="space-y-8 xl:pr-10" {...revealUp}>
             <div className="inline-flex items-center border border-ink/15 bg-white px-4 py-2 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan shadow-plate-sm">
-              Sucursal digital de alta conversion
+              Ingenieria | Proyectos | Construccion
             </div>
 
             <div className="space-y-5">
               <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                BCA Ingenieria | Demo comercial del sistema final
+                BCA Ingenieria
               </p>
               <h1 className="max-w-[9.5ch] font-display text-[clamp(3.2rem,7vw,6.15rem)] font-bold leading-[0.9] tracking-[-0.055em] text-ink">
-                BCA SE VE MAS SERIA CUANDO SU CAPTACION YA OPERA COMO SISTEMA.
+                INGENIERIA HIDROSANITARIA Y GAS CON MEJOR PRESENTACION DESDE EL PRIMER CONTACTO.
               </h1>
               <p className="max-w-xl text-base leading-8 text-graphite/84 sm:text-lg">
-                Esta demo proyecta una plataforma pensada para atraer mejores prospectos, responder con mas formalidad y
-                organizar el seguimiento comercial con una presencia digital de otro nivel.
+                BCA proyecta una presencia mas seria y mas clara para proyectos que exigen criterio tecnico, mejor
+                respuesta comercial y seguimiento mas ordenado desde la solicitud inicial.
               </p>
             </div>
 
@@ -57,12 +57,12 @@ export function HeroSection({ onOpenAdmin }: HeroSectionProps) {
 
             <div className="flex flex-wrap gap-4">
               <PrimaryButton href="#cotizador">
-                Probar Lead Terminal
+                Cotizar proyecto
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
 
               <PrimaryButton onClick={onOpenAdmin} type="button" variant="secondary">
-                Ver panel privado
+                Acceso interno
                 <LockKeyhole className="h-4 w-4 text-hydro-cyan" />
               </PrimaryButton>
             </div>
@@ -73,15 +73,17 @@ export function HeroSection({ onOpenAdmin }: HeroSectionProps) {
               <div className="grid gap-px border-b border-ink/10 bg-concrete md:grid-cols-[minmax(0,1fr)_260px]">
                 <div className="bg-white px-5 py-5 sm:px-6">
                   <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                    Presencia digital premium
+                    Presencia digital BCA
                   </p>
                   <h2 className="mt-3 text-2xl font-semibold leading-tight text-ink sm:text-3xl">
-                    Una plataforma que transmite orden, rigor y capacidad real de seguimiento.
+                    Una experiencia que refuerza formalidad, orden y capacidad real de atencion.
                   </h2>
                 </div>
                 <div className="bg-industrial-gold px-5 py-5">
-                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink">Incluye</p>
-                  <p className="mt-3 text-sm leading-7 text-ink">Especialidades, cotizador, panel, WhatsApp y PDF.</p>
+                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink">Respuesta inicial</p>
+                  <p className="mt-3 text-sm leading-7 text-ink">
+                    Cotizacion preliminar, mejor presentacion y continuidad de seguimiento.
+                  </p>
                 </div>
               </div>
 
@@ -89,14 +91,16 @@ export function HeroSection({ onOpenAdmin }: HeroSectionProps) {
                 <div className="bg-surface p-5 sm:p-6">
                   <div className="overflow-hidden border border-ink bg-white shadow-plate-sm">
                     <div className="flex items-center justify-between border-b border-ink/10 px-4 py-3">
-                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Visual tecnico 3D</p>
-                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite/62">WebGL</p>
+                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">
+                        Visual tecnico
+                      </p>
+                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite/62">Ingenieria BCA</p>
                     </div>
                     <div className="h-[320px] bg-surface">
                       <Suspense
                         fallback={
                           <div className="flex h-full items-center justify-center bg-blueprint-grid bg-[length:28px_28px] px-6 text-center text-sm leading-7 text-graphite/72">
-                            Cargando visual 3D...
+                            Cargando visual tecnico...
                           </div>
                         }
                       >
@@ -108,21 +112,21 @@ export function HeroSection({ onOpenAdmin }: HeroSectionProps) {
 
                 <div className="grid gap-px bg-concrete">
                   <div className="bg-white px-5 py-5">
-                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Lead Terminal</p>
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Especialidades</p>
                     <p className="mt-3 text-sm leading-7 text-ink">
-                      Cotizador guiado para captar tipo de obra, especialidad y metraje con mas formalidad.
+                      Diseno, instalaciones, bombeo, suavizacion y pruebas para proyectos que requieren seriedad.
                     </p>
                   </div>
                   <div className="bg-white px-5 py-5">
-                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Panel privado</p>
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Cotizacion preliminar</p>
                     <p className="mt-3 text-sm leading-7 text-ink">
-                      Seguimiento claro para saber a quien contactar, que estado mover y que sigue.
+                      Una forma mas clara de captar proyectos y presentar mejor una respuesta inicial.
                     </p>
                   </div>
                   <div className="bg-white px-5 py-5">
-                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Respuesta automatizada</p>
+                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">Seguimiento</p>
                     <p className="mt-3 text-sm leading-7 text-ink">
-                      WhatsApp y PDF listos para responder mejor y proyectar una empresa mas estructurada.
+                      Confirmacion inmediata, mejor orden interno y una percepcion mas profesional para el cliente.
                     </p>
                   </div>
                 </div>

@@ -78,7 +78,7 @@ function OptionCard({ active, description, onClick, title }: OptionCardProps) {
       whileHover={{ x: -4, y: -4 }}
       whileTap={{ x: 2, y: 2 }}
     >
-      <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Auto avance</p>
+      <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Seleccion</p>
       <div>
         <h3 className="font-display text-[clamp(1.45rem,2.4vw,2rem)] font-bold leading-[0.98] tracking-[-0.035em]">
           {title}
@@ -287,18 +287,18 @@ export function QuoteSimulator({
       <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
         <motion.div {...revealUp}>
           <SectionIntro
-            aside={<PrimaryButton href="mailto:contacto@bcaingenieria.com">Solicitar implementacion</PrimaryButton>}
-            description="Prueba el recorrido principal: captura un prospecto, genera un rango preliminar y abre el seguimiento con PDF y panel."
-            eyebrow="Lead Terminal BCA"
-            title="Prueba el recorrido principal del sistema."
+            aside={<PrimaryButton href="mailto:contacto@bcaingenieria.com">Enviar proyecto</PrimaryButton>}
+            description="BCA puede recibir mejor una solicitud inicial, filtrar el proyecto y devolver una referencia preliminar con una presentacion mas formal."
+            eyebrow="Cotizacion preliminar"
+            title="Cotiza tu proyecto y recibe una referencia inicial."
           />
         </motion.div>
 
         <div className="mt-12 grid gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
           <SurfaceCard className="overflow-hidden">
             <div className="border-b border-ink/10 bg-ink px-5 py-4 text-white">
-              <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Resumen en vivo</p>
-              <p className="mt-2 text-sm leading-6 text-white/84">Lo que el sistema ya tiene listo mientras avanzas.</p>
+              <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Resumen de solicitud</p>
+              <p className="mt-2 text-sm leading-6 text-white/84">Informacion clave para perfilar mejor el proyecto desde el inicio.</p>
             </div>
 
             <div className="space-y-6 bg-surface p-5">
@@ -343,7 +343,7 @@ export function QuoteSimulator({
                 <div className="flex items-start gap-3 border border-ink/15 bg-white px-4 py-4 shadow-plate-sm">
                   <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-hydro-cyan" />
                   <p className="text-sm leading-7 text-graphite/82">
-                    La idea es capturar mejor el lead desde el inicio para que el seguimiento salga mas ordenado.
+                    El resultado es preliminar y sirve como base para validar mejor el proyecto antes de una cotizacion definitiva.
                   </p>
                 </div>
               </div>
@@ -361,20 +361,20 @@ export function QuoteSimulator({
           <SurfaceCard className="overflow-hidden">
             <div className="grid gap-px bg-concrete sm:grid-cols-4">
               <div className="bg-ink px-5 py-4 text-white">
-                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Captura</p>
-                <p className="mt-2 text-sm">Lead completo</p>
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Solicitud</p>
+                <p className="mt-2 text-sm">Datos mejor perfilados</p>
               </div>
               <div className="bg-white px-5 py-4">
-                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">WhatsApp</p>
-                <p className="mt-2 text-sm text-ink">Aviso inmediato</p>
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Confirmacion</p>
+                <p className="mt-2 text-sm text-ink">Respuesta mas inmediata</p>
               </div>
               <div className="bg-white px-5 py-4">
-                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">PDF</p>
-                <p className="mt-2 text-sm text-ink">Listo para enviar</p>
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Pre-cotizacion</p>
+                <p className="mt-2 text-sm text-ink">Lista para enviar</p>
               </div>
               <div className="bg-white px-5 py-4">
-                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Panel</p>
-                <p className="mt-2 text-sm text-ink">Seguimiento diario</p>
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Seguimiento</p>
+                <p className="mt-2 text-sm text-ink">Atencion mas ordenada</p>
               </div>
             </div>
 
@@ -392,10 +392,10 @@ export function QuoteSimulator({
                     <div>
                       <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">01 / Tipo de obra</p>
                       <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                        Selecciona el tipo de obra.
+                        Selecciona el tipo de proyecto.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Elige el frente principal para arrancar la captura.
+                        Esto ayuda a ordenar mejor la referencia inicial y el contexto del servicio.
                       </p>
                     </div>
 
@@ -425,10 +425,10 @@ export function QuoteSimulator({
                     <div>
                       <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">02 / Especialidad</p>
                       <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                        Selecciona la especialidad.
+                        Selecciona la especialidad principal.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Esto ayuda a perfilar mejor el lead y el rango preliminar.
+                        El cotizador toma esta base para perfilar mejor la respuesta preliminar.
                       </p>
                     </div>
 
@@ -461,7 +461,7 @@ export function QuoteSimulator({
                         Captura el metraje estimado.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Una referencia simple basta para generar la banda preliminar.
+                        Una referencia simple es suficiente para abrir una banda preliminar de inversion.
                       </p>
                     </div>
 
@@ -509,10 +509,10 @@ export function QuoteSimulator({
                     <div>
                       <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">04 / Contacto y empresa</p>
                       <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                        Deja listo el prospecto.
+                        Deja lista la solicitud.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Estos datos llenan el panel, el PDF y las acciones de seguimiento.
+                        Estos datos ayudan a responder con mas orden y mejor presentacion desde el primer contacto.
                       </p>
                     </div>
 
@@ -575,7 +575,7 @@ export function QuoteSimulator({
                       ) : null}
 
                       <PrimaryButton className="px-6 py-4" type="submit">
-                        Generar expediente y pre-cotizacion
+                        Generar referencia preliminar
                       </PrimaryButton>
                     </form>
                   </motion.div>
@@ -594,7 +594,7 @@ export function QuoteSimulator({
                       <div className="space-y-5">
                         <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Procesando expediente</p>
                         <h3 className="font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                          Preparando resultado y acciones.
+                          Preparando referencia preliminar.
                         </h3>
                         <div className="border border-ink/15 bg-white p-4 shadow-plate-sm">
                           <motion.div
@@ -607,9 +607,9 @@ export function QuoteSimulator({
                     ) : (
                       <div className="space-y-6">
                         <div>
-                          <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Lead registrado</p>
+                          <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Solicitud registrada</p>
                           <h3 className="mt-4 font-display text-[clamp(1.85rem,3.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ink">
-                            El lead ya quedo listo para seguimiento.
+                            BCA ya tiene una base preliminar para continuar.
                           </h3>
                         </div>
 
@@ -630,11 +630,11 @@ export function QuoteSimulator({
                             <div className="mt-6 flex flex-wrap gap-3">
                               <span className="inline-flex items-center gap-2 border border-ink/15 bg-surface px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink">
                                 <CheckCircle2 className="h-4 w-4 text-hydro-cyan" />
-                                Lead creado
+                                Solicitud completa
                               </span>
                               <span className="inline-flex items-center gap-2 border border-ink/15 bg-surface px-3 py-2 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink">
                                 <Workflow className="h-4 w-4 text-industrial-gold" />
-                                Panel disponible
+                                Seguimiento listo
                               </span>
                             </div>
 
@@ -663,13 +663,13 @@ export function QuoteSimulator({
                               <div className="flex items-center gap-3">
                                 <CheckCircle2 className="h-4 w-4 text-hydro-cyan" />
                                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                                  WhatsApp cliente
+                                  Confirmacion inmediata
                                 </p>
                               </div>
                               <p className="mt-3 text-sm leading-7 text-ink">
                                 {whatsappTriggered
                                   ? `Enviado a ${latestLead?.phone}. La recepcion del proyecto ya quedo confirmada.`
-                                  : "Listo para confirmar la recepcion del proyecto."}
+                                  : "Lista para enviarse con mejor presentacion desde el primer contacto."}
                               </p>
                             </div>
 
@@ -677,13 +677,13 @@ export function QuoteSimulator({
                               <div className="flex items-center gap-3">
                                 <MessageSquareMore className="h-4 w-4 text-industrial-gold" />
                                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">
-                                  Siguiente paso
+                                  Continuidad comercial
                                 </p>
                               </div>
                               <p className="mt-3 text-sm leading-7 text-ink">
                                 {whatsappTriggered
-                                  ? "Ya puede pasar al panel para contacto o seguimiento."
-                                  : "Descarga el PDF o abre el panel para continuar."}
+                                  ? "La solicitud ya puede pasar a seguimiento interno con mas orden."
+                                  : "Descarga la pre-cotizacion o abre la vista interna para continuar."}
                               </p>
                             </div>
                           </div>
@@ -699,7 +699,7 @@ export function QuoteSimulator({
                             type="button"
                             variant="secondary"
                           >
-                            Descargar PDF
+                            Descargar pre-cotizacion
                           </PrimaryButton>
 
                           <PrimaryButton
@@ -707,20 +707,20 @@ export function QuoteSimulator({
                             type="button"
                             variant="secondary"
                           >
-                            Simular WhatsApp
+                            Confirmar por WhatsApp
                           </PrimaryButton>
 
                           <PrimaryButton
                             onClick={onOpenAdmin}
                             type="button"
                           >
-                            Abrir panel BCA
+                            Ver seguimiento interno
                             <ArrowRight className="h-4 w-4" />
                           </PrimaryButton>
                         </div>
 
                         <p className="border border-ink/15 bg-white px-5 py-4 text-sm leading-7 text-graphite/84 shadow-plate-sm">
-                          Calculo preliminar sujeto a validacion tecnica en sitio.
+                          Rango preliminar sujeto a levantamiento y validacion tecnica en sitio.
                         </p>
                       </div>
                     )}

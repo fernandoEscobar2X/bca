@@ -1,8 +1,7 @@
 export const navigationLinks = [
   { label: "Especialidades", href: "#especialidades" },
-  { label: "Modulos", href: "#modulos" },
-  { label: "Panel", href: "#panel" },
   { label: "Cotizador", href: "#cotizador" },
+  { label: "Seguimiento", href: "#seguimiento" },
   { label: "Contacto", href: "#contacto" },
 ] as const;
 
@@ -14,10 +13,10 @@ export const heroStats = [
 ] as const;
 
 export const trustItems = [
-  "Captura prospectos desde la web",
-  "Ordena seguimiento sin Excel",
-  "Genera PDF preliminar al instante",
-  "Confirma recepcion por WhatsApp",
+  "Residencial, comercial e industrial",
+  "Diseno, instalacion y pruebas",
+  "Cotizacion preliminar con validacion en sitio",
+  "Atencion mas formal desde el primer contacto",
 ] as const;
 
 export const systemModules = [
@@ -68,31 +67,55 @@ export const benefitItems = [
 
 export const services = [
   {
-    code: "HS-01",
-    title: "Instalaciones Hidrosanitarias",
+    code: "DC-01",
+    title: "Diseno y calculo de instalaciones hidrosanitarias y gas",
     description:
-      "Redes hidraulicas, sanitarias y pluviales con trazos coordinados, pendientes controladas y pruebas de recepcion.",
+      "Memorias, criterios de calculo, especificaciones y definicion tecnica para proyectos que requieren orden desde la etapa inicial.",
     accent: "hydro",
-    bullets: ["Diseno y memorias", "Supervision de obra", "Pruebas y entrega"],
+    bullets: ["Memorias y calculo", "Criterio normativo", "Bases para ejecucion"],
   },
   {
-    code: "GI-02",
-    title: "Gas Natural y LP",
+    code: "HS-02",
+    title: "Instalaciones hidrosanitarias en residencial, comercial e industrial",
     description:
-      "Conduccion, regulacion y seguridad operacional para activos industriales, corporativos y de servicio continuo.",
+      "Redes hidraulicas, sanitarias y pluviales con trazos claros, pendientes controladas y mejor coordinacion en obra.",
+    accent: "hydro",
+    bullets: ["Redes hidraulicas", "Redes sanitarias", "Instalacion en obra"],
+  },
+  {
+    code: "GA-03",
+    title: "Instalaciones de gas LP y natural",
+    description:
+      "Conduccion, regulacion y seguridad para proyectos residenciales, comerciales e industriales con liberacion tecnica.",
     accent: "gold",
     bullets: ["Tuberias y regulacion", "Hermeticidad", "Liberacion tecnica"],
   },
   {
-    code: "AL-03",
-    title: "Albercas y Recirculacion",
+    code: "AL-04",
+    title: "Instalaciones hidrosanitarias de albercas",
     description:
-      "Cuartos de maquinas, filtrado, balance hidraulico y continuidad operativa para amenidades de alto estandar.",
+      "Integracion hidraulica para vasos, filtrado, recirculacion y cuartos de maquinas con mejor control de operacion.",
     accent: "hydro",
-    bullets: ["Balance hidraulico", "Filtrado", "Operacion premium"],
+    bullets: ["Recirculacion", "Cuarto de maquinas", "Filtrado"],
   },
   {
-    code: "PH-04",
+    code: "SA-05",
+    title: "Instalacion de equipos suavizadores de agua",
+    description:
+      "Integracion de equipos de tratamiento para mejorar condicion del agua y proteger la operacion del sistema hidraulico.",
+    accent: "hydro",
+    bullets: ["Tratamiento de agua", "Conexion de equipos", "Puesta en marcha"],
+  },
+  {
+    code: "BH-06",
+    title: "Instalacion de equipos de bombeo hidraulico",
+    description:
+      "Montaje y conexion de equipos para presion, distribucion y continuidad operativa en distintos tipos de proyecto.",
+    accent: "gold",
+    bullets: ["Equipos de bombeo", "Presion y control", "Operacion continua"],
+  },
+  {
+    code: "PH-07",
     title: "Pruebas Hidrostaticas",
     description:
       "Protocolos de verificacion para recepcion de redes, deteccion de fugas y cierre documental previo a entrega.",
@@ -142,9 +165,14 @@ export const processSteps = [
 
 export const projectTypes = [
   {
-    id: "corporativo",
-    label: "Corporativo",
-    description: "Oficinas, campus, inmuebles administrativos y espacios de alta ocupacion.",
+    id: "residencial",
+    label: "Residencial",
+    description: "Casas, torres, conjuntos habitacionales y proyectos de vivienda con requerimientos tecnicos claros.",
+  },
+  {
+    id: "comercial",
+    label: "Comercial",
+    description: "Locales, plazas, oficinas, restaurantes y espacios de servicio con atencion mas formal.",
   },
   {
     id: "industrial",
@@ -156,14 +184,14 @@ export const projectTypes = [
     label: "Hoteleria",
     description: "Amenidades, cuartos tecnicos y servicios con exigencia permanente de operacion.",
   },
-  {
-    id: "institucional",
-    label: "Institucional",
-    description: "Equipamiento educativo, hospitalario o publico con control riguroso de cumplimiento.",
-  },
 ] as const;
 
 export const specialtyOptions = [
+  {
+    id: "diseno-calculo",
+    label: "Diseno y calculo",
+    description: "Memorias, calculo y criterios tecnicos para instalaciones hidrosanitarias y gas.",
+  },
   {
     id: "hidrosanitario",
     label: "Instalaciones Hidrosanitarias",
@@ -176,8 +204,18 @@ export const specialtyOptions = [
   },
   {
     id: "albercas",
-    label: "Albercas y Recirculacion",
+    label: "Instalaciones de albercas",
     description: "Vasos, filtrado, recirculacion y cuarto de maquinas.",
+  },
+  {
+    id: "suavizadores",
+    label: "Equipos suavizadores de agua",
+    description: "Integracion de equipos para tratamiento y mejor condicion del agua.",
+  },
+  {
+    id: "bombeo",
+    label: "Equipos de bombeo hidraulico",
+    description: "Bombas, control de presion y continuidad operativa del sistema.",
   },
   {
     id: "pruebas",

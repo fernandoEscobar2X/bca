@@ -1,4 +1,4 @@
-import { ArrowRight, FileText, Mail, Phone } from "lucide-react";
+import { ArrowRight, FileText, MessageSquareMore } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { PrimaryButton } from "../components/ui/PrimaryButton";
@@ -14,48 +14,35 @@ type PanelPreviewSectionProps = {
   onOpenAdmin: () => void;
 };
 
-const priorityTone = {
-  Nuevo: "border-[#8ed8f5] bg-hydro-cyan/12 text-ink",
-  "En revision": "border-[#e3cf74] bg-industrial-gold/16 text-ink",
-  Contactado: "border-ink/15 bg-surface text-graphite",
-} as const;
-
-const nextAction = {
-  Nuevo: "Llamar ahora",
-  "En revision": "Enviar PDF",
-  Contactado: "Dar seguimiento",
-} as const;
-
 export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionProps) {
-  const previewLeads = leads.slice(0, 4);
+  const previewLeads = leads.slice(0, 3);
   const activeLead = previewLeads[0] ?? null;
 
   return (
-    <section className="border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="panel">
+    <section className="border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="seguimiento">
       <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
         <motion.div {...revealUp}>
           <SectionIntro
             aside={
-              <PrimaryButton onClick={onOpenAdmin} type="button">
-                Abrir panel demo
+              <PrimaryButton onClick={onOpenAdmin} type="button" variant="secondary">
+                Acceso interno
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
             }
-            description="El panel se presenta como una extension natural de la marca: ordenado, claro y listo para dar seguimiento con mas formalidad."
-            eyebrow="Preview del panel"
-            title="Mas control comercial sin perder claridad de uso."
+            description="La nueva presencia digital de BCA no solo capta mejor: tambien ayuda a responder con mas orden, mejor presentacion y una continuidad comercial mas clara."
+            eyebrow="Respuesta y seguimiento"
+            title="Una experiencia mas formal desde la solicitud inicial hasta la respuesta."
           />
         </motion.div>
 
-        <div className="mt-12 grid gap-5 xl:grid-cols-[minmax(0,1.12fr)_360px]">
+        <div className="mt-12 grid gap-5 xl:grid-cols-[minmax(0,1.05fr)_380px]">
           <motion.div {...revealUp}>
             <SurfaceCard className="overflow-hidden">
               <div className="border-b border-ink/10 bg-white px-5 py-4">
-                <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_140px_140px_160px]">
-                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Prospecto</p>
-                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Prioridad</p>
+                <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_140px_160px]">
+                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Seguimiento interno</p>
                   <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Estado</p>
-                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Siguiente accion</p>
+                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Siguiente paso</p>
                 </div>
               </div>
 
@@ -63,7 +50,7 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
                 {previewLeads.map((lead) => (
                   <div
                     className={cn(
-                      "grid gap-4 px-5 py-4 md:grid-cols-[minmax(0,1fr)_140px_140px_160px]",
+                      "grid gap-4 px-5 py-4 md:grid-cols-[minmax(0,1fr)_140px_160px]",
                       activeLead?.id === lead.id ? "bg-surface" : "bg-white",
                     )}
                     key={lead.id}
@@ -75,19 +62,15 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
                       </p>
                     </div>
                     <div className="flex items-center">
-                      <span
-                        className={cn(
-                          "inline-flex items-center border px-3 py-1.5 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em]",
-                          priorityTone[lead.status],
-                        )}
-                      >
-                        {lead.status === "Nuevo" ? "Alta" : lead.status === "En revision" ? "Media" : "Baja"}
-                      </span>
-                    </div>
-                    <div className="flex items-center">
                       <StatusBadge compact status={lead.status} />
                     </div>
-                    <div className="flex items-center text-sm font-semibold text-ink">{nextAction[lead.status]}</div>
+                    <div className="flex items-center text-sm font-semibold text-ink">
+                      {lead.status === "Nuevo"
+                        ? "Contacto inicial"
+                        : lead.status === "En revision"
+                          ? "Enviar pre-cotizacion"
+                          : "Seguimiento"}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -95,49 +78,46 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
           </motion.div>
 
           {activeLead ? (
-            <motion.div {...revealUp}>
+            <motion.div className="grid gap-5" {...revealUp}>
               <SurfaceCard className="overflow-hidden">
-                <div className="border-b border-ink/10 bg-white px-5 py-5">
+                <div className="border-b border-ink/10 bg-white px-5 py-4">
                   <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                    Lead seleccionado
-                  </p>
-                  <h3 className="mt-3 text-2xl font-semibold leading-tight text-ink">{activeLead.company}</h3>
-                  <p className="mt-2 text-sm leading-6 text-graphite/76">
-                    {activeLead.projectTypeLabel} / {activeLead.specialtyLabel} / {activeLead.squareMeters} m2
+                    Confirmacion inmediata
                   </p>
                 </div>
-
-                <div className="grid gap-px bg-concrete">
-                  <div className="bg-white px-5 py-4">
-                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">Contacto</p>
-                    <p className="mt-3 text-sm font-semibold text-ink">{activeLead.contactName}</p>
-                    <p className="mt-1 text-sm leading-6 text-ink">{activeLead.phone}</p>
-                    <p className="text-sm leading-6 text-ink">{activeLead.email}</p>
-                  </div>
-                  <div className="bg-white px-5 py-4">
-                    <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite">Rango preliminar</p>
-                    <p className="mt-3 text-base font-semibold text-ink">
-                      {formatCurrency(activeLead.estimate.minimum)} - {formatCurrency(activeLead.estimate.maximum)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid gap-3 bg-surface px-5 py-5 sm:grid-cols-2">
-                  <button className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm" type="button">
-                    <Phone className="h-4 w-4 text-hydro-cyan" />
-                    Llamar
-                  </button>
-                  <button className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm" type="button">
-                    <Mail className="h-4 w-4 text-hydro-cyan" />
-                    Correo
-                  </button>
-                  <button className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm" type="button">
+                <div className="bg-white px-5 py-5">
+                  <div className="inline-flex items-center gap-2 border border-ink/10 bg-surface px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-hydro-cyan">
+                    <MessageSquareMore className="h-4 w-4" />
                     WhatsApp
-                  </button>
-                  <button className="inline-flex items-center justify-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm" type="button">
-                    <FileText className="h-4 w-4 text-hydro-cyan" />
-                    PDF
-                  </button>
+                  </div>
+                  <p className="mt-4 text-sm leading-7 text-ink">
+                    Hola {activeLead.contactName}, recibimos tu solicitud para {activeLead.specialtyLabel}. En breve
+                    revisamos los datos para continuar con la atencion.
+                  </p>
+                </div>
+              </SurfaceCard>
+
+              <SurfaceCard className="overflow-hidden">
+                <div className="border-b border-ink/10 bg-white px-5 py-4">
+                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                    Pre-cotizacion lista para enviar
+                  </p>
+                </div>
+                <div className="bg-white px-5 py-5">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center border border-ink/10 bg-surface">
+                      <FileText className="h-5 w-5 text-hydro-cyan" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-ink">{activeLead.company}</p>
+                      <p className="mt-1 text-sm leading-6 text-graphite/72">
+                        {formatCurrency(activeLead.estimate.minimum)} - {formatCurrency(activeLead.estimate.maximum)}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-sm leading-7 text-ink">
+                    Una mejor presentacion tambien ayuda a que BCA responda con mas formalidad desde la etapa preliminar.
+                  </p>
                 </div>
               </SurfaceCard>
             </motion.div>

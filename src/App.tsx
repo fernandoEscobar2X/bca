@@ -4,14 +4,12 @@ import { initialLeadRecords } from "./content/automationContent";
 import { downloadPrequotePdf } from "./lib/pdf";
 import type { LeadRecord, LeadStatus } from "./lib/quote";
 import { AdminWorkspace } from "./sections/AdminWorkspace";
-import { BenefitsSection } from "./sections/BenefitsSection";
 import { HeroSection } from "./sections/HeroSection";
 import { PanelPreviewSection } from "./sections/PanelPreviewSection";
 import { QuoteSimulator } from "./sections/QuoteSimulator";
 import { ServicesSection } from "./sections/ServicesSection";
 import { SiteFooter } from "./sections/SiteFooter";
 import { SiteHeader } from "./sections/SiteHeader";
-import { SystemModulesSection } from "./sections/SystemModulesSection";
 import { TrustStrip } from "./sections/TrustStrip";
 
 export function App() {
@@ -73,15 +71,13 @@ export function App() {
           <HeroSection onOpenAdmin={() => setView("admin")} />
           <TrustStrip />
           <ServicesSection />
-          <SystemModulesSection />
-          <PanelPreviewSection leads={leads} onOpenAdmin={() => setView("admin")} />
           <QuoteSimulator
             onDownloadPdf={handleDownloadPdf}
             onLeadGenerated={handleLeadGenerated}
             onOpenAdmin={() => setView("admin")}
             onSimulateWhatsapp={handleSimulateWhatsapp}
           />
-          <BenefitsSection />
+          <PanelPreviewSection leads={leads} onOpenAdmin={() => setView("admin")} />
         </div>
       </main>
 

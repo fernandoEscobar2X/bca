@@ -29,7 +29,7 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
                 BCA INGENIERIA
               </p>
               <p className="mt-1 hidden font-sans text-[0.68rem] font-medium uppercase tracking-[0.14em] text-graphite/66 sm:block">
-                Demo | Sistema comercial
+                Proyectos | Construccion
               </p>
             </div>
           </a>
@@ -61,19 +61,19 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
               type="button"
             >
               <LockKeyhole className="h-4 w-4 text-hydro-cyan" />
-              Panel
+              Acceso interno
             </button>
 
             <PrimaryButton href="#cotizador">
-              Probar sistema
+              Cotizar proyecto
               <ArrowRight className="h-4 w-4" />
             </PrimaryButton>
           </div>
 
           <div className="flex shrink-0 items-center gap-2 xl:hidden">
             <PrimaryButton className="px-4 py-3 text-[0.68rem] sm:px-5" href="#cotizador">
-              <span className="hidden sm:inline">Probar sistema</span>
-              <span className="sm:hidden">Probar</span>
+              <span className="hidden sm:inline">Cotizar proyecto</span>
+              <span className="sm:hidden">Cotizar</span>
               <ArrowRight className="h-4 w-4" />
             </PrimaryButton>
 
@@ -133,7 +133,7 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
                   type="button"
                 >
                   <LockKeyhole className="h-4 w-4 text-hydro-cyan" />
-                  Panel
+                  Acceso interno
                 </button>
               </div>
             </motion.div>

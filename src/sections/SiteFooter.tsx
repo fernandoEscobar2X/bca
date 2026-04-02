@@ -18,7 +18,7 @@ export function SiteFooter() {
               <img alt="BCA Ingenieria" className="h-auto w-full object-contain" src="/assets/bca-logo.jpeg" />
             </div>
             <p className="max-w-xs text-sm leading-7 text-surface/76">
-              Demo comercial del sistema BCA para captar, ordenar y dar seguimiento a prospectos con mas claridad.
+              Ingenieria hidrosanitaria, gas, bombeo y pruebas para proyectos residenciales, comerciales e industriales.
             </p>
           </div>
 
@@ -32,13 +32,13 @@ export function SiteFooter() {
               <p className="mt-2 text-base text-surface">contacto@bcaingenieria.com</p>
             </div>
             <div>
-              <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Demo</p>
-              <p className="mt-2 text-base text-surface">Lead Terminal, Panel, WhatsApp y PDF</p>
+              <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Atencion</p>
+              <p className="mt-2 text-base text-surface">Cotizacion preliminar, mejor presentacion y seguimiento mas claro</p>
             </div>
           </div>
 
           <PrimaryButton href="#cotizador">
-            Probar sistema
+            Cotizar proyecto
             <ArrowRight className="h-4 w-4" />
           </PrimaryButton>
         </div>

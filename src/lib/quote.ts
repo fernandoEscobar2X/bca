@@ -53,17 +53,20 @@ export const initialQuoteState: QuoteState = {
 
 export function calculateEstimate(projectType: ProjectTypeId, specialty: SpecialtyId, squareMeters: number): ResultRange {
   const specialtyConfig: Record<SpecialtyId, { min: number; max: number; mobilization: number }> = {
+    "diseno-calculo": { min: 95, max: 145, mobilization: 12000 },
     hidrosanitario: { min: 310, max: 380, mobilization: 18000 },
     gas: { min: 290, max: 360, mobilization: 21000 },
     albercas: { min: 540, max: 690, mobilization: 28000 },
+    suavizadores: { min: 185, max: 245, mobilization: 14000 },
+    bombeo: { min: 215, max: 290, mobilization: 17000 },
     pruebas: { min: 125, max: 170, mobilization: 15000 },
   };
 
   const projectMultiplier: Record<ProjectTypeId, number> = {
-    corporativo: 1,
+    residencial: 0.92,
+    comercial: 1,
     industrial: 1.2,
     hotelero: 1.14,
-    institucional: 1.22,
   };
 
   const range = specialtyConfig[specialty];
@@ -84,7 +87,7 @@ export function formatCurrency(value: number) {
 }
 
 function getProjectTypeLabel(projectType: ProjectTypeId) {
-  return projectTypes.find((item) => item.id === projectType)?.label ?? "Activo corporativo";
+  return projectTypes.find((item) => item.id === projectType)?.label ?? "Proyecto";
 }
 
 function getSpecialtyLabel(specialty: SpecialtyId) {
