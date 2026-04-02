@@ -19,26 +19,26 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
     <header className="fixed inset-x-0 top-5 z-50 px-5 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[88rem] border border-ink bg-white shadow-plate">
         <div className="flex items-center justify-between gap-3 px-4 py-3 lg:px-5">
-          <a className="flex min-w-0 flex-1 items-center gap-3" href="#inicio" onClick={() => setIsMenuOpen(false)}>
+          <a className="flex min-w-0 flex-1 items-center gap-3 xl:flex-none" href="#inicio" onClick={() => setIsMenuOpen(false)}>
             <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-ink/10 bg-surface sm:h-14 sm:w-14">
               <img alt="BCA Ingenieria" className="h-9 w-9 object-contain sm:h-10 sm:w-10" src="/assets/bca-logo.jpeg" />
             </div>
 
-            <div className="min-w-0">
-              <p className="truncate font-display text-[clamp(1.2rem,4.1vw,2.15rem)] font-bold leading-none tracking-[-0.035em] text-ink">
+            <div className="min-w-0 xl:min-w-[19rem]">
+              <p className="font-display text-[clamp(1.2rem,4.1vw,2.15rem)] font-bold leading-none tracking-[-0.035em] text-ink xl:whitespace-nowrap">
                 BCA INGENIERIA
               </p>
               <p className="mt-1 hidden font-sans text-[0.68rem] font-medium uppercase tracking-[0.14em] text-graphite/66 sm:block">
-                Proyectos | Construccion
+                Proyectos | Hidrosanitarias | Gas | Bombeo
               </p>
             </div>
           </a>
 
-          <div className="hidden items-center gap-3 xl:flex">
-            <nav aria-label="Principal" className="flex items-center gap-2">
+          <div className="hidden min-w-0 items-center gap-3 xl:flex">
+            <nav aria-label="Principal" className="flex min-w-0 items-center gap-1">
               {navigationLinks.map((link) => (
                 <a
-                  className="inline-flex items-center px-3 py-2 font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite transition-colors hover:text-industrial-gold"
+                  className="inline-flex items-center px-3 py-2 font-sans text-[0.7rem] font-medium uppercase tracking-[0.14em] text-graphite transition-colors hover:text-industrial-gold"
                   href={link.href}
                   key={link.label}
                 >
@@ -48,7 +48,7 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
             </nav>
 
             <a
-              className="inline-flex items-center gap-2 border border-ink/10 bg-surface px-4 py-3 font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-ink"
+              className="inline-flex items-center gap-2 px-3 py-3 font-sans text-[0.7rem] font-medium uppercase tracking-[0.14em] text-ink"
               href="tel:+528100000000"
             >
               <Phone className="h-4 w-4 text-hydro-cyan" />
@@ -56,7 +56,7 @@ export function SiteHeader({ onOpenAdmin }: SiteHeaderProps) {
             </a>
 
             <button
-              className="inline-flex items-center gap-2 border border-ink/15 bg-white px-4 py-3 font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
+              className="inline-flex items-center gap-2 px-3 py-3 font-sans text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:text-hydro-cyan"
               onClick={onOpenAdmin}
               type="button"
             >

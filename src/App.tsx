@@ -6,6 +6,8 @@ import type { LeadRecord, LeadStatus } from "./lib/quote";
 import { AdminWorkspace } from "./sections/AdminWorkspace";
 import { HeroSection } from "./sections/HeroSection";
 import { PanelPreviewSection } from "./sections/PanelPreviewSection";
+import { PortfolioSection } from "./sections/PortfolioSection";
+import { ProcessSection } from "./sections/ProcessSection";
 import { QuoteSimulator } from "./sections/QuoteSimulator";
 import { ServicesSection } from "./sections/ServicesSection";
 import { SiteFooter } from "./sections/SiteFooter";
@@ -71,6 +73,8 @@ export function App() {
           <HeroSection />
           <TrustStrip />
           <ServicesSection />
+          <PortfolioSection />
+          <ProcessSection />
           <QuoteSimulator
             onDownloadPdf={handleDownloadPdf}
             onLeadGenerated={handleLeadGenerated}

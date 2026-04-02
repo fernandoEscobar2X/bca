@@ -1,7 +1,7 @@
 export const navigationLinks = [
   { label: "Especialidades", href: "#especialidades" },
+  { label: "Casos", href: "#casos" },
   { label: "Cotizador", href: "#cotizador" },
-  { label: "Seguimiento", href: "#seguimiento" },
   { label: "Contacto", href: "#contacto" },
 ] as const;
 
@@ -13,10 +13,10 @@ export const heroStats = [
 ] as const;
 
 export const trustItems = [
-  "Residencial, comercial e industrial",
-  "Diseno, instalacion y pruebas",
-  "Cotizacion preliminar con validacion en sitio",
-  "Atencion mas formal desde el primer contacto",
+  "Residencial, comercial, industrial y hotelero",
+  "Gas LP y natural, bombeo y pruebas",
+  "Respuesta preliminar con validacion en sitio",
+  "Presentacion comercial mas seria para cada proyecto",
 ] as const;
 
 export const systemModules = [
