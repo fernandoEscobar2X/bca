@@ -7,16 +7,16 @@ import { services } from "../content/siteContent";
 
 const heroSlides = [
   {
+    src: "/assets/hero-bca-gas-dark.png",
+    alt: "Infraestructura de gas industrial con tuberias, valvulas y zona oscura para texto",
+  },
+  {
+    src: "/assets/hero-bca-water-dark.png",
+    alt: "Cuarto tecnico con filtrado, suavizadores y equipos hidraulicos",
+  },
+  {
     src: "/assets/hero-industrial.jpg",
     alt: "Supervision tecnica en obra para instalaciones hidrosanitarias y gas",
-  },
-  {
-    src: "/assets/hero-bca-pipes.jpg",
-    alt: "Infraestructura industrial con tuberias para instalaciones tecnicas",
-  },
-  {
-    src: "/assets/hero-bca-site.jpg",
-    alt: "Frente de obra industrial con tuberia y elementos de infraestructura",
   },
 ] as const;
 
