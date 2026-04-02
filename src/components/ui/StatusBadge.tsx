@@ -8,7 +8,7 @@ type StatusBadgeProps = {
 
 const statusMap: Record<LeadStatus, string> = {
   Nuevo: "border-hydro-cyan/35 bg-hydro-cyan/10 text-ink",
-  "En revision": "border-industrial-gold/45 bg-industrial-gold/15 text-ink",
+  "En revisión": "border-industrial-gold/45 bg-industrial-gold/15 text-ink",
   Contactado: "border-ink/15 bg-ink text-white",
 };
 

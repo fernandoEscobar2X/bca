@@ -69,7 +69,7 @@ function OptionCard({ active, description, onClick, title }: OptionCardProps) {
   return (
     <motion.button
       className={cn(
-        "flex min-h-[170px] flex-col justify-between border p-5 text-left",
+        "flex min-h-[146px] flex-col justify-between border p-5 text-left sm:min-h-[170px]",
         active ? "border-ink bg-industrial-gold text-ink shadow-plate" : "border-ink/15 bg-white text-ink shadow-plate-sm",
       )}
       onClick={onClick}
@@ -78,7 +78,7 @@ function OptionCard({ active, description, onClick, title }: OptionCardProps) {
       whileHover={{ x: -4, y: -4 }}
       whileTap={{ x: 2, y: 2 }}
     >
-      <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Seleccion</p>
+      <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Selección</p>
       <div>
         <h3 className="font-display text-[clamp(1.45rem,2.4vw,2rem)] font-bold leading-[0.98] tracking-[-0.035em]">
           {title}
@@ -282,23 +282,54 @@ export function QuoteSimulator({
     },
   ];
 
+  const currentStepIndex = step === 5 ? 4 : step;
+  const currentStepMeta = stepLabels[currentStepIndex - 1];
+  const showMobileSummary =
+    step > 1 || Boolean(quote.projectType || quote.specialty || quote.squareMeters || contact.company || contact.contactName);
+
   return (
-    <section className="border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="cotizador">
-      <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="border-b border-ink/10 bg-surface scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="cotizador">
+      <div className="mx-auto max-w-[88rem] px-5 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <motion.div {...revealUp}>
           <SectionIntro
-            aside={<PrimaryButton href="mailto:contacto@bcaingenieria.com">Enviar proyecto</PrimaryButton>}
-            description="BCA puede recibir mejor una solicitud inicial, filtrar el proyecto y devolver una referencia preliminar con una presentacion mas formal."
-            eyebrow="Cotizacion preliminar"
+            aside={
+              <PrimaryButton className="hidden sm:inline-flex" href="mailto:contacto@bcaingenieria.com">
+                Enviar proyecto
+              </PrimaryButton>
+            }
+            description="BCA puede recibir mejor una solicitud inicial, filtrar el proyecto y devolver una referencia preliminar con una presentación más formal."
+            eyebrow="Cotización preliminar"
             title="Cotiza tu proyecto y recibe una referencia inicial."
           />
         </motion.div>
 
-        <div className="mt-12 grid gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
-          <SurfaceCard className="overflow-hidden">
+        <div className={cn("xl:hidden", showMobileSummary ? "mt-8" : "mt-0")}>
+          {showMobileSummary ? (
+            <SurfaceCard className="overflow-hidden">
+              <div className="border-b border-ink/10 bg-ink px-4 py-4 text-white">
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                  Paso 0{currentStepIndex} / 04
+              </p>
+              <p className="mt-2 text-base font-semibold text-white">{currentStepMeta.label}</p>
+            </div>
+
+            <div className="grid gap-px bg-concrete sm:grid-cols-2">
+              {summaryItems.map((item) => (
+                <div className="bg-white px-4 py-4" key={item.label}>
+                  <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-graphite/62">{item.label}</p>
+                  <p className="mt-2 text-sm font-medium leading-6 text-ink">{item.value}</p>
+                </div>
+                ))}
+              </div>
+            </SurfaceCard>
+          ) : null}
+        </div>
+
+        <div className="mt-8 grid gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
+          <SurfaceCard className="hidden overflow-hidden xl:block">
             <div className="border-b border-ink/10 bg-ink px-5 py-4 text-white">
               <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Resumen de solicitud</p>
-              <p className="mt-2 text-sm leading-6 text-white/84">Informacion clave para perfilar mejor el proyecto desde el inicio.</p>
+              <p className="mt-2 text-sm leading-6 text-white/84">Información clave para perfilar mejor el proyecto desde el inicio.</p>
             </div>
 
             <div className="space-y-6 bg-surface p-5">
@@ -343,7 +374,7 @@ export function QuoteSimulator({
                 <div className="flex items-start gap-3 border border-ink/15 bg-white px-4 py-4 shadow-plate-sm">
                   <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-hydro-cyan" />
                   <p className="text-sm leading-7 text-graphite/82">
-                    El resultado es preliminar y sirve como base para validar mejor el proyecto antes de una cotizacion definitiva.
+                    El resultado es preliminar y sirve como base para validar mejor el proyecto antes de una cotización definitiva.
                   </p>
                 </div>
               </div>
@@ -359,22 +390,29 @@ export function QuoteSimulator({
           </SurfaceCard>
 
           <SurfaceCard className="overflow-hidden">
-            <div className="grid gap-px bg-concrete sm:grid-cols-4">
+            <div className="border-b border-ink/10 bg-ink px-5 py-4 text-white sm:hidden">
+              <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                Paso 0{currentStepIndex} / 04
+              </p>
+              <p className="mt-2 text-base font-semibold text-white">{currentStepMeta.label}</p>
+            </div>
+
+            <div className="hidden gap-px bg-concrete sm:grid sm:grid-cols-2 lg:grid-cols-4">
               <div className="bg-ink px-5 py-4 text-white">
                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Solicitud</p>
                 <p className="mt-2 text-sm">Datos mejor perfilados</p>
               </div>
               <div className="bg-white px-5 py-4">
                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Confirmacion</p>
-                <p className="mt-2 text-sm text-ink">Respuesta mas inmediata</p>
+                <p className="mt-2 text-sm text-ink">Respuesta más inmediata</p>
               </div>
               <div className="bg-white px-5 py-4">
-                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Pre-cotizacion</p>
+                <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Pre-cotización</p>
                 <p className="mt-2 text-sm text-ink">Lista para enviar</p>
               </div>
               <div className="bg-white px-5 py-4">
                 <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">Seguimiento</p>
-                <p className="mt-2 text-sm text-ink">Atencion mas ordenada</p>
+                <p className="mt-2 text-sm text-ink">Atención más ordenada</p>
               </div>
             </div>
 
@@ -461,7 +499,7 @@ export function QuoteSimulator({
                         Captura el metraje estimado.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Una referencia simple es suficiente para abrir una banda preliminar de inversion.
+                        Una referencia simple es suficiente para abrir una banda preliminar de inversión.
                       </p>
                     </div>
 
@@ -512,7 +550,7 @@ export function QuoteSimulator({
                         Deja lista la solicitud.
                       </h3>
                       <p className="mt-4 max-w-3xl text-sm leading-7 text-graphite/84 sm:text-base">
-                        Estos datos ayudan a responder con mas orden y mejor presentacion desde el primer contacto.
+                        Estos datos ayudan a responder con más orden y mejor presentación desde el primer contacto.
                       </p>
                     </div>
 
@@ -535,7 +573,7 @@ export function QuoteSimulator({
                           value={contact.company}
                         />
                         <Field
-                          label="Telefono"
+                          label="Teléfono"
                           name="phone"
                           onChange={handleContactChange}
                           placeholder="Ej. +52 81 1234 5678"
@@ -552,7 +590,7 @@ export function QuoteSimulator({
                           value={contact.email}
                         />
                         <Field
-                          label="Ubicacion del proyecto"
+                          label="Ubicación del proyecto"
                           name="location"
                           onChange={handleContactChange}
                           placeholder="Ej. Monterrey / Santa Catarina"
@@ -560,7 +598,7 @@ export function QuoteSimulator({
                           value={contact.location}
                         />
                         <Field
-                          label="Observacion breve"
+                          label="Observación breve"
                           name="notes"
                           onChange={handleContactChange}
                           placeholder="Ej. Frente activo, requiere continuidad operativa"
@@ -652,7 +690,7 @@ export function QuoteSimulator({
                                 <p className="mt-2 text-sm leading-6 text-ink">{latestLead?.contactName ?? "Pendiente"}</p>
                               </div>
                               <div>
-                                <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/60">Ubicacion</p>
+                                <p className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] text-graphite/60">Ubicación</p>
                                 <p className="mt-2 text-sm leading-6 text-ink">{latestLead?.location ?? "Pendiente"}</p>
                               </div>
                             </div>
@@ -668,8 +706,8 @@ export function QuoteSimulator({
                               </div>
                               <p className="mt-3 text-sm leading-7 text-ink">
                                 {whatsappTriggered
-                                  ? `Enviado a ${latestLead?.phone}. La recepcion del proyecto ya quedo confirmada.`
-                                  : "Lista para enviarse con mejor presentacion desde el primer contacto."}
+                                  ? `Enviado a ${latestLead?.phone}. La recepción del proyecto ya quedó confirmada.`
+                                  : "Lista para enviarse con mejor presentación desde el primer contacto."}
                               </p>
                             </div>
 
@@ -682,8 +720,8 @@ export function QuoteSimulator({
                               </div>
                               <p className="mt-3 text-sm leading-7 text-ink">
                                 {whatsappTriggered
-                                  ? "La solicitud ya puede pasar a seguimiento interno con mas orden."
-                                  : "Descarga la pre-cotizacion o abre la vista interna para continuar."}
+                                  ? "La solicitud ya puede pasar a seguimiento interno con más orden."
+                                  : "Descarga la pre-cotización o abre la vista interna para continuar."}
                               </p>
                             </div>
                           </div>
@@ -699,7 +737,7 @@ export function QuoteSimulator({
                             type="button"
                             variant="secondary"
                           >
-                            Descargar pre-cotizacion
+                            Descargar pre-cotización
                           </PrimaryButton>
 
                           <PrimaryButton
@@ -720,7 +758,7 @@ export function QuoteSimulator({
                         </div>
 
                         <p className="border border-ink/15 bg-white px-5 py-4 text-sm leading-7 text-graphite/84 shadow-plate-sm">
-                          Rango preliminar sujeto a levantamiento y validacion tecnica en sitio.
+                          Rango preliminar sujeto a levantamiento y validación técnica en sitio.
                         </p>
                       </div>
                     )}

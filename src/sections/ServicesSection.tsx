@@ -6,26 +6,26 @@ import { plateSpring, revealUp } from "../lib/motion";
 
 export function ServicesSection() {
   return (
-    <section className="border-b border-ink/10 bg-white scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="especialidades">
-      <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-10 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-12">
+    <section className="border-b border-ink/10 bg-white scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="especialidades">
+      <div className="mx-auto max-w-[88rem] px-5 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+        <div className="grid gap-8 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-12">
           <motion.div className="space-y-6 xl:sticky xl:top-32 xl:h-fit" {...revealUp}>
             <div className="space-y-4">
               <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
                 Especialidades BCA
               </p>
               <h2 className="max-w-sm font-display text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-[0.96] tracking-[-0.045em] text-ink">
-                Servicios reales con mejor estructura comercial y tecnica.
+                Servicios reales con mejor estructura comercial y técnica.
               </h2>
               <p className="max-w-sm text-sm leading-7 text-graphite/84 sm:text-base">
                 Hidrosanitarias, gas, bombeo, albercas, suavizadores y pruebas presentados como una empresa seria, no
-                como una lista generica de constructora.
+                como una lista genérica de constructora.
               </p>
             </div>
 
             <div className="relative overflow-hidden border border-ink bg-concrete shadow-plate">
               <img
-                alt="Instalacion tecnica de tuberias y supervision de obra"
+                alt="Instalación técnica de tuberías y supervisión de obra"
                 className="h-[22rem] w-full object-cover object-center"
                 src="/assets/hero-industrial.jpg"
               />
@@ -34,7 +34,7 @@ export function ServicesSection() {
               <div className="absolute bottom-0 left-0 right-0 grid gap-px bg-white/10 sm:grid-cols-2">
                 <div className="bg-ink/90 px-5 py-4 text-white">
                   <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                    Aplicacion
+                    Aplicación
                   </p>
                   <p className="mt-2 text-sm leading-6 text-white/86">
                     Residencial, comercial, industrial y hotelero.
@@ -45,7 +45,7 @@ export function ServicesSection() {
                     Criterio
                   </p>
                   <p className="mt-2 text-sm leading-6 text-ink">
-                    Diseno, instalacion, puesta en marcha y pruebas.
+                    Diseño, instalación, puesta en marcha y pruebas.
                   </p>
                 </div>
               </div>

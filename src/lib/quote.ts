@@ -14,7 +14,7 @@ export type ResultRange = {
   maximum: number;
 };
 
-export type LeadStatus = "Nuevo" | "En revision" | "Contactado";
+export type LeadStatus = "Nuevo" | "En revisión" | "Contactado";
 
 export type LeadContact = {
   contactName: string;
@@ -91,7 +91,7 @@ function getProjectTypeLabel(projectType: ProjectTypeId) {
 }
 
 function getSpecialtyLabel(specialty: SpecialtyId) {
-  return specialtyOptions.find((item) => item.id === specialty)?.label ?? "Especialidad tecnica";
+  return specialtyOptions.find((item) => item.id === specialty)?.label ?? "Especialidad técnica";
 }
 
 export function buildLeadRecord(

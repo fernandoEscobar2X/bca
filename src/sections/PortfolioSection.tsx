@@ -8,24 +8,24 @@ export function PortfolioSection() {
   const [featuredProject, ...secondaryProjects] = projects;
 
   return (
-    <section className="border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="casos">
-      <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="border-b border-ink/10 bg-surface scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="casos">
+      <div className="mx-auto max-w-[88rem] px-5 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="grid gap-8 xl:grid-cols-[minmax(0,0.76fr)_minmax(0,1.24fr)] xl:items-end">
           <motion.div className="space-y-5" {...revealUp}>
             <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
-              Casos y tipologia de obra
+              Casos y tipología de obra
             </p>
             <h2 className="max-w-[12ch] font-display text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-[0.96] tracking-[-0.045em] text-ink">
-              Proyectos que se presentan con mas orden y mas criterio tecnico.
+              Proyectos que se presentan con más orden y más criterio técnico.
             </h2>
             <p className="max-w-xl text-sm leading-7 text-graphite/84 sm:text-base">
               Corporativos, cocinas industriales, amenidades hoteleras y frentes que necesitan una empresa con mejor
-              lectura comercial y mejor control de ejecucion.
+              lectura comercial y mejor control de ejecución.
             </p>
           </motion.div>
 
           <motion.div className="xl:justify-self-end" {...revealUp}>
-            <PrimaryButton href="#cotizador">Solicitar cotizacion preliminar</PrimaryButton>
+            <PrimaryButton href="#cotizador">Solicitar cotización preliminar</PrimaryButton>
           </motion.div>
         </div>
 
@@ -52,7 +52,7 @@ export function PortfolioSection() {
               <div className="grid gap-px bg-concrete">
                 <div className="bg-white px-5 py-5 sm:px-6">
                   <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                    Ubicacion
+                    Ubicación
                   </p>
                   <p className="mt-3 text-sm leading-7 text-ink">{featuredProject.location}</p>
                 </div>

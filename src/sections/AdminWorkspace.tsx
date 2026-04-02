@@ -32,7 +32,7 @@ type AdminWorkspaceProps = {
 
 const statusRank: Record<LeadStatus, number> = {
   Nuevo: 0,
-  "En revision": 1,
+  "En revisión": 1,
   Contactado: 2,
 };
 
@@ -51,7 +51,7 @@ const priorityMap: Record<
     nextAction: "Llamar y confirmar alcance",
     queueLabel: "Atender hoy",
   },
-  "En revision": {
+  "En revisión": {
     label: "Media",
     tone: "border-[#e3cf74] bg-industrial-gold/16 text-ink",
     nextAction: "Validar datos y enviar PDF",
@@ -108,7 +108,7 @@ export function AdminWorkspace({
     total: leads.length,
     attention: leads.filter((lead) => lead.status !== "Contactado").length,
     nuevos: leads.filter((lead) => lead.status === "Nuevo").length,
-    revision: leads.filter((lead) => lead.status === "En revision").length,
+    revision: leads.filter((lead) => lead.status === "En revisión").length,
     contactados: leads.filter((lead) => lead.status === "Contactado").length,
   };
 
@@ -150,7 +150,7 @@ export function AdminWorkspace({
                   Seguimiento diario para mesa comercial y operativa.
                 </h1>
                 <p className="mt-6 max-w-2xl text-base leading-8 text-graphite/84">
-                  El panel esta pensado para tres tareas: detectar que entro, mover estado y accionar rapido con llamada,
+                  El panel está pensado para tres tareas: detectar qué entró, mover estado y accionar rápido con llamada,
                   WhatsApp o PDF.
                 </p>
               </div>
@@ -165,7 +165,7 @@ export function AdminWorkspace({
                   <p className="mt-3 font-display text-[2rem] font-bold leading-none tracking-[-0.03em] text-ink">{totals.nuevos}</p>
                 </div>
                 <div className="border border-ink/10 bg-surface px-4 py-4">
-                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Revision</p>
+                  <p className="font-sans text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-graphite">Revisión</p>
                   <p className="mt-3 font-display text-[2rem] font-bold leading-none tracking-[-0.03em] text-ink">{totals.revision}</p>
                 </div>
                 <div className="border border-ink/10 bg-industrial-gold px-4 py-4">
@@ -260,7 +260,7 @@ export function AdminWorkspace({
                 Panel operativo de prospectos
               </h1>
               <p className="mt-2 text-sm leading-6 text-graphite/76">
-                Prioriza atencion, estado y siguiente accion sin friccion.
+                Prioriza atención, estado y siguiente acción sin fricción.
               </p>
             </div>
           </div>
@@ -276,7 +276,7 @@ export function AdminWorkspace({
                 <p className="mt-2 text-lg font-semibold text-ink">{totals.nuevos}</p>
               </div>
               <div className="bg-white px-4 py-3">
-                <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Revision</p>
+                <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Revisión</p>
                 <p className="mt-2 text-lg font-semibold text-ink">{totals.revision}</p>
               </div>
               <div className="bg-industrial-gold px-4 py-3">
@@ -340,7 +340,7 @@ export function AdminWorkspace({
               <div className="divide-y divide-ink/10 bg-white">
                 {visibleLeads.length === 0 ? (
                   <div className="px-5 py-10 text-sm leading-7 text-graphite/72">
-                    No hay leads que coincidan con el filtro o la busqueda actual.
+                    No hay leads que coincidan con el filtro o la búsqueda actual.
                   </div>
                 ) : null}
 
@@ -363,7 +363,7 @@ export function AdminWorkspace({
                             "mt-1 block h-12 w-1 shrink-0",
                             lead.status === "Nuevo"
                               ? "bg-hydro-cyan"
-                              : lead.status === "En revision"
+                              : lead.status === "En revisión"
                                 ? "bg-industrial-gold"
                                 : "bg-ink/20",
                           )}
@@ -414,7 +414,7 @@ export function AdminWorkspace({
                             <Phone className="h-3.5 w-3.5 text-hydro-cyan" />
                             Llamar
                           </a>
-                        ) : lead.status === "En revision" ? (
+                        ) : lead.status === "En revisión" ? (
                           <button
                             className="inline-flex items-center gap-2 border border-ink/15 bg-white px-3 py-2 font-sans text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink shadow-plate-sm"
                             onClick={(event) => {
@@ -472,7 +472,7 @@ export function AdminWorkspace({
                       </div>
                     </div>
                     <div className="bg-surface px-4 py-4">
-                      <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Siguiente accion</p>
+                      <p className="font-sans text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-graphite">Siguiente acción</p>
                       <p className="mt-3 text-sm font-semibold leading-6 text-ink">{getPriorityConfig(selectedLead.status).nextAction}</p>
                     </div>
                   </div>

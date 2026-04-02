@@ -5,19 +5,19 @@ import { revealUp } from "../lib/motion";
 
 export function ProcessSection() {
   return (
-    <section className="border-b border-ink/10 bg-white scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="metodologia">
-      <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="border-b border-ink/10 bg-white scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="metodologia">
+      <div className="mx-auto max-w-[88rem] px-5 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="grid gap-8 xl:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] xl:items-start">
           <motion.div className="space-y-5 xl:pt-2" {...revealUp}>
             <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
-              Metodo de trabajo
+              Método de trabajo
             </p>
             <h2 className="max-w-[12ch] font-display text-[clamp(2.2rem,3.8vw,3.5rem)] font-bold leading-[0.96] tracking-[-0.045em] text-ink">
-              Una ejecucion clara tambien mejora la percepcion de la empresa.
+              Una ejecución clara también mejora la percepción de la empresa.
             </h2>
             <p className="max-w-md text-sm leading-7 text-graphite/84 sm:text-base">
-              BCA no solo cotiza mejor. Tambien proyecta mejor como se diagnostica, se ejecuta y se entrega un frente
-              tecnico.
+              BCA no solo cotiza mejor. También proyecta mejor cómo se diagnostica, se ejecuta y se entrega un frente
+              técnico.
             </p>
           </motion.div>
 
@@ -47,10 +47,10 @@ export function ProcessSection() {
                     </p>
                     <p className="mt-3 text-sm leading-7 text-ink">
                       {index === 0
-                        ? "Diagnostico mas claro antes de presupuestar."
+                        ? "Diagnóstico más claro antes de presupuestar."
                         : index === 1
-                          ? "Mejor control de obra y coordinacion."
-                          : "Entrega verificable y mejor cierre tecnico."}
+                          ? "Mejor control de obra y coordinación."
+                          : "Entrega verificable y mejor cierre técnico."}
                     </p>
                   </div>
                 </div>

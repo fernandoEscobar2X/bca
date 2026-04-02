@@ -5,13 +5,13 @@ export const demoAdminCredentials: { email: string; password: string } = {
   password: "BCA2026",
 };
 
-export const leadStatusOptions: LeadStatus[] = ["Nuevo", "En revision", "Contactado"];
+export const leadStatusOptions: LeadStatus[] = ["Nuevo", "En revisión", "Contactado"];
 
 export const initialLeadRecords: LeadRecord[] = [
   {
     id: "BCA-240318",
     contactName: "Luis Herrera",
-    company: "Corporativo hidrosanitario Santa Lucia",
+    company: "Corporativo hidrosanitario Santa Lucía",
     channel: "Lead Terminal",
     requestedAt: "01 abr, 08:42",
     projectType: "comercial",
@@ -38,11 +38,11 @@ export const initialLeadRecords: LeadRecord[] = [
     specialtyLabel: "Gas Natural y LP",
     squareMeters: 180,
     estimate: { minimum: 84000, maximum: 102000 },
-    status: "En revision",
-    location: "Apodaca / Nuevo Leon",
+    status: "En revisión",
+    location: "Apodaca / Nuevo León",
     phone: "+52 81 0000 0271",
     email: "operacion.aeropuerto@bca-demo.mx",
-    assignedTo: "Ing. Raul Medina",
+    assignedTo: "Ing. Raúl Medina",
   },
   {
     id: "BCA-239944",
@@ -51,13 +51,13 @@ export const initialLeadRecords: LeadRecord[] = [
     channel: "Lead Terminal",
     requestedAt: "29 mar, 12:56",
     projectType: "hotelero",
-    projectTypeLabel: "Hoteleria",
+    projectTypeLabel: "Hotelería",
     specialty: "albercas",
     specialtyLabel: "Instalaciones de albercas",
     squareMeters: 240,
     estimate: { minimum: 176000, maximum: 221000 },
     status: "Contactado",
-    location: "Cancun / Zona hotelera",
+    location: "Cancún / Zona hotelera",
     phone: "+52 81 0000 0944",
     email: "amenidades.costaazul@bca-demo.mx",
     assignedTo: "Ing. Andrea Flores",
@@ -76,21 +76,21 @@ export const initialOperationEvents: OperationEvent[] = [
   {
     id: "evt-001",
     title: "Lead capturado",
-    detail: "Corporativo hidrosanitario Santa Lucia entro al panel con estado Nuevo.",
+    detail: "Corporativo hidrosanitario Santa Lucía entró al panel con estado Nuevo.",
     time: "08:42",
     accent: "cyan",
   },
   {
     id: "evt-002",
     title: "WhatsApp confirmado",
-    detail: "La mesa comercial recibio alerta del frente industrial aeropuerto norte.",
+    detail: "La mesa comercial recibió alerta del frente industrial aeropuerto norte.",
     time: "17:16",
     accent: "gold",
   },
   {
     id: "evt-003",
     title: "PDF emitido",
-    detail: "La pre-cotizacion de Costa Azul quedo lista para adjuntar a seguimiento.",
+    detail: "La pre-cotización de Costa Azul quedó lista para adjuntar a seguimiento.",
     time: "13:02",
     accent: "dark",
   },

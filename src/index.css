@@ -5,12 +5,18 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
     @apply bg-surface font-sans text-ink antialiased;
+    overflow-x: clip;
   }
 
   ::selection {
@@ -29,5 +35,13 @@
 
   .hero-copy-shadow {
     text-shadow: 0 2px 14px rgba(14, 17, 19, 0.45);
+  }
+
+  .safe-top-pad {
+    padding-top: var(--safe-top);
+  }
+
+  .safe-bottom-pad {
+    padding-bottom: max(1rem, var(--safe-bottom));
   }
 }

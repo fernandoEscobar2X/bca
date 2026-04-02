@@ -61,7 +61,7 @@ export async function downloadPrequotePdf(lead: LeadRecord) {
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(12);
   pdf.text(
-    "Calculo algoritmico preliminar sujeto a levantamiento en sitio, revision de rutas, restricciones, memorias y validacion tecnica final.",
+    "Cálculo algorítmico preliminar sujeto a levantamiento en sitio, revisión de rutas, restricciones, memorias y validación técnica final.",
     56,
     428,
     { maxWidth: 480, lineHeightFactor: 1.5 },
@@ -73,5 +73,5 @@ export async function downloadPrequotePdf(lead: LeadRecord) {
   pdf.setTextColor(80, 84, 89);
   pdf.text("Documento demo generado desde el prototipo comercial BCA.", 40, 790);
 
-  pdf.save(`BCA-pre-cotizacion-${lead.id}.pdf`);
+  pdf.save(`BCA-pre-cotización-${lead.id}.pdf`);
 }

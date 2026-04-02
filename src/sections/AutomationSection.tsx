@@ -40,9 +40,9 @@ export function AutomationSection({
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
             }
-            description="El lead ya entra con folio, acciones y continuidad interna. Aqui se ve el sistema trabajando."
-            eyebrow="Operacion conectada"
-            title="El flujo no termina en el resultado: aqui empieza la operacion."
+            description="El lead ya entra con folio, acciones y continuidad interna. Aquí se ve el sistema trabajando."
+            eyebrow="Operación conectada"
+            title="El flujo no termina en el resultado: aquí empieza la operación."
           />
         </motion.div>
 
@@ -114,7 +114,7 @@ export function AutomationSection({
               <SurfaceCard className="overflow-hidden">
                 <div className="border-b border-ink/10 bg-white px-5 py-4">
                   <p className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
-                    Eventos operativos
+                        Eventos operativos
                   </p>
                 </div>
                 <div className="space-y-4 bg-surface p-5">

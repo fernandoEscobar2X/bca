@@ -13,9 +13,9 @@ type PanelPreviewSectionProps = {
 };
 
 const valuePoints = [
-  "Confirmacion inmediata de la solicitud",
+  "Confirmación inmediata de la solicitud",
   "Referencia preliminar mejor presentada",
-  "Seguimiento mas claro para no perder proyectos",
+  "Seguimiento más claro para no perder proyectos",
 ] as const;
 
 export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionProps) {
@@ -23,25 +23,28 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
   const activeLead = previewLeads[0] ?? null;
 
   return (
-    <section className="border-t border-b border-ink/10 bg-surface scroll-mt-72 md:scroll-mt-56 xl:scroll-mt-32" id="seguimiento">
-      <div className="mx-auto max-w-[88rem] px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-10 xl:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] xl:items-start">
+    <section className="border-t border-b border-ink/10 bg-surface scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="seguimiento">
+      <div className="mx-auto max-w-[88rem] px-5 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] xl:items-start">
           <motion.div className="space-y-6" {...revealUp}>
             <p className="font-sans text-[0.74rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
-              Atencion mas clara
+              Atención más clara
             </p>
-            <h2 className="max-w-[13ch] font-display text-[clamp(2.15rem,3.6vw,3.35rem)] font-bold leading-[0.96] tracking-[-0.045em] text-ink">
+            <h2 className="max-w-[12ch] font-display text-[clamp(1.95rem,3.6vw,3.2rem)] font-bold leading-[0.98] tracking-[-0.045em] text-ink">
               Una mejor respuesta desde la primera solicitud.
             </h2>
-            <p className="max-w-lg text-sm leading-7 text-graphite/84 sm:text-base">
-              BCA puede recibir un proyecto con mejor orden, confirmar su recepcion y presentar una referencia
-              preliminar con mas claridad comercial, sin depender de mensajes sueltos o seguimiento improvisado.
+            <p className="max-w-[30rem] text-sm leading-7 text-graphite/84 sm:text-base">
+              BCA puede recibir un proyecto con mejor orden, confirmar su recepción y presentar una referencia
+              preliminar con más claridad comercial, sin depender de mensajes sueltos o seguimiento improvisado.
             </p>
 
             <div className="grid gap-3">
-              {valuePoints.map((item) => (
+              {valuePoints.map((item, index) => (
                 <div
-                  className="flex items-center gap-3 border border-ink/10 bg-white px-4 py-4 shadow-plate-sm"
+                  className={cn(
+                    "items-center gap-3 border border-ink/10 bg-white px-4 py-4 shadow-plate-sm",
+                    index === 2 ? "hidden sm:flex" : "flex",
+                  )}
                   key={item}
                 >
                   <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-hydro-cyan" />
@@ -51,12 +54,12 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
-              <PrimaryButton href="#cotizador">
+              <PrimaryButton className="w-full justify-center sm:w-auto" href="#cotizador">
                 Cotizar proyecto
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
               <button
-                className="font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:text-industrial-gold"
+                className="hidden font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:text-industrial-gold sm:inline-flex"
                 onClick={onOpenAdmin}
                 type="button"
               >
@@ -66,7 +69,77 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
           </motion.div>
 
           <motion.div className="grid gap-5" {...revealUp}>
-            <div className="overflow-hidden border border-ink bg-white shadow-plate">
+            <div className="grid gap-4 lg:hidden">
+              <div className="overflow-hidden border border-ink bg-white shadow-plate">
+                <div className="border-b border-ink/10 bg-ink px-4 py-4 text-white">
+                  <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                    Seguimiento visible
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-white/88">
+                    Solicitudes con estado claro y siguiente paso a la vista.
+                  </p>
+                </div>
+
+                <div className="divide-y divide-ink/10">
+                  {previewLeads.slice(0, 2).map((lead) => (
+                    <div className="space-y-3 px-4 py-4" key={lead.id}>
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-hydro-cyan">
+                            {lead.id}
+                          </p>
+                          <p className="mt-2 text-base font-semibold leading-6 text-ink">{lead.company}</p>
+                        </div>
+                        <StatusBadge compact status={lead.status} />
+                      </div>
+
+                      <p className="text-sm leading-6 text-graphite/82">{lead.specialtyLabel}</p>
+                      <p className="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-graphite/66">
+                        {lead.status === "Nuevo"
+                          ? "Siguiente paso: Validar datos"
+                          : lead.status === "En revisión"
+                            ? "Siguiente paso: Enviar referencia"
+                            : "Siguiente paso: Continuar contacto"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {activeLead ? (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="border border-ink/10 bg-white p-4 shadow-plate-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center border border-ink/10 bg-surface">
+                        <MessageSquareMore className="h-4 w-4 text-hydro-cyan" />
+                      </div>
+                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-graphite">
+                        Confirmación inmediata
+                      </p>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-ink">
+                      El cliente recibe confirmación desde el primer contacto con una respuesta más clara.
+                    </p>
+                  </div>
+
+                  <div className="border border-ink bg-industrial-gold p-4 shadow-plate-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center border border-ink/10 bg-white">
+                        <FileText className="h-4 w-4 text-hydro-cyan" />
+                      </div>
+                      <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink/72">
+                        Referencia lista
+                      </p>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-ink">
+                      {formatCurrency(activeLead.estimate.minimum)} - {formatCurrency(activeLead.estimate.maximum)}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="hidden overflow-hidden border border-ink bg-white shadow-plate lg:block">
               <div className="grid gap-px bg-concrete lg:grid-cols-[minmax(0,1fr)_260px]">
                 <div className="bg-white">
                   <div className="grid gap-px border-b border-ink/10 bg-concrete px-5 py-4 md:grid-cols-[minmax(0,1fr)_124px_170px]">
@@ -109,7 +182,7 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
                         <div className="flex items-center text-sm font-semibold text-ink">
                           {lead.status === "Nuevo"
                             ? "Validar datos"
-                            : lead.status === "En revision"
+                            : lead.status === "En revisión"
                               ? "Enviar referencia"
                               : "Continuar contacto"}
                         </div>
@@ -146,7 +219,7 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
             </div>
 
             {activeLead ? (
-              <div className="grid gap-5 lg:grid-cols-2">
+              <div className="hidden gap-5 lg:grid lg:grid-cols-2">
                 <motion.div
                   className="border border-ink/10 bg-white p-5 shadow-plate-sm"
                   initial={{ opacity: 0, y: 14 }}
@@ -180,11 +253,11 @@ export function PanelPreviewSection({ leads, onOpenAdmin }: PanelPreviewSectionP
                       <FileText className="h-4 w-4 text-hydro-cyan" />
                     </div>
                     <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink/72">
-                      Pre-cotizacion lista
+                      Pre-cotización lista
                     </p>
                   </div>
                   <p className="mt-4 text-sm leading-7 text-ink">
-                    Folio {activeLead.id} preparado para presentarse con mejor formato y mas claridad comercial.
+                    Folio {activeLead.id} preparado para presentarse con mejor formato y más claridad comercial.
                   </p>
                 </motion.div>
               </div>

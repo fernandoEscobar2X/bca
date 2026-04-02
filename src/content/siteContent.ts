@@ -6,17 +6,17 @@ export const navigationLinks = [
 ] as const;
 
 export const heroStats = [
-  { value: "15+ anos", label: "operacion continua" },
+  { value: "15+ años", label: "operación continua" },
   { value: "120+", label: "frentes atendidos" },
   { value: "24h", label: "respuesta preliminar" },
-  { value: "NOM / NFPA", label: "criterio tecnico" },
+  { value: "NOM / NFPA", label: "criterio técnico" },
 ] as const;
 
 export const trustItems = [
   "Residencial, comercial, industrial y hotelero",
   "Gas LP y natural, bombeo y pruebas",
-  "Respuesta preliminar con validacion en sitio",
-  "Presentacion comercial mas seria para cada proyecto",
+  "Respuesta preliminar con validación en sitio",
+  "Presentación comercial más seria para cada proyecto",
 ] as const;
 
 export const systemModules = [
@@ -34,14 +34,14 @@ export const systemModules = [
   },
   {
     code: "03",
-    title: "WhatsApp Automatico",
-    description: "Confirma la recepcion al cliente y alerta al equipo para responder rapido sin depender del correo.",
+    title: "WhatsApp Automático",
+    description: "Confirma la recepción al cliente y alerta al equipo para responder rápido sin depender del correo.",
     bullets: ["Respuesta inmediata", "Menos leads perdidos", "Aviso interno al momento"],
   },
   {
     code: "04",
-    title: "Pre-Cotizacion PDF",
-    description: "Arma un documento listo para enviar con datos del proyecto y banda preliminar de inversion.",
+    title: "Pre-Cotización PDF",
+    description: "Arma un documento listo para enviar con datos del proyecto y banda preliminar de inversión.",
     bullets: ["Formato corporativo", "Listo para adjuntar", "Ahorra tiempo comercial"],
   },
 ] as const;
@@ -52,7 +52,7 @@ export const benefitItems = [
     description: "Todo entra a una sola bandeja y deja de depender de hojas de Excel o mensajes sueltos.",
   },
   {
-    title: "Respuesta mas rapida",
+    title: "Respuesta más rápida",
     description: "El equipo puede llamar, enviar PDF o confirmar por WhatsApp desde el mismo recorrido demo.",
   },
   {
@@ -60,87 +60,87 @@ export const benefitItems = [
     description: "Cada lead ya llega con tipo de obra, especialidad, metraje y datos suficientes para seguir.",
   },
   {
-    title: "Seguimiento mas claro",
-    description: "El estado del lead y la siguiente accion se entienden al instante sin explicar demasiado la interfaz.",
+    title: "Seguimiento más claro",
+    description: "El estado del lead y la siguiente acción se entienden al instante sin explicar demasiado la interfaz.",
   },
 ] as const;
 
 export const services = [
   {
     code: "DC-01",
-    title: "Diseno y calculo de instalaciones hidrosanitarias y gas",
+    title: "Diseño y cálculo de instalaciones hidrosanitarias y gas",
     description:
-      "Memorias, criterios de calculo, especificaciones y definicion tecnica para proyectos que requieren orden desde la etapa inicial.",
+      "Memorias, criterios de cálculo, especificaciones y definición técnica para proyectos que requieren orden desde la etapa inicial.",
     accent: "hydro",
-    bullets: ["Memorias y calculo", "Criterio normativo", "Bases para ejecucion"],
+    bullets: ["Memorias y cálculo", "Criterio normativo", "Bases para ejecución"],
   },
   {
     code: "HS-02",
     title: "Instalaciones hidrosanitarias en residencial, comercial e industrial",
     description:
-      "Redes hidraulicas, sanitarias y pluviales con trazos claros, pendientes controladas y mejor coordinacion en obra.",
+      "Redes hidráulicas, sanitarias y pluviales con trazos claros, pendientes controladas y mejor coordinación en obra.",
     accent: "hydro",
-    bullets: ["Redes hidraulicas", "Redes sanitarias", "Instalacion en obra"],
+    bullets: ["Redes hidráulicas", "Redes sanitarias", "Instalación en obra"],
   },
   {
     code: "GA-03",
     title: "Instalaciones de gas LP y natural",
     description:
-      "Conduccion, regulacion y seguridad para proyectos residenciales, comerciales e industriales con liberacion tecnica.",
+      "Conducción, regulación y seguridad para proyectos residenciales, comerciales e industriales con liberación técnica.",
     accent: "gold",
-    bullets: ["Tuberias y regulacion", "Hermeticidad", "Liberacion tecnica"],
+    bullets: ["Tuberías y regulación", "Hermeticidad", "Liberación técnica"],
   },
   {
     code: "AL-04",
     title: "Instalaciones hidrosanitarias de albercas",
     description:
-      "Integracion hidraulica para vasos, filtrado, recirculacion y cuartos de maquinas con mejor control de operacion.",
+      "Integración hidráulica para vasos, filtrado, recirculación y cuartos de máquinas con mejor control de operación.",
     accent: "hydro",
-    bullets: ["Recirculacion", "Cuarto de maquinas", "Filtrado"],
+    bullets: ["Recirculación", "Cuarto de máquinas", "Filtrado"],
   },
   {
     code: "SA-05",
-    title: "Instalacion de equipos suavizadores de agua",
+    title: "Instalación de equipos suavizadores de agua",
     description:
-      "Integracion de equipos de tratamiento para mejorar condicion del agua y proteger la operacion del sistema hidraulico.",
+      "Integración de equipos de tratamiento para mejorar condición del agua y proteger la operación del sistema hidráulico.",
     accent: "hydro",
-    bullets: ["Tratamiento de agua", "Conexion de equipos", "Puesta en marcha"],
+    bullets: ["Tratamiento de agua", "Conexión de equipos", "Puesta en marcha"],
   },
   {
     code: "BH-06",
-    title: "Instalacion de equipos de bombeo hidraulico",
+    title: "Instalación de equipos de bombeo hidráulico",
     description:
-      "Montaje y conexion de equipos para presion, distribucion y continuidad operativa en distintos tipos de proyecto.",
+      "Montaje y conexión de equipos para presión, distribución y continuidad operativa en distintos tipos de proyecto.",
     accent: "gold",
-    bullets: ["Equipos de bombeo", "Presion y control", "Operacion continua"],
+    bullets: ["Equipos de bombeo", "Presión y control", "Operación continua"],
   },
   {
     code: "PH-07",
-    title: "Pruebas Hidrostaticas",
+    title: "Pruebas Hidrostáticas",
     description:
-      "Protocolos de verificacion para recepcion de redes, deteccion de fugas y cierre documental previo a entrega.",
+      "Protocolos de verificación para recepción de redes, detección de fugas y cierre documental previo a entrega.",
     accent: "gold",
-    bullets: ["Bitacora tecnica", "Presion y sosten", "Evidencia final"],
+    bullets: ["Bitácora técnica", "Presión y sostén", "Evidencia final"],
   },
 ] as const;
 
 export const projects = [
   {
-    title: "Adecuacion hidrosanitaria para corporativo multinivel",
-    location: "Monterrey, Nuevo Leon",
-    summary: "Levantamiento, coordinacion y ejecucion por etapas para no interrumpir operacion del inmueble.",
-    tags: ["Hidrosanitario", "Supervision", "Entrega por fases"],
+    title: "Adecuación hidrosanitaria para corporativo multinivel",
+    location: "Monterrey, Nuevo León",
+    summary: "Levantamiento, coordinación y ejecución por etapas para no interrumpir la operación del inmueble.",
+    tags: ["Hidrosanitario", "Supervisión", "Entrega por fases"],
   },
   {
     title: "Red de gas para cocina industrial y servicios",
     location: "Guadalajara, Jalisco",
-    summary: "Regulacion, hermeticidad y liberacion tecnica con criterios de seguridad y puesta en marcha.",
+    summary: "Regulación, hermeticidad y liberación técnica con criterios de seguridad y puesta en marcha.",
     tags: ["Gas LP", "Seguridad", "Puesta en marcha"],
   },
   {
-    title: "Sistema de recirculacion para amenidad hotelera",
-    location: "Cancun, Quintana Roo",
-    summary: "Cuarto de maquinas, filtrado y balance hidraulico con continuidad operativa y mantenimiento previsto.",
+    title: "Sistema de recirculación para amenidad hotelera",
+    location: "Cancún, Quintana Roo",
+    summary: "Cuarto de máquinas, filtrado y balance hidráulico con continuidad operativa y mantenimiento previsto.",
     tags: ["Albercas", "Filtrado", "Mantenimiento"],
   },
 ] as const;
@@ -148,18 +148,18 @@ export const projects = [
 export const processSteps = [
   {
     index: "01",
-    title: "Levantamiento tecnico",
+    title: "Levantamiento técnico",
     description: "Detectamos rutas, restricciones, interferencias y variables normativas antes de presupuestar.",
   },
   {
     index: "02",
-    title: "Ejecucion controlada",
-    description: "Coordinamos frentes, suministro, supervision y secuencia constructiva con trazabilidad.",
+    title: "Ejecución controlada",
+    description: "Coordinamos frentes, suministro, supervisión y secuencia constructiva con trazabilidad.",
   },
   {
     index: "03",
     title: "Pruebas y entrega",
-    description: "Validamos presiones, evidencias y liberacion documental para una entrega verificable.",
+    description: "Validamos presiones, evidencias y liberación documental para una entrega verificable.",
   },
 ] as const;
 
@@ -167,60 +167,60 @@ export const projectTypes = [
   {
     id: "residencial",
     label: "Residencial",
-    description: "Casas, torres, conjuntos habitacionales y proyectos de vivienda con requerimientos tecnicos claros.",
+    description: "Casas, torres, conjuntos habitacionales y proyectos de vivienda con requerimientos técnicos claros.",
   },
   {
     id: "comercial",
     label: "Comercial",
-    description: "Locales, plazas, oficinas, restaurantes y espacios de servicio con atencion mas formal.",
+    description: "Locales, plazas, oficinas, restaurantes y espacios de servicio con atención más formal.",
   },
   {
     id: "industrial",
     label: "Industrial",
-    description: "Naves, lineas de proceso, cocinas tecnicas y activos con continuidad operativa.",
+    description: "Naves, líneas de proceso, cocinas técnicas y activos con continuidad operativa.",
   },
   {
     id: "hotelero",
-    label: "Hoteleria",
-    description: "Amenidades, cuartos tecnicos y servicios con exigencia permanente de operacion.",
+    label: "Hotelería",
+    description: "Amenidades, cuartos técnicos y servicios con exigencia permanente de operación.",
   },
 ] as const;
 
 export const specialtyOptions = [
   {
     id: "diseno-calculo",
-    label: "Diseno y calculo",
-    description: "Memorias, calculo y criterios tecnicos para instalaciones hidrosanitarias y gas.",
+    label: "Diseño y cálculo",
+    description: "Memorias, cálculo y criterios técnicos para instalaciones hidrosanitarias y gas.",
   },
   {
     id: "hidrosanitario",
     label: "Instalaciones Hidrosanitarias",
-    description: "Redes hidraulicas, sanitarias y pluviales con memorias y pruebas.",
+    description: "Redes hidráulicas, sanitarias y pluviales con memorias y pruebas.",
   },
   {
     id: "gas",
     label: "Gas Natural y LP",
-    description: "Conduccion, regulacion, ventilacion y liberacion de seguridad.",
+    description: "Conducción, regulación, ventilación y liberación de seguridad.",
   },
   {
     id: "albercas",
     label: "Instalaciones de albercas",
-    description: "Vasos, filtrado, recirculacion y cuarto de maquinas.",
+    description: "Vasos, filtrado, recirculación y cuarto de máquinas.",
   },
   {
     id: "suavizadores",
     label: "Equipos suavizadores de agua",
-    description: "Integracion de equipos para tratamiento y mejor condicion del agua.",
+    description: "Integración de equipos para tratamiento y mejor condición del agua.",
   },
   {
     id: "bombeo",
-    label: "Equipos de bombeo hidraulico",
-    description: "Bombas, control de presion y continuidad operativa del sistema.",
+    label: "Equipos de bombeo hidráulico",
+    description: "Bombas, control de presión y continuidad operativa del sistema.",
   },
   {
     id: "pruebas",
-    label: "Pruebas Hidrostaticas",
-    description: "Recepcion, presion, sosten y bitacora de evidencia.",
+    label: "Pruebas Hidrostáticas",
+    description: "Recepción, presión, sostén y bitácora de evidencia.",
   },
 ] as const;
 
@@ -234,16 +234,16 @@ export const automationModules = [
   },
   {
     code: "MOD-02",
-    title: "WhatsApp Automatico",
+    title: "WhatsApp Automático",
     price: "$1,200 MXN + API Meta",
     description:
-      "Confirmacion inmediata al cliente y alerta tecnica al asistente comercial con el resumen del proyecto para actuar rapido.",
+      "Confirmación inmediata al cliente y alerta técnica al asistente comercial con el resumen del proyecto para actuar rápido.",
   },
   {
     code: "MOD-03",
-    title: "Pre-Cotizacion PDF",
+    title: "Pre-Cotización PDF",
     price: "$800 MXN",
     description:
-      "Documento corporativo listo para adjuntar con especialidad, metraje y rango preliminar de inversion generado desde el sistema.",
+      "Documento corporativo listo para adjuntar con especialidad, metraje y rango preliminar de inversión generado desde el sistema.",
   },
 ] as const;

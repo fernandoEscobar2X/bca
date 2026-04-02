@@ -8,15 +8,16 @@ import { services } from "../content/siteContent";
 const heroSlides = [
   {
     src: "/assets/hero-bca-gas-dark.png",
-    alt: "Infraestructura de gas industrial con tuberias, valvulas y zona oscura para texto",
+    alt: "Infraestructura de gas industrial con tuberías, válvulas y zona oscura para texto",
   },
   {
     src: "/assets/hero-bca-water-dark.png",
-    alt: "Cuarto tecnico con filtrado, suavizadores y equipos hidraulicos",
+    alt: "Cuarto técnico con filtrado, suavizadores y equipos hidráulicos",
   },
 ] as const;
 
 const heroCards = services.slice(0, 4);
+const heroCardsMobile = heroCards.slice(0, 2);
 
 export function HeroSection() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -30,8 +31,8 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="border-b border-ink/10 bg-white scroll-mt-40 md:scroll-mt-32" id="inicio">
-      <div className="relative min-h-[32rem] overflow-hidden bg-ink sm:min-h-[37rem] xl:min-h-[40rem]">
+    <section className="border-b border-ink/10 bg-white scroll-mt-20 md:scroll-mt-24 xl:scroll-mt-28" id="inicio">
+      <div className="relative min-h-[26rem] overflow-hidden bg-ink sm:min-h-[31rem] xl:min-h-[40rem]">
         <AnimatePresence mode="wait">
           <motion.img
             animate={{ opacity: 1, scale: 1.03 }}
@@ -49,57 +50,57 @@ export function HeroSection() {
         <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/84 via-ink/20 to-transparent" />
         <div aria-hidden className="absolute inset-y-0 left-0 w-[64%] bg-gradient-to-r from-ink/52 via-ink/18 to-transparent" />
 
-        <div className="relative mx-auto max-w-[88rem] px-5 pb-20 pt-16 sm:px-6 sm:pb-24 sm:pt-18 lg:px-8 xl:pb-28 xl:pt-20">
-          <div className="relative max-w-[43rem]">
+        <div className="relative mx-auto max-w-[88rem] px-5 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-14 lg:px-8 xl:pb-24 xl:pt-18">
+          <div className="relative max-w-[40rem]">
             <div
               aria-hidden
-              className="absolute -inset-x-5 -inset-y-6 bg-gradient-to-r from-ink/58 via-ink/28 to-transparent"
+              className="absolute -inset-x-4 -inset-y-5 bg-gradient-to-r from-ink/64 via-ink/34 to-transparent"
             />
 
             <div className="relative">
-            <p className="hero-copy-shadow font-sans text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan">
-              BCA Ingenieria | Hidrosanitarias, gas y bombeo
-            </p>
+              <p className="hero-copy-shadow font-sans text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-hydro-cyan sm:text-[0.72rem]">
+                BCA Ingeniería | Hidrosanitarias, gas y bombeo
+              </p>
 
-            <h1 className="hero-title-shadow mt-5 max-w-[13.8ch] font-display text-[clamp(2.8rem,5vw,4.85rem)] font-bold leading-[0.96] tracking-[-0.045em] text-white">
-              Instalaciones hidrosanitarias, gas y bombeo para proyectos que exigen ejecucion seria.
-            </h1>
+              <h1 className="hero-title-shadow mt-4 max-w-[12ch] font-display text-[clamp(2rem,9.2vw,4.75rem)] font-bold leading-[0.92] tracking-[-0.048em] text-white sm:mt-5 sm:max-w-[13.4ch] sm:leading-[0.96]">
+                Instalaciones hidrosanitarias, gas y bombeo para proyectos que exigen ejecución seria.
+              </h1>
 
-            <p className="hero-copy-shadow mt-7 max-w-[33rem] text-[1rem] font-semibold leading-8 text-white sm:text-[1.06rem]">
-              Diseno y calculo, instalaciones, pruebas y puesta en marcha para obra residencial, comercial, industrial
-              y hotelera, con una atencion mas clara desde la cotizacion inicial.
-            </p>
+              <p className="hero-copy-shadow mt-5 max-w-[24rem] text-[0.96rem] font-semibold leading-7 text-white sm:mt-6 sm:max-w-[33rem] sm:text-[1.04rem] sm:leading-8">
+                Diseño y cálculo, instalaciones, pruebas y puesta en marcha para obra residencial, comercial, industrial
+                y hotelera, con una atención más clara desde la cotización inicial.
+              </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <PrimaryButton href="#cotizador">
-                Cotizar proyecto
-                <ArrowRight className="h-4 w-4" />
-              </PrimaryButton>
+              <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8 sm:gap-4">
+                <PrimaryButton className="w-full justify-center sm:w-auto" href="#cotizador">
+                  Cotizar proyecto
+                  <ArrowRight className="h-4 w-4" />
+                </PrimaryButton>
 
-              <a
-                className="inline-flex items-center gap-2 border border-white/35 bg-ink/52 px-5 py-3 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-ink"
-                href="#especialidades"
-              >
-                Ver especialidades
-                <ChevronRight className="h-4 w-4" />
-              </a>
-            </div>
+                <a
+                  className="inline-flex items-center gap-2 font-sans text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white/88 underline underline-offset-4 transition-colors hover:text-white sm:border sm:border-white/35 sm:bg-ink/52 sm:px-5 sm:py-3 sm:no-underline"
+                  href="#especialidades"
+                >
+                  Ver especialidades
+                  <ChevronRight className="h-4 w-4" />
+                </a>
+              </div>
 
-            <div className="mt-10 flex max-w-[44rem] flex-wrap gap-3">
-              <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
-                Residencial, comercial, industrial y hotelero
-              </span>
-              <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
-                Gas LP y natural
-              </span>
-              <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
-                Pruebas hidrostaticas
-              </span>
-            </div>
+              <div className="mt-6 flex max-w-[44rem] flex-wrap gap-3 sm:mt-8">
+                <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
+                  Residencial, comercial y hotelero
+                </span>
+                <span className="hero-copy-shadow inline-flex items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white">
+                  Gas LP y natural
+                </span>
+                <span className="hero-copy-shadow hidden items-center border border-white/18 bg-ink/66 px-3 py-2 text-sm font-semibold leading-6 text-white sm:inline-flex">
+                  Pruebas hidrostáticas
+                </span>
+              </div>
             </div>
           </div>
 
-          <div className="absolute bottom-7 right-5 flex items-center gap-2 sm:right-6 lg:right-8">
+          <div className="absolute bottom-5 right-5 hidden items-center gap-2 sm:bottom-6 sm:right-6 sm:flex lg:right-8">
             {heroSlides.map((slide, index) => (
               <button
                 aria-label={`Mostrar imagen ${index + 1}`}
@@ -117,7 +118,28 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto -mt-12 max-w-[88rem] px-5 pb-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[88rem] px-5 py-4 sm:px-6 sm:py-5 lg:px-8 xl:hidden">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-2">
+          {heroCardsMobile.map((service) => (
+            <article
+              className="border border-ink/12 bg-[#1c1f23] px-4 py-4 text-white shadow-plate-sm sm:px-5 sm:py-5"
+              key={service.code}
+            >
+              <span
+                className={
+                  service.accent === "gold"
+                    ? "mb-4 block h-[3px] w-12 bg-industrial-gold"
+                    : "mb-4 block h-[3px] w-12 bg-hydro-cyan"
+                }
+              />
+              <h2 className="text-[1rem] font-semibold leading-[1.08] text-white sm:text-[1.18rem]">{service.title}</h2>
+              <p className="mt-3 hidden text-[0.92rem] leading-7 text-white/74 sm:block">{service.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto -mt-12 hidden max-w-[88rem] px-5 pb-6 sm:px-6 lg:px-8 xl:block">
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {heroCards.map((service, index) => (
             <motion.article
